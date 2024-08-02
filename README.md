@@ -55,4 +55,4 @@ Follow these steps to set up and run the app on your local machine:
 ## Acknowledgments
 
 - Thanks to the Flutter community for their support.
-- Special mention to the [YouTube tutorial](https://www.youtube.com/watch?v=OXlUzSplHAo&list=PLXnVF-nf4_uSjBc4nAeo3rwR9Wg1T6y32&index=25) which provided valuable insights during development.
+- Special mention to the [YouTube tutorial](https://www.youtube.com/watch?v=OXlUzSplHAo&list=PLXnVF-nf4_uSjBc4nAeo3rwR9Wg1T6y32&index=25) which provided valuable insights during the initial stages of development.
