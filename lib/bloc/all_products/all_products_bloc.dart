@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:buy_it_app/bloc/all_products/all_products_event.dart';
 import 'package:buy_it_app/bloc/all_products/all_products_state.dart';
 import 'package:buy_it_app/repositories/all_products_repo/all_products_actions.dart';

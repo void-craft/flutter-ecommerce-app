@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:buy_it_app/bloc/cart/cart_bloc.dart';
 import 'package:buy_it_app/bloc/cart/cart_event.dart';
 import 'package:buy_it_app/bloc/cart/cart_state.dart';
-import 'package:buy_it_app/widgets/single_product.dart';
 
 class CartScreen extends StatelessWidget {
   const CartScreen({super.key});
@@ -22,7 +21,40 @@ class CartScreen extends StatelessWidget {
           return ListView.builder(
             itemCount: state.cartItems.length,
             itemBuilder: (context, index) {
-              return SingleProduct(product: state.cartItems[index]);
+              final cartItem = state.cartItems[index];
+              return ListTile(
+                leading: SizedBox(
+                  height: 70,
+                  width: 70,
+                  child: Image.network(cartItem.productImage),
+                ),
+                title: Text(
+                  cartItem.productTitle,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                ),
+                subtitle: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Price: \$${cartItem.productPrice}',
+                      style: Theme.of(context).textTheme.titleMedium,
+                    ),
+                    Text(
+                      'Quantity: ${cartItem.quantity}',
+                      style: Theme.of(context).textTheme.titleSmall,
+                    ),
+                  ],
+                ),
+                trailing: IconButton(
+                  icon: const Icon(Icons.delete, color: Colors.red),
+                  onPressed: () {
+                    BlocProvider.of<CartBloc>(context).add(
+                      RemoveFromCart(product: cartItem),
+                    );
+                                    },
+                ),
+              );
             },
           );
         },
