@@ -1,23 +1,23 @@
+import 'package:bloc/bloc.dart';
 import 'package:buy_it_app/bloc/cart/cart_event.dart';
 import 'package:buy_it_app/bloc/cart/cart_state.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:buy_it_app/model/product/product.dart';
 
 class CartBloc extends Bloc<CartEvent, CartState> {
-  CartBloc() : super(const CartState()) {
-    on<AddProductToCart>((event, emit) {
-      final updatedCart = List<Product>.from(state.cart)..add(event.product);
-      emit(state.copyWith(cart: updatedCart));
-    });
+  CartBloc() : super(CartState.initial()) {
+    on<AddToCart>(_onAddToCart);
+    on<RemoveFromCart>(_onRemoveFromCart);
+    on<ClearCart>(_onClearCart);
+  }
 
-    on<RemoveProductFromCart>((event, emit) {
-      final updatedCart = List<Product>.from(state.cart)
-        ..remove(event.product);
-      emit(state.copyWith(cart: updatedCart));
-    });
+  void _onAddToCart(AddToCart event, Emitter<CartState> emit) {
+    emit(state.copyWith(cartItems: List.from(state.cartItems)..add(event.product)));
+  }
 
-    on<ClearCart>((event, emit) {
-      emit(state.copyWith(cart: []));
-    });
+  void _onRemoveFromCart(RemoveFromCart event, Emitter<CartState> emit) {
+    emit(state.copyWith(cartItems: List.from(state.cartItems)..remove(event.product)));
+  }
+
+  void _onClearCart(ClearCart event, Emitter<CartState> emit) {
+    emit(state.copyWith(cartItems: []));
   }
 }

@@ -18,11 +18,11 @@ class CartSummary extends StatelessWidget {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => CartScreen()),
+                  MaterialPageRoute(builder: (context) => const CartScreen()),
                 );
               },
             ),
-            Text('${state.cart.length} items'),
+            Text('${state.cartItems.length} items'),
           ],
         );
       },

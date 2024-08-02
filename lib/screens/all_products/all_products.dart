@@ -24,32 +24,22 @@ class _AllProductsState extends State<AllProducts> {
   Widget getBody(List<Product> product) {
     print('Building body with products: $product'); // Debug print
     return ListView.builder(
-        itemCount: product.length,
-        itemBuilder: (BuildContext context, int index) {
-          return SingleProduct(product: product[index]);
-        });
+      itemCount: product.length,
+      itemBuilder: (BuildContext context, int index) {
+        return SingleProduct(product: product[index]);
+      },
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          backgroundColor: Colors.pink,
-          title: const Text("Buy It - Your Shopping App",
-              style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20,
-                  color: Colors.white)),
-        ),
-        body: BlocBuilder<AllProductsBloc, AllProductsState>(
-            builder: (context, state) {
-          print('BlocBuilder state: $state'); // Debug print
-          return state.loading
-              ? const Center(child: CircularProgressIndicator())
-              : getBody(state.allProducts ?? []);
-        }));
+    return BlocBuilder<AllProductsBloc, AllProductsState>(
+      builder: (context, state) {
+        print('BlocBuilder state: $state'); // Debug print
+        return state.loading
+            ? const Center(child: CircularProgressIndicator())
+            : getBody(state.allProducts ?? []);
+      },
+    );
   }
 }
-
-

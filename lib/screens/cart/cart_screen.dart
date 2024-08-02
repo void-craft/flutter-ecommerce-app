@@ -6,30 +6,32 @@ import 'package:buy_it_app/bloc/cart/cart_state.dart';
 import 'package:buy_it_app/widgets/single_product.dart';
 
 class CartScreen extends StatelessWidget {
+  const CartScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Your Cart'),
+        title: const Text('Your Cart'),
       ),
       body: BlocBuilder<CartBloc, CartState>(
         builder: (context, state) {
-          if (state.cart.isEmpty) {
-            return Center(child: Text('Your cart is empty.'));
+          if (state.cartItems.isEmpty) {
+            return const Center(child: Text('Your cart is empty.'));
           }
           return ListView.builder(
-            itemCount: state.cart.length,
+            itemCount: state.cartItems.length,
             itemBuilder: (context, index) {
-              return SingleProduct(product: state.cart[index]);
+              return SingleProduct(product: state.cartItems[index]);
             },
           );
         },
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          BlocProvider.of<CartBloc>(context).add(ClearCart());
+          BlocProvider.of<CartBloc>(context).add(const ClearCart());
         },
-        child: Icon(Icons.clear_all),
+        child: const Icon(Icons.clear_all),
       ),
     );
   }

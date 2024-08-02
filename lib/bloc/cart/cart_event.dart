@@ -2,26 +2,30 @@ import 'package:equatable/equatable.dart';
 import 'package:buy_it_app/model/product/product.dart';
 
 abstract class CartEvent extends Equatable {
+  const CartEvent();
+
   @override
-  List<Object?> get props => [];
+  List<Object> get props => [];
 }
 
-class AddProductToCart extends CartEvent {
+class AddToCart extends CartEvent {
   final Product product;
 
-  AddProductToCart(this.product);
+  const AddToCart({required this.product});
 
   @override
-  List<Object?> get props => [product];
+  List<Object> get props => [product];
 }
 
-class RemoveProductFromCart extends CartEvent {
+class RemoveFromCart extends CartEvent {
   final Product product;
 
-  RemoveProductFromCart(this.product);
+  const RemoveFromCart({required this.product});
 
   @override
-  List<Object?> get props => [product];
+  List<Object> get props => [product];
 }
 
-class ClearCart extends CartEvent {}
+class ClearCart extends CartEvent {
+  const ClearCart();
+}
