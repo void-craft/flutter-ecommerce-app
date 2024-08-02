@@ -1,4 +1,4 @@
-import 'package:bloc/bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:buy_it_app/bloc/cart/cart_event.dart';
 import 'package:buy_it_app/bloc/cart/cart_state.dart';
 

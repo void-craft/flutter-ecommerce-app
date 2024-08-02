@@ -11,7 +11,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       centerTitle: true,
-      backgroundColor: Colors.blue,
+      backgroundColor: Colors.pink,
       title: const Text(
         "Buy It - Your Shopping App",
         style: TextStyle(
