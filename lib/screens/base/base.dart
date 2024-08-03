@@ -4,7 +4,7 @@ import 'package:buy_it_app/bloc/all_products/all_products_bloc.dart';
 import 'package:buy_it_app/bloc/cart/cart_bloc.dart';
 import 'package:buy_it_app/bloc/favorites/favorites_bloc.dart';
 import 'package:buy_it_app/repositories/all_products_repo/all_products_actions.dart';
-import 'package:buy_it_app/screens/all_products/all_products.dart';
+import 'package:buy_it_app/screens/all_products/all_products_screen.dart';
 import 'package:buy_it_app/widgets/custom_app_bar.dart';
 
 class BaseApp extends StatelessWidget {

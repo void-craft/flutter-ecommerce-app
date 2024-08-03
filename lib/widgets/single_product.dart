@@ -20,8 +20,8 @@ class SingleProduct extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
       child: ListTile(
-        shape: BeveledRectangleBorder(
-          side: const BorderSide(color: Colors.blue, width: 0.5),
+        shape: RoundedRectangleBorder(
+          side: const BorderSide(color: Colors.grey, width: 0.5),
           borderRadius: BorderRadius.circular(5),
         ),
         title: Text(
@@ -71,7 +71,7 @@ class SingleProduct extends StatelessWidget {
                       final isFavorite = state.favoriteItems.any((item) => item.productId == product.productId);
                       return Icon(
                         isFavorite ? Icons.favorite : Icons.favorite_border,
-                        color: isFavorite ? Colors.red : Colors.grey,
+                        color: isFavorite ? Colors.purple : Colors.grey,
                       );
                     },
                   ),

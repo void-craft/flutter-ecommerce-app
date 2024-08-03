@@ -1,9 +1,9 @@
+import 'package:buy_it_app/bloc/cart/cart_event.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:buy_it_app/bloc/cart/cart_bloc.dart';
-import 'package:buy_it_app/bloc/cart/cart_event.dart';
 import 'package:buy_it_app/bloc/cart/cart_state.dart';
-import 'package:buy_it_app/widgets/custom_app_bar.dart'; // Import CustomAppBar
+import 'package:buy_it_app/widgets/custom_app_bar.dart';
 
 class CartScreen extends StatelessWidget {
   const CartScreen({super.key});
@@ -11,7 +11,11 @@ class CartScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const CustomAppBar(), // Use CustomAppBar
+      appBar: const CustomAppBar(
+        showBackButton: true,
+        isTitleCentered: true,
+        title: "Your Cart",
+      ),
       body: BlocBuilder<CartBloc, CartState>(
         builder: (context, state) {
           if (state.cartItems.isEmpty) {
@@ -74,6 +78,7 @@ class CartScreen extends StatelessWidget {
     );
   }
 }
+
 
 
 // import 'package:flutter/material.dart';
