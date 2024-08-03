@@ -1,3 +1,6 @@
+// single_product.dart
+
+import 'package:buy_it_app/bloc/cart/cart_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:buy_it_app/bloc/cart/cart_bloc.dart';
@@ -6,7 +9,7 @@ import 'package:buy_it_app/bloc/favorites/favorites_bloc.dart';
 import 'package:buy_it_app/bloc/favorites/favorites_event.dart';
 import 'package:buy_it_app/bloc/favorites/favorites_state.dart';
 import 'package:buy_it_app/model/product/product.dart';
-import 'package:buy_it_app/screens/item_detail/item_detail_screen.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 class SingleProduct extends StatelessWidget {
   final Product product;
@@ -37,28 +40,77 @@ class SingleProduct extends StatelessWidget {
             const SizedBox(height: 10),
             Row(
               children: [
-                const Text("Price : "),
+                Text(
+                  '€${product.productPrice.toString()}',
+                ),
                 const SizedBox(width: 10),
-                Text(product.productPrice.toString()),
+                RatingBar.builder(
+                  initialRating: product.productRating.productRating,
+                  minRating: 1,
+                  direction: Axis.horizontal,
+                  allowHalfRating: true,
+                  itemCount: 5,
+                  itemSize: 20,
+                  itemBuilder: (context, _) => const Icon(
+                    Icons.star,
+                    color: Colors.amber,
+                  ),
+                  onRatingUpdate: (rating) {},
+                  ignoreGestures: true, // To make it read-only
+                ),
+                const SizedBox(width: 10),
+                Text("(${product.productRating.productCount})"),
               ],
             ),
             const SizedBox(height: 10),
             Row(
               children: [
-                const Text("Quantity : "),
-                const SizedBox(width: 10),
-                Text(product.quantity.toString()),
-                const SizedBox(width: 10),
                 IconButton(
-                  icon: const Icon(Icons.add_circle_outline),
+                  icon: BlocBuilder<FavoritesBloc, FavoritesState>(
+                    builder: (context, state) {
+                      final isFavorite = state.favoriteItems.any((item) => item.productId == product.productId);
+                      return Icon(
+                        isFavorite ? Icons.favorite : Icons.favorite_border,
+                        color: isFavorite ? Colors.red : Colors.grey,
+                      );
+                    },
+                  ),
                   onPressed: () {
-                    BlocProvider.of<CartBloc>(context).add(IncreaseQuantity(product: product));
+                    final isFavorite = BlocProvider.of<FavoritesBloc>(context).state.favoriteItems.any((item) => item.productId == product.productId);
+                    if (isFavorite) {
+                      BlocProvider.of<FavoritesBloc>(context).add(RemoveFromFavorites(product: product));
+                    } else {
+                      BlocProvider.of<FavoritesBloc>(context).add(AddToFavorites(product: product));
+                    }
                   },
                 ),
+                const SizedBox(width: 10),
                 IconButton(
                   icon: const Icon(Icons.remove_circle_outline),
                   onPressed: () {
                     BlocProvider.of<CartBloc>(context).add(DecreaseQuantity(product: product));
+                  },
+                ),
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.grey),
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                  child: BlocBuilder<CartBloc, CartState>(
+                    builder: (context, state) {
+                      final currentItem = state.cartItems.firstWhere(
+                        (item) => item.productId == product.productId,
+                        orElse: () => product.copyWith(quantity: 0),
+                      );
+                      return Text(currentItem.quantity.toString());
+                    },
+                  ),
+                ),
+                IconButton(
+                  icon: const Icon(Icons.add_circle_outline),
+                  onPressed: () {
+                    BlocProvider.of<CartBloc>(context).add(AddToCart(product: product));
                   },
                 ),
               ],
@@ -70,35 +122,10 @@ class SingleProduct extends StatelessWidget {
           width: 60,
           child: Image.network(product.productImage),
         ),
-        onTap: () {
-          Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (context) => ItemDetailScreen(product: product),
-            ),
-          );
-        },
-        trailing: BlocBuilder<FavoritesBloc, FavoritesState>(
-          builder: (context, state) {
-            final isFavorite = state.favoriteItems.contains(product);
-            return IconButton(
-              icon: Icon(
-                isFavorite ? Icons.favorite : Icons.favorite_border,
-                color: isFavorite ? Colors.red : Colors.grey,
-              ),
-              onPressed: () {
-                BlocProvider.of<FavoritesBloc>(context).add(
-                  isFavorite ? RemoveFromFavorites(product: product) : AddToFavorites(product: product),
-                );
-              },
-            );
-          },
-        ),
       ),
     );
   }
 }
-
-
 
 
 // import 'package:flutter/material.dart';
