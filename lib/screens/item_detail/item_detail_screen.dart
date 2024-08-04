@@ -9,7 +9,6 @@ import 'package:buy_it_app/bloc/favorites/favorites_event.dart';
 import 'package:buy_it_app/bloc/favorites/favorites_state.dart';
 import 'package:buy_it_app/model/product/product.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-
 class ItemDetailScreen extends StatelessWidget {
   final Product product;
 
@@ -24,7 +23,6 @@ class ItemDetailScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            // Display product image with maximum size of 200*200
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: SizedBox(
@@ -37,14 +35,12 @@ class ItemDetailScreen extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 16),
-            // Display product title
             Text(
               product.productTitle,
               style: Theme.of(context).textTheme.titleLarge,
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 8),
-            // Display product price and rating in the same row
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -65,21 +61,19 @@ class ItemDetailScreen extends StatelessWidget {
                     color: Colors.amber,
                   ),
                   onRatingUpdate: (rating) {},
-                  ignoreGestures: true, // To make it read-only
+                  ignoreGestures: true,
                 ),
                 const SizedBox(width: 10),
                 Text("(${product.productRating.productCount})"),
               ],
             ),
             const SizedBox(height: 16),
-            // Display product description
             Text(
               product.productDescription,
               style: Theme.of(context).textTheme.bodyMedium,
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 16),
-            // Cart and favorites buttons
             BlocBuilder<CartBloc, CartState>(
               builder: (context, cartState) {
                 final cartItem = cartState.cartItems.firstWhere(
@@ -87,10 +81,10 @@ class ItemDetailScreen extends StatelessWidget {
                   orElse: () => product.copyWith(quantity: 0),
                 );
                 final quantity = cartItem.quantity;
+
                 return Column(
                   children: [
                     if (quantity > 0) ...[
-                      // Quantity adjustment
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -113,7 +107,6 @@ class ItemDetailScreen extends StatelessWidget {
                         ],
                       ),
                       const SizedBox(height: 16),
-                      // Remove from cart button
                       ElevatedButton(
                         onPressed: () {
                           BlocProvider.of<CartBloc>(context)
@@ -126,7 +119,6 @@ class ItemDetailScreen extends StatelessWidget {
                             style: TextStyle(color: Colors.white)),
                       ),
                     ] else ...[
-                      // Add to cart button
                       ElevatedButton(
                         onPressed: () {
                           BlocProvider.of<CartBloc>(context)
@@ -140,11 +132,9 @@ class ItemDetailScreen extends StatelessWidget {
                       ),
                     ],
                     const SizedBox(height: 16),
-                    // Favorites button
                     BlocBuilder<FavoritesBloc, FavoritesState>(
                       builder: (context, favoritesState) {
-                        final isFavorite =
-                            favoritesState.favoriteItems.contains(product);
+                        final isFavorite = favoritesState.favoriteItems.contains(product);
                         return IconButton(
                           icon: Icon(
                             isFavorite ? Icons.favorite : Icons.favorite_border,

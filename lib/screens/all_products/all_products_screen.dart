@@ -1,11 +1,12 @@
 import 'package:buy_it_app/bloc/all_products/all_products_bloc.dart';
 import 'package:buy_it_app/bloc/all_products/all_products_event.dart';
 import 'package:buy_it_app/bloc/all_products/all_products_state.dart';
+import 'package:buy_it_app/bloc/favorites/favorites_bloc.dart';
+import 'package:buy_it_app/bloc/favorites/favorites_state.dart';
 import 'package:buy_it_app/widgets/single_product_widget.dart';
 import 'package:buy_it_app/widgets/sort_options_widget.dart'; // Import the updated sort widget
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 class AllProducts extends StatefulWidget {
   const AllProducts({super.key});
 
@@ -27,7 +28,7 @@ class _AllProductsState extends State<AllProducts> {
       body: Column(
         children: [
           const Padding(
-            padding: EdgeInsets.all(16.0), // Add padding around the SortOptionsWidget
+            padding: EdgeInsets.all(16.0),
             child: SortOptionsWidget(),
           ),
           Expanded(
@@ -43,12 +44,22 @@ class _AllProductsState extends State<AllProducts> {
                   return const Center(child: Text('No products available.'));
                 }
 
-                return ListView.builder(
-                  itemCount: products.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    return Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: SingleProduct(product: products[index]),
+                return BlocBuilder<FavoritesBloc, FavoritesState>(
+                  builder: (context, favoritesState) {
+                    return ListView.builder(
+                      itemCount: products.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        final product = products[index];
+                        final isFavorite = favoritesState.favoriteItems.contains(product);
+
+                        return Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: SingleProduct(
+                            product: product,
+                            isFavorite: isFavorite,
+                          ),
+                        );
+                      },
                     );
                   },
                 );

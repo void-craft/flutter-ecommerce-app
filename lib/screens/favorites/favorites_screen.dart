@@ -10,7 +10,7 @@ class FavoritesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-        return Scaffold(
+    return Scaffold(
       appBar: const CustomAppBar(
         showBackButton: true,
         isTitleCentered: true,

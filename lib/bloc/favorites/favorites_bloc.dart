@@ -4,9 +4,8 @@ import 'package:buy_it_app/bloc/favorites/favorites_state.dart';
 import 'package:buy_it_app/bloc/cart/cart_bloc.dart'; // Import CartBloc
 import 'package:buy_it_app/bloc/cart/cart_event.dart'; // Import CartEvent
 import 'package:buy_it_app/model/product/product.dart';
-
 class FavoritesBloc extends Bloc<FavoritesEvent, FavoritesState> {
-  final CartBloc cartBloc; // Add CartBloc dependency
+  final CartBloc cartBloc;
 
   FavoritesBloc({required this.cartBloc}) : super(FavoritesState.initial()) {
     on<AddToFavorites>(_onAddToFavorites);
@@ -15,9 +14,11 @@ class FavoritesBloc extends Bloc<FavoritesEvent, FavoritesState> {
   }
 
   void _onAddToFavorites(AddToFavorites event, Emitter<FavoritesState> emit) {
-    final updatedFavorites = List<Product>.from(state.favoriteItems)
-      ..add(event.product);
-    emit(state.copyWith(favoriteItems: updatedFavorites));
+    if (!state.favoriteItems.contains(event.product)) {
+      final updatedFavorites = List<Product>.from(state.favoriteItems)
+        ..add(event.product);
+      emit(state.copyWith(favoriteItems: updatedFavorites));
+    }
   }
 
   void _onRemoveFromFavorites(RemoveFromFavorites event, Emitter<FavoritesState> emit) {
@@ -31,32 +32,6 @@ class FavoritesBloc extends Bloc<FavoritesEvent, FavoritesState> {
       ..remove(event.product);
     emit(state.copyWith(favoriteItems: updatedFavorites));
 
-    // Add the product to the cart
     cartBloc.add(AddToCart(product: event.product));
   }
 }
-
-
-// import 'package:flutter_bloc/flutter_bloc.dart';
-// import 'package:buy_it_app/bloc/favorites/favorites_event.dart';
-// import 'package:buy_it_app/bloc/favorites/favorites_state.dart';
-// import 'package:buy_it_app/model/product/product.dart';
-
-// class FavoritesBloc extends Bloc<FavoritesEvent, FavoritesState> {
-//   FavoritesBloc() : super(FavoritesState.initial()) {
-//     on<AddToFavorites>(_onAddToFavorites);
-//     on<RemoveFromFavorites>(_onRemoveFromFavorites);
-//   }
-
-//   void _onAddToFavorites(AddToFavorites event, Emitter<FavoritesState> emit) {
-//     final updatedFavorites = List<Product>.from(state.favoriteItems)
-//       ..add(event.product);
-//     emit(state.copyWith(favoriteItems: updatedFavorites));
-//   }
-
-//   void _onRemoveFromFavorites(RemoveFromFavorites event, Emitter<FavoritesState> emit) {
-//     final updatedFavorites = List<Product>.from(state.favoriteItems)
-//       ..remove(event.product);
-//     emit(state.copyWith(favoriteItems: updatedFavorites));
-//   }
-// }

@@ -12,7 +12,7 @@ import 'package:buy_it_app/screens/item_detail/item_detail_screen.dart';
 
 class SingleProduct extends StatelessWidget {
   final Product product;
-  const SingleProduct({super.key, required this.product});
+  const SingleProduct({super.key, required this.product, required bool isFavorite});
 
   @override
   Widget build(BuildContext context) {
