@@ -1,5 +1,3 @@
-// cart_bloc.dart
-
 import 'package:buy_it_app/model/product/product.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:buy_it_app/bloc/cart/cart_event.dart';
@@ -36,10 +34,15 @@ class CartBloc extends Bloc<CartEvent, CartState> {
 
   void _onUpdateCart(UpdateCart event, Emitter<CartState> emit) {
     final updatedItems = state.cartItems.map((product) {
-      return product.productId == event.product.productId
-          ? product.copyWith(quantity: event.quantity)
-          : product;
-    }).toList();
+      if (product.productId == event.product.productId) {
+        if (event.quantity <= 0) {
+          return null; // Mark for removal
+        } else {
+          return product.copyWith(quantity: event.quantity);
+        }
+      }
+      return product;
+    }).where((product) => product != null).cast<Product>().toList(); // Remove nulls
     emit(state.copyWith(cartItems: updatedItems));
   }
 
@@ -54,10 +57,12 @@ class CartBloc extends Bloc<CartEvent, CartState> {
 
   void _onDecreaseQuantity(DecreaseQuantity event, Emitter<CartState> emit) {
     final updatedItems = state.cartItems.map((product) {
-      return product.productId == event.product.productId
-          ? product.copyWith(quantity: product.quantity > 1 ? product.quantity - 1 : 0)
-          : product;
-    }).toList();
+      if (product.productId == event.product.productId) {
+        final newQuantity = product.quantity > 1 ? product.quantity - 1 : 0;
+        return product.copyWith(quantity: newQuantity);
+      }
+      return product;
+    }).where((product) => product.quantity > 0).toList(); // Remove items with quantity 0
     emit(state.copyWith(cartItems: updatedItems));
   }
 
