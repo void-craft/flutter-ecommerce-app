@@ -25,3 +25,12 @@ class RemoveFromFavorites extends FavoritesEvent {
   @override
   List<Object> get props => [product];
 }
+
+class MoveToCartEvent extends FavoritesEvent {
+  final Product product;
+
+  const MoveToCartEvent({required this.product});
+
+    @override
+  List<Object> get props => [product];
+}

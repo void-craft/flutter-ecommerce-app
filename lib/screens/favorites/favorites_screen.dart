@@ -1,9 +1,9 @@
-import 'package:buy_it_app/widgets/custom_app_bar.dart';
+import 'package:buy_it_app/widgets/custom_appbar_widget.dart';
+import 'package:buy_it_app/widgets/favorite_product_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:buy_it_app/bloc/favorites/favorites_bloc.dart';
 import 'package:buy_it_app/bloc/favorites/favorites_state.dart';
-import 'package:buy_it_app/widgets/single_product.dart';
 
 class FavoritesScreen extends StatelessWidget {
   const FavoritesScreen({super.key});
@@ -24,7 +24,7 @@ class FavoritesScreen extends StatelessWidget {
           return ListView.builder(
             itemCount: state.favoriteItems.length,
             itemBuilder: (context, index) {
-              return SingleProduct(product: state.favoriteItems[index]);
+              return FavoriteProduct(product: state.favoriteItems[index]);
             },
           );
         },
