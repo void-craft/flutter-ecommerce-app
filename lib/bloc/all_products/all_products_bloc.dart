@@ -1,5 +1,3 @@
-// all_products_bloc.dart
-
 import 'package:buy_it_app/bloc/all_products/all_products_event.dart';
 import 'package:buy_it_app/bloc/all_products/all_products_state.dart';
 import 'package:buy_it_app/model/product/product.dart';
@@ -11,8 +9,8 @@ class AllProductsBloc extends Bloc<AllProductsEvent, AllProductsState> {
 
   AllProductsBloc({required this.productActions}) : super(const AllProductsState()) {
     on<FetchAllProducts>(_fetchProducts);
-    on<SortProductsByPrice>(_sortProductsByPrice);
-    on<SortProductsByRating>(_sortProductsByRating);
+    on<ToggleSortByPrice>(_toggleSortByPrice);
+    on<ToggleSortByRating>(_toggleSortByRating);
   }
 
   Future<void> _fetchProducts(FetchAllProducts event, Emitter<AllProductsState> emit) async {
@@ -25,30 +23,32 @@ class AllProductsBloc extends Bloc<AllProductsEvent, AllProductsState> {
     }
   }
 
-  void _sortProductsByPrice(SortProductsByPrice event, Emitter<AllProductsState> emit) {
+  void _toggleSortByPrice(ToggleSortByPrice event, Emitter<AllProductsState> emit) {
     final sortedProducts = List<Product>.from(state.allProducts);
+    final ascending = !(state.sortByPrice ?? true); // Toggle sorting order
     sortedProducts.sort((a, b) {
-      return event.ascending
+      return ascending
           ? a.productPrice.compareTo(b.productPrice)
           : b.productPrice.compareTo(a.productPrice);
     });
     emit(state.copyWith(
       allProducts: sortedProducts,
-      sortByPrice: event.ascending,
+      sortByPrice: ascending,
       sortByRating: null, // Ensure no conflict with rating sorting
     ));
   }
 
-  void _sortProductsByRating(SortProductsByRating event, Emitter<AllProductsState> emit) {
+  void _toggleSortByRating(ToggleSortByRating event, Emitter<AllProductsState> emit) {
     final sortedProducts = List<Product>.from(state.allProducts);
+    final ascending = !(state.sortByRating ?? true); // Toggle sorting order
     sortedProducts.sort((a, b) {
-      return event.ascending
+      return ascending
           ? a.productRating.productRating.compareTo(b.productRating.productRating)
           : b.productRating.productRating.compareTo(a.productRating.productRating);
     });
     emit(state.copyWith(
       allProducts: sortedProducts,
-      sortByRating: event.ascending,
+      sortByRating: ascending,
       sortByPrice: null, // Ensure no conflict with price sorting
     ));
   }

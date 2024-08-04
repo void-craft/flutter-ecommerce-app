@@ -46,14 +46,14 @@ class CartScreen extends StatelessWidget {
                     Row(
                       children: [
                         IconButton(
-                          icon: const Icon(Icons.remove_circle_outline),
+                          icon: const Icon(Icons.remove_circle_outline, color: Colors.lightBlue),
                           onPressed: () {
                             BlocProvider.of<CartBloc>(context).add(DecreaseQuantity(product: cartItem));
                           },
                         ),
                         Text('${cartItem.quantity}'),
                         IconButton(
-                          icon: const Icon(Icons.add_circle_outline),
+                          icon: const Icon(Icons.add_circle_outline, color: Colors.green,),
                           onPressed: () {
                             BlocProvider.of<CartBloc>(context).add(IncreaseQuantity(product: cartItem));
                           },
@@ -63,7 +63,7 @@ class CartScreen extends StatelessWidget {
                   ],
                 ),
                 trailing: IconButton(
-                  icon: const Icon(Icons.delete, color: Colors.red),
+                  icon: const Icon(Icons.delete, color: Colors.indigoAccent),
                   onPressed: () {
                     BlocProvider.of<CartBloc>(context).add(
                       RemoveFromCart(product: cartItem),

@@ -1,5 +1,3 @@
-// all_products_state.dart
-
 import 'package:buy_it_app/model/product/product.dart';
 import 'package:equatable/equatable.dart';
 

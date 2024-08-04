@@ -25,12 +25,15 @@ class ItemDetailScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             // Display product image with maximum size of 200*200
-            SizedBox(
-              height: 200,
-              width: 200,
-              child: Image.network(
-                product.productImage,
-                fit: BoxFit.cover,
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: SizedBox(
+                height: 250,
+                width: 200,
+                child: Image.network(
+                  product.productImage,
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
             const SizedBox(height: 16),
@@ -117,7 +120,7 @@ class ItemDetailScreen extends StatelessWidget {
                               .add(RemoveFromCart(product: product));
                         },
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.red,
+                          backgroundColor: Colors.lightBlue,
                         ),
                         child: const Text('Remove from Cart',
                             style: TextStyle(color: Colors.white)),
@@ -130,7 +133,7 @@ class ItemDetailScreen extends StatelessWidget {
                               .add(AddToCart(product: product));
                         },
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.orange,
+                          backgroundColor: Colors.indigoAccent,
                         ),
                         child: const Text('Add to Cart',
                             style: TextStyle(color: Colors.white)),

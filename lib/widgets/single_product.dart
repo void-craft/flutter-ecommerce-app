@@ -8,7 +8,7 @@ import 'package:buy_it_app/bloc/favorites/favorites_event.dart';
 import 'package:buy_it_app/bloc/favorites/favorites_state.dart';
 import 'package:buy_it_app/model/product/product.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:buy_it_app/screens/item_detail/item_detail_screen.dart'; 
+import 'package:buy_it_app/screens/item_detail/item_detail_screen.dart';
 
 class SingleProduct extends StatelessWidget {
   final Product product;
@@ -16,6 +16,7 @@ class SingleProduct extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
       child: InkWell(
@@ -29,14 +30,18 @@ class SingleProduct extends StatelessWidget {
         },
         child: ListTile(
           shape: RoundedRectangleBorder(
-            side: const BorderSide(color: Colors.grey, width: 0.5),
+            side: BorderSide(color: Colors.grey.withOpacity(0.5), width: 0.5),
             borderRadius: BorderRadius.circular(5),
           ),
           title: Text(
             product.productTitle,
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
-            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14, color: Color.fromARGB(255, 53, 53, 53))
+            style: const TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 14,
+              color: Colors.black,
+            ),
           ),
           subtitle: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -45,12 +50,19 @@ class SingleProduct extends StatelessWidget {
                 product.productDescription,
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
+                style: const TextStyle(
+                  color: Colors.grey,
+                ),
               ),
               const SizedBox(height: 10),
               Row(
                 children: [
                   Text(
-                    '€${product.productPrice.toString()}', style: const TextStyle(fontWeight: FontWeight.bold),
+                    '€${product.productPrice.toString()}',
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                    ),
                   ),
                   const SizedBox(width: 10),
                   RatingBar.builder(
@@ -68,7 +80,12 @@ class SingleProduct extends StatelessWidget {
                     ignoreGestures: true, // To make it read-only
                   ),
                   const SizedBox(width: 10),
-                  Text("(${product.productRating.productCount})"),
+                  Text(
+                    "(${product.productRating.productCount})",
+                    style: const TextStyle(
+                      color: Colors.black,
+                    ),
+                  ),
                 ],
               ),
               const SizedBox(height: 10),
@@ -95,7 +112,10 @@ class SingleProduct extends StatelessWidget {
                   ),
                   const SizedBox(width: 10),
                   IconButton(
-                    icon: const Icon(Icons.remove_circle_outline, color: Color.fromARGB(255, 238, 82, 80),),
+                    icon: const Icon(
+                      Icons.remove_circle_outline,
+                      color: Colors.lightBlue,
+                    ),
                     onPressed: () {
                       BlocProvider.of<CartBloc>(context).add(DecreaseQuantity(product: product));
                     },
@@ -103,7 +123,7 @@ class SingleProduct extends StatelessWidget {
                   Container(
                     padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                     decoration: BoxDecoration(
-                      border: Border.all(color: Colors.grey),
+                      border: Border.all(color: Colors.grey.withOpacity(0.5)),
                       borderRadius: BorderRadius.circular(5),
                     ),
                     child: BlocBuilder<CartBloc, CartState>(
@@ -112,12 +132,20 @@ class SingleProduct extends StatelessWidget {
                           (item) => item.productId == product.productId,
                           orElse: () => product.copyWith(quantity: 0),
                         );
-                        return Text(currentItem.quantity.toString());
+                        return Text(
+                          currentItem.quantity.toString(),
+                          style: const TextStyle(
+                            color: Colors.black,
+                          ),
+                        );
                       },
                     ),
                   ),
                   IconButton(
-                    icon: const Icon(Icons.add_circle_outline, color: Colors.green,),
+                    icon: const Icon(
+                      Icons.add_circle_outline,
+                      color: Colors.green,
+                    ),
                     onPressed: () {
                       BlocProvider.of<CartBloc>(context).add(AddToCart(product: product));
                     },
