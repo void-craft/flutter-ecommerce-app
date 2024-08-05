@@ -23,16 +23,17 @@ class FavoriteProduct extends StatelessWidget {
           borderRadius: BorderRadius.circular(5),
         ),
         child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // Fixed-size image container
             Container(
               width: 100, // Fixed width for image container
               height: 100, // Fixed height for image container
               padding: const EdgeInsets.all(8.0),
-              child: Image.network(
-                product.productImage,
-                fit: BoxFit.contain, // Ensures the whole image is visible
+              child: Center(
+                child: Image.network(
+                  product.productImage,
+                  fit: BoxFit.contain, // Ensures the whole image is visible
+                ),
               ),
             ),
             // Content

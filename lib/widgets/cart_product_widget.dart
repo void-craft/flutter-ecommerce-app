@@ -31,7 +31,6 @@ class CartProductWidget extends StatelessWidget {
           borderRadius: BorderRadius.circular(5),
         ),
         child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Checkbox(
               value: isSelected,
@@ -41,9 +40,11 @@ class CartProductWidget extends StatelessWidget {
               width: 100,
               height: 100,
               padding: const EdgeInsets.all(8.0),
-              child: Image.network(
-                product.productImage,
-                fit: BoxFit.contain,
+              child: Center(
+                child: Image.network(
+                  product.productImage,
+                  fit: BoxFit.contain,
+                ),
               ),
             ),
             Expanded(
