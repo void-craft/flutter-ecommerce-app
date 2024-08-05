@@ -5,18 +5,18 @@ import 'package:buy_it_app/bloc/cart/cart_bloc.dart';
 import 'package:buy_it_app/bloc/cart/cart_event.dart';
 import 'package:buy_it_app/bloc/favorites/favorites_bloc.dart';
 import 'package:buy_it_app/bloc/favorites/favorites_event.dart';
-import 'package:buy_it_app/bloc/favorites/favorites_state.dart';
 import 'package:buy_it_app/model/product/product.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:buy_it_app/screens/item_detail/item_detail_screen.dart';
 
 class SingleProduct extends StatelessWidget {
   final Product product;
-  const SingleProduct({super.key, required this.product, required bool isFavorite});
+  final bool isFavorite; // Add this line
+
+  const SingleProduct({super.key, required this.product, required this.isFavorite}); // Update constructor
 
   @override
   Widget build(BuildContext context) {
-
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
       child: InkWell(
@@ -33,9 +33,17 @@ class SingleProduct extends StatelessWidget {
             side: BorderSide(color: Colors.grey.withOpacity(0.5), width: 0.5),
             borderRadius: BorderRadius.circular(5),
           ),
+          leading: SizedBox(
+            width: 100,
+            height: 100,
+            child: Image.network(
+              product.productImage,
+              fit: BoxFit.contain,
+            ),
+          ),
           title: Text(
             product.productTitle,
-            maxLines: 2,
+            maxLines: 1,
             overflow: TextOverflow.ellipsis,
             style: const TextStyle(
               fontWeight: FontWeight.bold,
@@ -48,7 +56,7 @@ class SingleProduct extends StatelessWidget {
             children: [
               Text(
                 product.productDescription,
-                maxLines: 2,
+                maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: const TextStyle(
                   color: Colors.grey,
@@ -77,7 +85,7 @@ class SingleProduct extends StatelessWidget {
                       color: Colors.amber,
                     ),
                     onRatingUpdate: (rating) {},
-                    ignoreGestures: true, // To make it read-only
+                    ignoreGestures: true,
                   ),
                   const SizedBox(width: 10),
                   Text(
@@ -92,18 +100,13 @@ class SingleProduct extends StatelessWidget {
               Row(
                 children: [
                   IconButton(
-                    icon: BlocBuilder<FavoritesBloc, FavoritesState>(
-                      builder: (context, state) {
-                        final isFavorite = state.favoriteItems.any((item) => item.productId == product.productId);
-                        return Icon(
-                          isFavorite ? Icons.favorite : Icons.favorite_border,
-                          color: isFavorite ? Colors.purple : Colors.grey,
-                        );
-                      },
+                    icon: Icon(
+                      isFavorite ? Icons.favorite : Icons.favorite_border,
+                      color: isFavorite ? Colors.purple : Colors.grey,
                     ),
                     onPressed: () {
-                      final isFavorite = BlocProvider.of<FavoritesBloc>(context).state.favoriteItems.any((item) => item.productId == product.productId);
-                      if (isFavorite) {
+                      final isCurrentlyFavorite = BlocProvider.of<FavoritesBloc>(context).state.favoriteItems.any((item) => item.productId == product.productId);
+                      if (isCurrentlyFavorite) {
                         BlocProvider.of<FavoritesBloc>(context).add(RemoveFromFavorites(product: product));
                       } else {
                         BlocProvider.of<FavoritesBloc>(context).add(AddToFavorites(product: product));
@@ -153,11 +156,6 @@ class SingleProduct extends StatelessWidget {
                 ],
               ),
             ],
-          ),
-          leading: SizedBox(
-            height: 60,
-            width: 60,
-            child: Image.network(product.productImage),
           ),
         ),
       ),
