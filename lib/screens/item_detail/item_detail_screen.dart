@@ -1,4 +1,3 @@
-import 'package:buy_it_app/widgets/custom_appbar_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:buy_it_app/bloc/cart/cart_bloc.dart';
@@ -8,7 +7,9 @@ import 'package:buy_it_app/bloc/favorites/favorites_bloc.dart';
 import 'package:buy_it_app/bloc/favorites/favorites_event.dart';
 import 'package:buy_it_app/bloc/favorites/favorites_state.dart';
 import 'package:buy_it_app/model/product/product.dart';
+import 'package:buy_it_app/widgets/custom_appbar_widget.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+
 class ItemDetailScreen extends StatelessWidget {
   final Product product;
 
@@ -17,8 +18,8 @@ class ItemDetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const CustomAppBar(showBackButton: true, title: ('Product Detail')),
-      body: Padding(
+      appBar: const CustomAppBar(showBackButton: true, title: 'Product Detail'),
+      body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -37,7 +38,7 @@ class ItemDetailScreen extends StatelessWidget {
             const SizedBox(height: 16),
             Text(
               product.productTitle,
-              style: Theme.of(context).textTheme.titleLarge,
+              style: Theme.of(context).textTheme.headlineSmall,
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 8),
@@ -70,7 +71,7 @@ class ItemDetailScreen extends StatelessWidget {
             const SizedBox(height: 16),
             Text(
               product.productDescription,
-              style: Theme.of(context).textTheme.bodyMedium,
+              style: Theme.of(context).textTheme.bodyLarge,
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 16),
@@ -95,8 +96,10 @@ class ItemDetailScreen extends StatelessWidget {
                                   .add(DecreaseQuantity(product: product));
                             },
                           ),
-                          Text('$quantity',
-                              style: Theme.of(context).textTheme.headlineSmall),
+                          Text(
+                            '$quantity',
+                            style: Theme.of(context).textTheme.titleLarge,
+                          ),
                           IconButton(
                             icon: const Icon(Icons.add_circle_outline),
                             onPressed: () {
