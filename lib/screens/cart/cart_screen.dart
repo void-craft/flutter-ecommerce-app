@@ -1,3 +1,4 @@
+import 'package:buy_it_app/screens/address_screen/address_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:buy_it_app/bloc/cart/cart_bloc.dart';
@@ -100,8 +101,20 @@ class CartScreenState extends State<CartScreen> {
                 padding: const EdgeInsets.all(16.0),
                 child: ElevatedButton(
                   onPressed: () {
-                    // Handle checkout logic
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => AddressEntryScreen(totalAmount: totalAmount),
+                      ),
+                    );
                   },
+                  style: ElevatedButton.styleFrom(
+                    foregroundColor: Colors.white, backgroundColor: Colors.blue, // White text color
+                    padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 32.0),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
+                  ),
                   child: const Text('Checkout'),
                 ),
               ),

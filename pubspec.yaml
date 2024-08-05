@@ -15,6 +15,8 @@ dependencies:
   json_annotation: ^4.9.0
   flutter_bloc: ^8.1.6
   flutter_rating_bar: ^4.0.0
+  flutter_form_builder: ^8.0.0
+  flutter_paytabs_bridge: ^2.6.15
 
 dev_dependencies:
   flutter_test:
@@ -25,3 +27,5 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  assets:
+    - assets/logo.png
