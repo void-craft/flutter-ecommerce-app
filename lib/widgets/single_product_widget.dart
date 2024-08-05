@@ -11,9 +11,9 @@ import 'package:buy_it_app/screens/item_detail/item_detail_screen.dart';
 
 class SingleProduct extends StatelessWidget {
   final Product product;
-  final bool isFavorite; // Add this line
+  final bool isFavorite;
 
-  const SingleProduct({super.key, required this.product, required this.isFavorite}); // Update constructor
+  const SingleProduct({super.key, required this.product, required this.isFavorite});
 
   @override
   Widget build(BuildContext context) {
@@ -54,25 +54,8 @@ class SingleProduct extends StatelessWidget {
           subtitle: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                product.productDescription,
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style: const TextStyle(
-                  color: Colors.grey,
-                ),
-              ),
-              const SizedBox(height: 10),
               Row(
                 children: [
-                  Text(
-                    '€${product.productPrice.toString()}',
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black,
-                    ),
-                  ),
-                  const SizedBox(width: 10),
                   RatingBar.builder(
                     initialRating: product.productRating.productRating,
                     minRating: 1,
@@ -91,6 +74,18 @@ class SingleProduct extends StatelessWidget {
                   Text(
                     "(${product.productRating.productCount})",
                     style: const TextStyle(
+                      color: Colors.black,
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 10),
+              Row(
+                children: [
+                  Text(
+                    '€${product.productPrice.toString()}',
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
                       color: Colors.black,
                     ),
                   ),

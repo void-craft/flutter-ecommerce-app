@@ -31,7 +31,7 @@ class ItemDetailScreen extends StatelessWidget {
                 width: 200,
                 child: Image.network(
                   product.productImage,
-                  fit: BoxFit.cover,
+                  fit: BoxFit.contain,
                 ),
               ),
             ),
@@ -41,15 +41,16 @@ class ItemDetailScreen extends StatelessWidget {
               style: Theme.of(context).textTheme.headlineSmall,
               textAlign: TextAlign.center,
             ),
-            const SizedBox(height: 8),
+            const SizedBox(height: 16),
+            Text(
+              product.productDescription,
+              style: Theme.of(context).textTheme.bodyLarge,
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 16),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(
-                  '€${product.productPrice.toString()}',
-                  style: const TextStyle(fontWeight: FontWeight.bold),
-                ),
-                const SizedBox(width: 10),
                 RatingBar.builder(
                   initialRating: product.productRating.productRating,
                   minRating: 1,
@@ -70,8 +71,8 @@ class ItemDetailScreen extends StatelessWidget {
             ),
             const SizedBox(height: 16),
             Text(
-              product.productDescription,
-              style: Theme.of(context).textTheme.bodyLarge,
+              '€${product.productPrice.toString()}',
+              style: const TextStyle(fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 16),
