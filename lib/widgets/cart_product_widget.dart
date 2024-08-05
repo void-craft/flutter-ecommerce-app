@@ -11,8 +11,15 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 class CartProductWidget extends StatelessWidget {
   final Product product;
+  final bool isSelected;
+  final Function(bool?)? onSelect;
 
-  const CartProductWidget({super.key, required this.product});
+  const CartProductWidget({
+    super.key,
+    required this.product,
+    required this.isSelected,
+    required this.onSelect,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -26,17 +33,19 @@ class CartProductWidget extends StatelessWidget {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Fixed-size image container with BoxFit.contain
+            Checkbox(
+              value: isSelected,
+              onChanged: onSelect,
+            ),
             Container(
-              width: 100, // Fixed width for image container
-              height: 100, // Fixed height for image container
+              width: 100,
+              height: 100,
               padding: const EdgeInsets.all(8.0),
               child: Image.network(
                 product.productImage,
-                fit: BoxFit.contain, // Ensures the whole image is visible
+                fit: BoxFit.contain,
               ),
             ),
-            // Content
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -54,7 +63,6 @@ class CartProductWidget extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 8),
-                    // Rating and number of reviews
                     Row(
                       children: [
                         RatingBar.builder(
@@ -69,7 +77,7 @@ class CartProductWidget extends StatelessWidget {
                             color: Colors.amber,
                           ),
                           onRatingUpdate: (rating) {},
-                          ignoreGestures: true, // To make it read-only
+                          ignoreGestures: true,
                         ),
                         const SizedBox(width: 4),
                         Text(
@@ -81,7 +89,6 @@ class CartProductWidget extends StatelessWidget {
                       ],
                     ),
                     const SizedBox(height: 8),
-                    // Price and Quantity Adjustment Buttons
                     Row(
                       children: [
                         Text(
@@ -122,18 +129,17 @@ class CartProductWidget extends StatelessWidget {
                       ],
                     ),
                     const SizedBox(height: 8),
-                    // Move to Favorites Button
                     BlocBuilder<FavoritesBloc, FavoritesState>(
                       builder: (context, favoritesState) {
                         final isFavorite = favoritesState.favoriteItems.any(
                           (item) => item.productId == product.productId,
                         );
                         return Visibility(
-                          visible: !isFavorite, // Show button only if not in favorites
+                          visible: !isFavorite,
                           child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
                               foregroundColor: Colors.white,
-                              backgroundColor: Colors.purple, // Button color
+                              backgroundColor: Colors.purple,
                               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(5),
@@ -156,7 +162,6 @@ class CartProductWidget extends StatelessWidget {
                       },
                     ),
                     const SizedBox(height: 8),
-                    // Remove Item Link
                     TextButton(
                       onPressed: () {
                         BlocProvider.of<CartBloc>(context).add(
