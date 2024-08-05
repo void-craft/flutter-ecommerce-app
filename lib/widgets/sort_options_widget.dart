@@ -11,6 +11,9 @@ class SortOptionsWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<AllProductsBloc, AllProductsState>(
       builder: (context, state) {
+        final sortByPrice = state.sortByPrice ?? false;
+        final sortByRating = state.sortByRating ?? false;
+
         return Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -18,10 +21,12 @@ class SortOptionsWidget extends StatelessWidget {
               onPressed: () {
                 context.read<AllProductsBloc>().add(ToggleSortByPrice());
               },
-              icon: const Icon(Icons.sort),
-              label: Text(
-                state.sortByPrice == true ? 'Price: High to Low' : 'Price: Low to High',
-                style: const TextStyle(
+              icon: Icon(
+                sortByPrice ? Icons.arrow_downward : Icons.arrow_upward,
+              ),
+              label: const Text(
+                'Price',
+                style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
                 ),
@@ -35,10 +40,12 @@ class SortOptionsWidget extends StatelessWidget {
               onPressed: () {
                 context.read<AllProductsBloc>().add(ToggleSortByRating());
               },
-              icon: const Icon(Icons.star_border),
-              label: Text(
-                state.sortByRating == true ? 'Rating: High to Low' : 'Rating: Low to High',
-                style: const TextStyle(
+              icon: Icon(
+                sortByRating ? Icons.arrow_downward : Icons.arrow_upward,
+              ),
+              label: const Text(
+                'Rating',
+                style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
                 ),

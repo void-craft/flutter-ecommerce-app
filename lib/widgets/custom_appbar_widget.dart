@@ -14,7 +14,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   const CustomAppBar({
     super.key,
-    this.title = "Buy It - Shopping App",
+    this.title = "Buy It",
     this.isTitleCentered = true,
     this.showBackButton = false,
   });
