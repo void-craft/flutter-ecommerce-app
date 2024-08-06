@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "367126395524",
+    "project_id": "bagit-e-commerce-app",
+    "storage_bucket": "bagit-e-commerce-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:367126395524:android:13b9ace6bd0cdd1715a0d1",
+        "android_client_info": {
+          "package_name": "com.voidcraft.bagit"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB-oau8nrkivvwXk4kQ-hR7aVsTh6YmCvo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

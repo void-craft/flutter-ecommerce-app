@@ -1,3 +1,4 @@
+import 'package:buy_it_app/screens/login/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:buy_it_app/bloc/cart/cart_bloc.dart';
@@ -134,6 +135,19 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                     ),
                   ),
               ],
+            );
+          },
+        ),
+        IconButton(
+          icon: const Icon(
+            Icons.person,
+            color: Colors.white,
+            size: 30,
+          ),
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => LoginScreen()),
             );
           },
         ),

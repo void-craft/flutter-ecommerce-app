@@ -17,6 +17,10 @@ dependencies:
   flutter_rating_bar: ^4.0.0
   flutter_form_builder: ^8.0.0
   flutter_paytabs_bridge: ^2.6.15
+  firebase_core: ^2.24.2
+  firebase_auth: ^4.16.0
+  google_sign_in: ^6.2.1
+  flutter_signin_button: ^2.0.0
 
 dev_dependencies:
   flutter_test:
