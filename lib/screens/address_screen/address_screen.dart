@@ -78,15 +78,15 @@ class _AddressEntryScreenState extends State<AddressEntryScreen> {
                         child: Text('Billing Address',
                             style: Theme.of(context).textTheme.titleLarge),
                       ),
-                      _buildTextField(_billingNameController, 'Billing Name'),
-                      _buildTextField(_billingEmailController, 'Billing Email'),
-                      _buildTextField(_billingPhoneController, 'Billing Phone'),
+                      _buildTextField(_billingNameController, 'Name'),
+                      _buildTextField(_billingEmailController, 'Email'),
+                      _buildTextField(_billingPhoneController, 'Phone'),
                       _buildTextField(
-                          _billingAddressController, 'Billing Address'),
-                      _buildTextField(_billingCityController, 'Billing City'),
-                      _buildTextField(_billingStateController, 'Billing State'),
+                          _billingAddressController, 'Address'),
+                      _buildTextField(_billingCityController, 'City'),
+                      _buildTextField(_billingStateController, 'State'),
                       _buildTextField(
-                          _billingZipCodeController, 'Billing Zip Code'),
+                          _billingZipCodeController, 'Zip Code'),
                     ],
                   ),
                 ),
@@ -122,7 +122,7 @@ class _AddressEntryScreenState extends State<AddressEntryScreen> {
                   Container(
                     padding: const EdgeInsets.all(8.0),
                     decoration: BoxDecoration(
-                      color: Colors.green.shade100, // Light teal background
+                      color: Colors.green.shade100,
                       borderRadius: BorderRadius.circular(8.0),
                       boxShadow: [
                         BoxShadow(
@@ -141,19 +141,19 @@ class _AddressEntryScreenState extends State<AddressEntryScreen> {
                               style: Theme.of(context).textTheme.titleLarge),
                         ),
                         _buildTextField(
-                            _shippingNameController, 'Shipping Name'),
+                            _shippingNameController, 'Name'),
                         _buildTextField(
-                            _shippingEmailController, 'Shipping Email'),
+                            _shippingEmailController, 'Email'),
                         _buildTextField(
-                            _shippingPhoneController, 'Shipping Phone'),
+                            _shippingPhoneController, 'Phone'),
                         _buildTextField(
-                            _shippingAddressController, 'Shipping Address'),
+                            _shippingAddressController, 'Address'),
                         _buildTextField(
-                            _shippingCityController, 'Shipping City'),
+                            _shippingCityController, 'City'),
                         _buildTextField(
-                            _shippingStateController, 'Shipping State'),
+                            _shippingStateController, 'State'),
                         _buildTextField(
-                            _shippingZipCodeController, 'Shipping Zip Code'),
+                            _shippingZipCodeController, 'Zip Code'),
                       ],
                     ),
                   ),
