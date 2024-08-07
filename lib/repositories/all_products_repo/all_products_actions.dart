@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'dart:convert';
 import 'package:buy_it_app/entities/product_entity/product_entity.dart';
 import 'package:buy_it_app/model/product/product.dart';

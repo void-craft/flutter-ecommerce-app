@@ -11,6 +11,9 @@ class CartSummary extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<CartBloc, CartState>(
       builder: (context, state) {
+        // Get the number of items in the cart
+        final itemCount = state.cartItems.length;
+
         return Row(
           children: [
             IconButton(
@@ -18,11 +21,12 @@ class CartSummary extends StatelessWidget {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => CartScreen()),
+                  MaterialPageRoute(builder: (context) => const CartScreen()),
                 );
               },
             ),
-            Text('${state.cart.length} items'),
+            // Display "0 items" when the cart is empty
+            Text('$itemCount ${itemCount == 1 ? 'item' : 'items'}'),
           ],
         );
       },
