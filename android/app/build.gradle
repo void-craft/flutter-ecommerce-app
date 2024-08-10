@@ -1,7 +1,7 @@
 plugins {
     id "com.android.application"
-    id 'com.google.gms.google-services' // Ensure this is up-to-date
-    id "org.jetbrains.kotlin.android" // Use this without specifying version
+    id 'com.google.gms.google-services'
+    id "org.jetbrains.kotlin.android"
     id "dev.flutter.flutter-gradle-plugin"
 }
 
@@ -41,13 +41,26 @@ android {
         versionName = flutterVersionName
     }
 
+    signingConfigs {
+        release {
+            keyAlias 'hemaps'
+            keyPassword 'android'
+            storeFile file('C:/Users/hemap/.android/debug.keystore')
+            storePassword 'android'
+        }
+    }
+
     buildTypes {
         release {
-            signingConfig = signingConfigs.debug
+            signingConfig = signingConfigs.release
         }
     }
 }
 
 flutter {
     source = "../.."
+}
+
+dependencies {
+    implementation 'com.google.android.gms:play-services-auth:21.2.0' // Latest version
 }
