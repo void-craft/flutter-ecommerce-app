@@ -1,6 +1,6 @@
 // lib/screens/payment_screen.dart
 
-import 'package:buy_it_app/widgets/custom_appbar_widget.dart';
+import 'package:buy_it_app/widgets/appbar/custom_appbar_widget.dart';
 import 'package:flutter/material.dart';
 
 class PaymentScreen extends StatelessWidget {

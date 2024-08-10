@@ -3,7 +3,7 @@ import 'package:buy_it_app/bloc/cart/cart_state.dart';
 import 'package:buy_it_app/model/product/product.dart';
 import 'package:buy_it_app/screens/address_screen/address_screen.dart';
 import 'package:buy_it_app/widgets/cart_product_widget.dart';
-import 'package:buy_it_app/widgets/custom_appbar_widget.dart';
+import 'package:buy_it_app/widgets/appbar/custom_appbar_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

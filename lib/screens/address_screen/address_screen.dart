@@ -1,6 +1,6 @@
 import 'package:buy_it_app/screens/payment/payment_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:buy_it_app/widgets/custom_appbar_widget.dart';
+import 'package:buy_it_app/widgets/appbar/custom_appbar_widget.dart';
 
 class AddressEntryScreen extends StatefulWidget {
   final double totalAmount;
