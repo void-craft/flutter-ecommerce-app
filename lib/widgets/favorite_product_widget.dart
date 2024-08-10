@@ -1,12 +1,12 @@
-import 'package:buy_it_app/screens/item_detail/item_detail_screen.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:buy_it_app/bloc/cart/cart_bloc.dart';
+import 'package:buy_it_app/bloc/cart/cart_state.dart';
 import 'package:buy_it_app/bloc/favorites/favorites_bloc.dart';
 import 'package:buy_it_app/bloc/favorites/favorites_event.dart';
 import 'package:buy_it_app/bloc/favorites/favorites_state.dart';
-import 'package:buy_it_app/bloc/cart/cart_bloc.dart';
-import 'package:buy_it_app/bloc/cart/cart_state.dart';
 import 'package:buy_it_app/model/product/product.dart';
+import 'package:buy_it_app/screens/item_detail/item_detail_screen.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 class FavoriteProduct extends StatelessWidget {

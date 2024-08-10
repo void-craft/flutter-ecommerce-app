@@ -1,9 +1,9 @@
+import 'package:buy_it_app/bloc/favorites/favorites_bloc.dart';
+import 'package:buy_it_app/bloc/favorites/favorites_state.dart';
 import 'package:buy_it_app/widgets/custom_appbar_widget.dart';
 import 'package:buy_it_app/widgets/favorite_product_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:buy_it_app/bloc/favorites/favorites_bloc.dart';
-import 'package:buy_it_app/bloc/favorites/favorites_state.dart';
 
 class FavoritesScreen extends StatelessWidget {
   const FavoritesScreen({super.key});
@@ -13,8 +13,8 @@ class FavoritesScreen extends StatelessWidget {
     return Scaffold(
       appBar: const CustomAppBar(
         showBackButton: true,
-        isTitleCentered: true,
-        title: "Your Favorites",
+        isTitleCentered: false,
+        title: "Favorites",
       ),
       body: BlocBuilder<FavoritesBloc, FavoritesState>(
         builder: (context, state) {

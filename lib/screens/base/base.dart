@@ -1,12 +1,12 @@
-import 'package:buy_it_app/screens/favorites/favorites_screen.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:buy_it_app/bloc/all_products/all_products_bloc.dart';
 import 'package:buy_it_app/bloc/cart/cart_bloc.dart';
 import 'package:buy_it_app/bloc/favorites/favorites_bloc.dart';
 import 'package:buy_it_app/repositories/all_products_repo/all_products_actions.dart';
 import 'package:buy_it_app/screens/all_products/all_products_screen.dart';
+import 'package:buy_it_app/screens/favorites/favorites_screen.dart';
 import 'package:buy_it_app/widgets/custom_appbar_widget.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class BaseApp extends StatelessWidget {
   const BaseApp({super.key});
@@ -31,12 +31,9 @@ class BaseApp extends StatelessWidget {
             child: const FavoritesScreen(),
           ),
         ],
-        child: MaterialApp(
+        child: const MaterialApp(
           title: 'Buy It App',
-          theme: ThemeData(
-            primarySwatch: Colors.pink,
-          ),
-          home: const Scaffold(
+          home: Scaffold(
             appBar: CustomAppBar(),
             body: AllProducts(),
           ),

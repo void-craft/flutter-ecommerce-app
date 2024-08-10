@@ -1,12 +1,12 @@
-import 'package:buy_it_app/screens/login/login_screen.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:buy_it_app/bloc/cart/cart_bloc.dart';
 import 'package:buy_it_app/bloc/cart/cart_state.dart';
 import 'package:buy_it_app/bloc/favorites/favorites_bloc.dart';
 import 'package:buy_it_app/bloc/favorites/favorites_state.dart';
 import 'package:buy_it_app/screens/cart/cart_screen.dart';
 import 'package:buy_it_app/screens/favorites/favorites_screen.dart';
+import 'package:buy_it_app/screens/login/login_screen.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
@@ -15,8 +15,8 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   const CustomAppBar({
     super.key,
-    this.title = "Buy It",
-    this.isTitleCentered = true,
+    this.title = "BagIt",
+    this.isTitleCentered = false,
     this.showBackButton = false,
   });
 
@@ -86,7 +86,8 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const FavoritesScreen()),
+                  MaterialPageRoute(
+                      builder: (context) => const FavoritesScreen()),
                 );
               },
             );
@@ -105,7 +106,8 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => const CartScreen()),
+                      MaterialPageRoute(
+                          builder: (context) => const CartScreen()),
                     );
                   },
                 ),

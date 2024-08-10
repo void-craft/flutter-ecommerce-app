@@ -1,11 +1,11 @@
-import 'package:buy_it_app/screens/address_screen/address_screen.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:buy_it_app/bloc/cart/cart_bloc.dart';
 import 'package:buy_it_app/bloc/cart/cart_state.dart';
 import 'package:buy_it_app/model/product/product.dart';
-import 'package:buy_it_app/widgets/custom_appbar_widget.dart';
+import 'package:buy_it_app/screens/address_screen/address_screen.dart';
 import 'package:buy_it_app/widgets/cart_product_widget.dart';
+import 'package:buy_it_app/widgets/custom_appbar_widget.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CartScreen extends StatefulWidget {
   const CartScreen({super.key});
@@ -22,8 +22,8 @@ class CartScreenState extends State<CartScreen> {
     return Scaffold(
       appBar: const CustomAppBar(
         showBackButton: true,
-        isTitleCentered: true,
-        title: "Your Cart",
+        isTitleCentered: false,
+        title: "Cart",
       ),
       body: BlocBuilder<CartBloc, CartState>(
         builder: (context, cartState) {
