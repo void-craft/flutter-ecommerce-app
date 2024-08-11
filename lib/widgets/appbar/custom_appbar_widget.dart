@@ -31,19 +31,42 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
               },
             )
           : null,
-      title: Text(
-        title,
-        style: const TextStyle(
-          fontWeight: FontWeight.bold,
-          fontSize: 20,
-          color: Colors.white,
-        ),
-        textAlign: isTitleCentered ? TextAlign.center : TextAlign.start,
-      ),
+      title: isTitleCentered
+          ? Flexible(
+              child: Text(
+                title,
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
+                  color: Colors.white,
+                ),
+                textAlign: TextAlign.center,
+                overflow: TextOverflow.ellipsis,
+              ),
+            )
+          : Text(
+              title,
+              style: const TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 20,
+                color: Colors.white,
+              ),
+              textAlign: TextAlign.start,
+              overflow: TextOverflow.ellipsis,
+            ),
       actions: const [
-        FavoritesSummary(),
-        CartSummary(),
-        ProfileWidget(),
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 8.0),
+          child: FavoritesSummary(),
+        ),
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 8.0),
+          child: CartSummary(),
+        ),
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 8.0),
+          child: ProfileWidget(),
+        ),
       ],
     );
   }

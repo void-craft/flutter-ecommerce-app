@@ -3,7 +3,7 @@ import 'package:buy_it_app/bloc/all_products/all_products_event.dart';
 import 'package:buy_it_app/bloc/all_products/all_products_state.dart';
 import 'package:buy_it_app/bloc/favorites/favorites_bloc.dart';
 import 'package:buy_it_app/bloc/favorites/favorites_state.dart';
-import 'package:buy_it_app/widgets/single_product_widget.dart';
+import 'package:buy_it_app/widgets/product/single_product_widget.dart';
 import 'package:buy_it_app/widgets/sort_options_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

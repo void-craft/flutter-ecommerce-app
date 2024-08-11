@@ -1,8 +1,9 @@
-// ignore_for_file: avoid_print
-
+import 'package:buy_it_app/screens/profile/profile_screen.dart';
+import 'package:buy_it_app/widgets/appbar/custom_appbar_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:flutter_signin_button/flutter_signin_button.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -19,20 +20,17 @@ class _LoginScreenState extends State<LoginScreen> {
     try {
       final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
       if (googleUser == null) {
-        // User canceled the sign-in
-        return null;
+        return null; // User canceled the sign-in
       }
 
       final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
-
       final AuthCredential credential = GoogleAuthProvider.credential(
         accessToken: googleAuth.accessToken,
         idToken: googleAuth.idToken,
       );
 
       final UserCredential userCredential = await _auth.signInWithCredential(credential);
-      final User? user = userCredential.user;
-      return user;
+      return userCredential.user;
     } catch (e) {
       print('Error during Google Sign-In: $e');
       return null;
@@ -41,25 +39,28 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return AlertDialog(
-      contentPadding: const EdgeInsets.all(16.0),
-      content: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              foregroundColor: Colors.white,
-              backgroundColor: Colors.green,
-            ),
+    return Scaffold(
+      appBar: const CustomAppBar(
+        title: 'Login',
+        isTitleCentered: true,
+      ),
+      body: Center(
+        child: SizedBox(
+          width: 250,
+          height: 50,
+          child: SignInButton(
+            Buttons.Google,
+            text: "Continue with Google",
             onPressed: () async {
               final User? user = await _signInWithGoogle();
               if (user != null && mounted) {
-                Navigator.of(context).pop(); // Close the dialog
+                Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(builder: (context) => const ProfileScreen()),
+                );
               }
             },
-            child: const Text('Continue with Google'),
           ),
-        ],
+        ),
       ),
     );
   }

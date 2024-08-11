@@ -14,19 +14,12 @@ class ProfileWidget extends StatelessWidget {
         final User? user = FirebaseAuth.instance.currentUser;
 
         if (user != null) {
-          // User is signed in, navigate to the Profile screen
           Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (context) => const ProfileScreen(),
-            ),
+            MaterialPageRoute(builder: (context) => const ProfileScreen()),
           );
         } else {
-          // User is not signed in, show the Login screen
-          showDialog(
-            context: context,
-            builder: (BuildContext context) {
-              return const LoginScreen();
-            },
+          Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => const LoginScreen()),
           );
         }
       },
