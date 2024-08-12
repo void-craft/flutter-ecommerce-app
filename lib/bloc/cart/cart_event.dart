@@ -1,27 +1,59 @@
 import 'package:equatable/equatable.dart';
-import 'package:buy_it_app/model/product/product.dart';
+import 'package:bagit/model/product/product.dart';
 
 abstract class CartEvent extends Equatable {
+  const CartEvent();
+
   @override
-  List<Object?> get props => [];
+  List<Object> get props => [];
 }
 
-class AddProductToCart extends CartEvent {
+class AddToCart extends CartEvent {
   final Product product;
 
-  AddProductToCart(this.product);
+  const AddToCart({required this.product});
 
   @override
-  List<Object?> get props => [product];
+  List<Object> get props => [product];
 }
 
-class RemoveProductFromCart extends CartEvent {
+class RemoveFromCart extends CartEvent {
   final Product product;
 
-  RemoveProductFromCart(this.product);
+  const RemoveFromCart({required this.product});
 
   @override
-  List<Object?> get props => [product];
+  List<Object> get props => [product];
 }
 
-class ClearCart extends CartEvent {}
+class UpdateCart extends CartEvent {
+  final Product product;
+  final int quantity;
+
+  const UpdateCart({required this.product, required this.quantity});
+
+  @override
+  List<Object> get props => [product, quantity];
+}
+
+class IncreaseQuantity extends CartEvent { // Add this event
+  final Product product;
+
+  const IncreaseQuantity({required this.product});
+
+  @override
+  List<Object> get props => [product];
+}
+
+class DecreaseQuantity extends CartEvent { // Add this event
+  final Product product;
+
+  const DecreaseQuantity({required this.product});
+
+  @override
+  List<Object> get props => [product];
+}
+
+class ClearCart extends CartEvent {
+  const ClearCart();
+}

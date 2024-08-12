@@ -1,4 +1,4 @@
-import 'package:buy_it_app/model/product/product.dart';
+import 'package:bagit/model/product/product.dart';
 
 abstract class CartRepository {
   Future<void> saveCart(List<Product> cart);
