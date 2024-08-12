@@ -2,6 +2,7 @@ import 'package:bagit/screens/base/base.dart';
 import 'package:bagit/widgets/appbar/custom_appbar_widget.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -13,6 +14,7 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
   Future<void> _signOutAndNavigate() async {
     await FirebaseAuth.instance.signOut();
+    await GoogleSignIn().signOut();
     if (mounted) {
       _showLogoutDialog();
     }
