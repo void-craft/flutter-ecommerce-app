@@ -1,6 +1,6 @@
-import 'package:buy_it_app/widgets/appbar/cart_summary_widget.dart';
-import 'package:buy_it_app/widgets/appbar/favorite_summary_widget.dart';
-import 'package:buy_it_app/widgets/appbar/profile_widget.dart';
+import 'package:bagit/widgets/appbar/cart_summary_widget.dart';
+import 'package:bagit/widgets/appbar/favorite_summary_widget.dart';
+import 'package:bagit/widgets/appbar/profile_widget.dart';
 import 'package:flutter/material.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {

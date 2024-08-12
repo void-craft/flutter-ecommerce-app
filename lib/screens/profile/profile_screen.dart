@@ -1,5 +1,5 @@
-import 'package:buy_it_app/screens/base/base.dart';
-import 'package:buy_it_app/widgets/appbar/custom_appbar_widget.dart';
+import 'package:bagit/screens/base/base.dart';
+import 'package:bagit/widgets/appbar/custom_appbar_widget.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 

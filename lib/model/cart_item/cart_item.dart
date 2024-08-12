@@ -1,4 +1,4 @@
-import 'package:buy_it_app/model/product/product.dart';
+import 'package:bagit/model/product/product.dart';
 
 class CartItem {
   final Product product;

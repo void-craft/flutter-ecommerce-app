@@ -20,10 +20,6 @@
             "package_name": "com.voidcraft.bagit",
             "certificate_hash": "872599d94aedbda1f3612a41715426b99ce7f0b5"
           }
-        },
-        {
-          "client_id": "367126395524-2ialcvmbt8hsmmrjpbci2djgnkknv3aj.apps.googleusercontent.com",
-          "client_type": 3
         }
       ],
       "api_key": [
@@ -34,10 +30,6 @@
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
-            {
-              "client_id": "367126395524-2ialcvmbt8hsmmrjpbci2djgnkknv3aj.apps.googleusercontent.com",
-              "client_type": 3
-            },
             {
               "client_id": "367126395524-59cg33m0p8i6fnr1k9t5svvr8qhtc3i1.apps.googleusercontent.com",
               "client_type": 2,

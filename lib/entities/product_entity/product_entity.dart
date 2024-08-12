@@ -1,5 +1,5 @@
-import 'package:buy_it_app/entities/rating/rating_entity.dart';
-import 'package:buy_it_app/model/rating/rating.dart';
+import 'package:bagit/entities/rating/rating_entity.dart';
+import 'package:bagit/model/rating/rating.dart';
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 

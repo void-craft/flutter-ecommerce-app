@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:buy_it_app/model/product/product.dart';
+import 'package:bagit/model/product/product.dart';
 
 abstract class CartEvent extends Equatable {
   const CartEvent();

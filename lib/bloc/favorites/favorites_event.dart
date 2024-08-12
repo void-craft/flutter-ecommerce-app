@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:buy_it_app/model/product/product.dart';
+import 'package:bagit/model/product/product.dart';
 
 abstract class FavoritesEvent extends Equatable {
   const FavoritesEvent();
@@ -33,4 +33,10 @@ class MoveToCartEvent extends FavoritesEvent {
 
     @override
   List<Object> get props => [product];
+}
+
+class LoadFavorites extends FavoritesEvent {
+  final List<Product> favoriteItems;
+
+  const LoadFavorites({required this.favoriteItems});
 }

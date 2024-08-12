@@ -1,6 +1,6 @@
-import 'package:buy_it_app/bloc/cart/cart_bloc.dart';
-import 'package:buy_it_app/bloc/cart/cart_state.dart';
-import 'package:buy_it_app/screens/cart/cart_screen.dart';
+import 'package:bagit/bloc/cart/cart_bloc.dart';
+import 'package:bagit/bloc/cart/cart_state.dart';
+import 'package:bagit/screens/cart/cart_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

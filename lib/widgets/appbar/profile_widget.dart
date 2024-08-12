@@ -1,7 +1,7 @@
-import 'package:buy_it_app/screens/profile/profile_screen.dart';
+import 'package:bagit/screens/profile/profile_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:buy_it_app/screens/login/login_screen.dart';
+import 'package:bagit/screens/login/login_screen.dart';
 
 class ProfileWidget extends StatelessWidget {
   const ProfileWidget({super.key});
