@@ -1,15 +1,19 @@
 import 'package:equatable/equatable.dart';
-import 'package:buy_it_app/model/product/product.dart';
+import 'package:bagit/model/product/product.dart';
 
 class CartState extends Equatable {
-  final List<Product> cart;
+  final List<Product> cartItems;
 
-  const CartState({this.cart = const []});
+  const CartState({required this.cartItems});
 
-  CartState copyWith({List<Product>? cart}) {
-    return CartState(cart: cart ?? this.cart);
+  factory CartState.initial() {
+    return const CartState(cartItems: []);
+  }
+
+  CartState copyWith({List<Product>? cartItems}) {
+    return CartState(cartItems: cartItems ?? this.cartItems);
   }
 
   @override
-  List<Object?> get props => [cart];
+  List<Object> get props => [cartItems];
 }

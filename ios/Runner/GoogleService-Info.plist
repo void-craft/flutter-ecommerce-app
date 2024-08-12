@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>367126395524-ms18e90f4qnvfrt1rl5vmd620pvs4sse.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyDnlIm7EUtsFKXSf5CJBXkPAr2MuHPQUZg</string>
+	<key>GCM_SENDER_ID</key>
+	<string>367126395524</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.voidcraft.bagit</string>
+	<key>PROJECT_ID</key>
+	<string>bagit-e-commerce-app</string>
+	<key>STORAGE_BUCKET</key>
+	<string>bagit-e-commerce-app.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:367126395524:ios:751ad52c84a79b8b15a0d1</string>
+</dict>
+</plist>
