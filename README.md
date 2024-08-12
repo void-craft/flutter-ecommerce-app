@@ -1,33 +1,40 @@
-# Flutter E-Commerce App
+# BagIt
 
-**flutter_ecommerce_app** is a Flutter application designed for browsing and purchasing products online. It features a modern and intuitive interface, demonstrating the use of the BLoC pattern for state management and integration with a REST API to fetch product data. The app includes user authentication and various product management functionalities.
+**BagIt** is a feature-rich Flutter application designed for browsing and purchasing products online. It leverages modern technologies including Firebase for authentication and backend services, and Google Cloud Console for cloud functionalities. The app employs the BLoC pattern for efficient state management and offers a seamless user experience with robust features.
 
 ## Features
 
-- **User Authentication**: Register and log in using Google for a seamless user experience.
-- **Product Listing**: View a comprehensive list of products with their images, titles, descriptions, prices, and ratings.
-- **Product Details**: Access detailed information about each product.
-- **Cart Management**: Add items to your cart and view them in a dedicated cart screen.
-- **Favorites**: Save products to your favorites and view them in a separate favorites screen.
-- **Cart and Favorites Interaction**: Move items between your favorites and cart with ease.
-- **State Management**: Leverage the BLoC pattern for efficient state management.
-- **Loading Indicators**: Display progress indicators during data fetching.
-- **Error Handling**: Handle errors gracefully and provide user feedback.
+- **User Authentication**: Register and log in using Google with Firebase authentication.
+- **Product Listing**: View products with images, titles, descriptions, prices, and ratings.
+- **Product Details**: Access detailed information for each product.
+- **Cart Management**: Add items to the cart and manage them in a dedicated screen.
+- **Favorites**: Save products to favorites and manage them separately.
+- **Cart and Favorites Interaction**: Move items between cart and favorites easily.
+- **State Management**: Utilize the BLoC pattern for efficient state management.
+- **Loading Indicators**: Show progress indicators during data fetching.
+- **Error Handling**: Gracefully handle errors and provide user feedback.
+
+## Technology Stack
+
+- **Framework**: Dart and Flutter
+- **State Management**: BLoC pattern
+- **Backend Services**: Firebase
+- **Cloud Services**: Google Cloud Console
 
 ## Getting Started
 
-Follow these steps to set up and run the app on your local machine:
+To set up and run the app locally, follow these steps:
 
 1. **Clone the Repository**
 
     ```bash
-    git clone https://github.com/your-username/flutter_ecommerce_app.git
+    git clone https://github.com/your-username/bagit.git
     ```
 
 2. **Navigate to the Project Directory**
 
     ```bash
-    cd flutter_ecommerce_app
+    cd bagit
     ```
 
 3. **Install Dependencies**
@@ -44,10 +51,10 @@ Follow these steps to set up and run the app on your local machine:
 
 ## Usage
 
-- **Authentication**: Open the app and register or log in using Google.
-- **Product Listing**: Browse the product list to view different products.
-- **Product Details**: Tap on a product to see detailed information.
-- **Cart**: Add items to your cart and view them in the cart screen.
-- **Favorites**: Save items to your favorites and view them in the favorites screen.
+- **Authentication**: Register or log in using Google.
+- **Product Listing**: Browse and explore products.
+- **Product Details**: Tap on products to view detailed information.
+- **Cart**: Add items to your cart and manage them.
+- **Favorites**: Save and manage favorite products.
 - **Move Items**: Easily move items between your favorites and cart.
 
