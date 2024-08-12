@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Flutter E-Commerce App
 
 **flutter_ecommerce_app** is a Flutter application for browsing and purchasing products online. It features a modern and intuitive interface, demonstrating the use of the BLoC pattern for state management and integration with a REST API to fetch product data.
@@ -56,3 +57,6 @@ Follow these steps to set up and run the app on your local machine:
 
 - Thanks to the Flutter community for their support.
 - Special mention to the [YouTube tutorial](https://www.youtube.com/watch?v=OXlUzSplHAo&list=PLXnVF-nf4_uSjBc4nAeo3rwR9Wg1T6y32&index=25) which provided valuable insights during the initial stages of development.
+=======
+# flutter_e-commerce_app
+>>>>>>> origin/main
