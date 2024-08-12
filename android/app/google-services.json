@@ -12,7 +12,16 @@
           "package_name": "com.voidcraft.bagit"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "367126395524-ms18e90f4qnvfrt1rl5vmd620pvs4sse.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.voidcraft.bagit",
+            "certificate_hash": "872599d94aedbda1f3612a41715426b99ce7f0b5"
+          }
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyB-oau8nrkivvwXk4kQ-hR7aVsTh6YmCvo"
@@ -20,7 +29,15 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "367126395524-59cg33m0p8i6fnr1k9t5svvr8qhtc3i1.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.voidcraft.bagit"
+              }
+            }
+          ]
         }
       }
     }

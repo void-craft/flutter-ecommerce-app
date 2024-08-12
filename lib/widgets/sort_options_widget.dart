@@ -1,6 +1,6 @@
-import 'package:buy_it_app/bloc/all_products/all_products_bloc.dart';
-import 'package:buy_it_app/bloc/all_products/all_products_event.dart';
-import 'package:buy_it_app/bloc/all_products/all_products_state.dart';
+import 'package:bagit/bloc/all_products/all_products_bloc.dart';
+import 'package:bagit/bloc/all_products/all_products_event.dart';
+import 'package:bagit/bloc/all_products/all_products_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

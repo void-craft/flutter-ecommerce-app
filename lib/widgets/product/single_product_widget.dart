@@ -1,13 +1,13 @@
-import 'package:buy_it_app/bloc/cart/cart_state.dart';
+import 'package:bagit/bloc/cart/cart_bloc.dart';
+import 'package:bagit/bloc/cart/cart_event.dart';
+import 'package:bagit/bloc/cart/cart_state.dart';
+import 'package:bagit/bloc/favorites/favorites_bloc.dart';
+import 'package:bagit/bloc/favorites/favorites_event.dart';
+import 'package:bagit/model/product/product.dart';
+import 'package:bagit/screens/item_detail/item_detail_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:buy_it_app/bloc/cart/cart_bloc.dart';
-import 'package:buy_it_app/bloc/cart/cart_event.dart';
-import 'package:buy_it_app/bloc/favorites/favorites_bloc.dart';
-import 'package:buy_it_app/bloc/favorites/favorites_event.dart';
-import 'package:buy_it_app/model/product/product.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:buy_it_app/screens/item_detail/item_detail_screen.dart';
 
 class SingleProduct extends StatelessWidget {
   final Product product;
@@ -18,7 +18,7 @@ class SingleProduct extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+      padding: const EdgeInsets.symmetric(horizontal: 1, vertical: 1),
       child: InkWell(
         onTap: () {
           Navigator.push(
@@ -79,8 +79,9 @@ class SingleProduct extends StatelessWidget {
                   ),
                 ],
               ),
-              const SizedBox(height: 10),
+              const SizedBox(height: 1),
               Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
                     '€${product.productPrice.toString()}',
@@ -89,11 +90,6 @@ class SingleProduct extends StatelessWidget {
                       color: Colors.black,
                     ),
                   ),
-                ],
-              ),
-              const SizedBox(height: 10),
-              Row(
-                children: [
                   IconButton(
                     icon: Icon(
                       isFavorite ? Icons.favorite : Icons.favorite_border,
@@ -108,7 +104,10 @@ class SingleProduct extends StatelessWidget {
                       }
                     },
                   ),
-                  const SizedBox(width: 10),
+                ],
+              ),
+              Row(
+                children: [
                   IconButton(
                     icon: const Icon(
                       Icons.remove_circle_outline,
@@ -119,7 +118,7 @@ class SingleProduct extends StatelessWidget {
                     },
                   ),
                   Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                    padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 2),
                     decoration: BoxDecoration(
                       border: Border.all(color: Colors.grey.withOpacity(0.5)),
                       borderRadius: BorderRadius.circular(5),

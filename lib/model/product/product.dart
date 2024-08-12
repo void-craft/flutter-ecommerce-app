@@ -1,5 +1,5 @@
-import 'package:buy_it_app/entities/product_entity/product_entity.dart';
-import 'package:buy_it_app/model/rating/rating.dart';
+import 'package:bagit/entities/product_entity/product_entity.dart';
+import 'package:bagit/model/rating/rating.dart';
 import 'package:equatable/equatable.dart';
 
 class Product extends Equatable {

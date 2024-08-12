@@ -1,7 +1,7 @@
-import 'package:buy_it_app/model/product/product.dart';
+import 'package:bagit/model/product/product.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:buy_it_app/bloc/cart/cart_event.dart';
-import 'package:buy_it_app/bloc/cart/cart_state.dart';
+import 'package:bagit/bloc/cart/cart_event.dart';
+import 'package:bagit/bloc/cart/cart_state.dart';
 
 class CartBloc extends Bloc<CartEvent, CartState> {
   CartBloc() : super(CartState.initial()) {

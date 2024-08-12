@@ -47,5 +47,18 @@
     <true/>
     <key>com.apple.security.network.client</key>
     <true/>
+    <key>CFBundleURLTypes</key>
+    <array>
+        <dict>
+            <key>CFBundleTypeRole</key>
+            <string>Editor</string>
+            <key>CFBundleURLName</key>
+            <string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+            <key>CFBundleURLSchemes</key>
+            <array>
+                <string>367126395524-ms18e90f4qnvfrt1rl5vmd620pvs4sse</string>
+            </array>
+        </dict>
+    </array>
 </dict>
 </plist>

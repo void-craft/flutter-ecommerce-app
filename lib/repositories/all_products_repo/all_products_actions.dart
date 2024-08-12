@@ -1,9 +1,9 @@
 // ignore_for_file: avoid_print
 
 import 'dart:convert';
-import 'package:buy_it_app/entities/product_entity/product_entity.dart';
-import 'package:buy_it_app/model/product/product.dart';
-import 'package:buy_it_app/repositories/all_products_repo/all_products_repository.dart';
+import 'package:bagit/entities/product_entity/product_entity.dart';
+import 'package:bagit/model/product/product.dart';
+import 'package:bagit/repositories/all_products_repo/all_products_repository.dart';
 import 'package:http/http.dart' as http;
 
 class AllProductsActions extends AllProductsRepository {

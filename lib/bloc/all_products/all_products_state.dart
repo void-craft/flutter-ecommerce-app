@@ -1,11 +1,11 @@
-import 'package:buy_it_app/model/product/product.dart';
+import 'package:bagit/model/product/product.dart';
 import 'package:equatable/equatable.dart';
 
 class AllProductsState extends Equatable {
   final List<Product> allProducts;
   final bool loading;
-  final bool? sortByPrice; // true for low-to-high, false for high-to-low
-  final bool? sortByRating; // true for low-to-high, false for high-to-low
+  final bool? sortByPrice;
+  final bool? sortByRating;
 
   const AllProductsState({
     this.allProducts = const [],

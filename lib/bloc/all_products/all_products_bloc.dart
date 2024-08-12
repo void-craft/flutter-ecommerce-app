@@ -1,7 +1,7 @@
-import 'package:buy_it_app/bloc/all_products/all_products_event.dart';
-import 'package:buy_it_app/bloc/all_products/all_products_state.dart';
-import 'package:buy_it_app/model/product/product.dart';
-import 'package:buy_it_app/repositories/all_products_repo/all_products_actions.dart';
+import 'package:bagit/bloc/all_products/all_products_event.dart';
+import 'package:bagit/bloc/all_products/all_products_state.dart';
+import 'package:bagit/model/product/product.dart';
+import 'package:bagit/repositories/all_products_repo/all_products_actions.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AllProductsBloc extends Bloc<AllProductsEvent, AllProductsState> {

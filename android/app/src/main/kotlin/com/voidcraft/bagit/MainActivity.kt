@@ -1,4 +1,4 @@
-package com.example.buy_it_app
+package com.voidcraft.bagit
 
 import io.flutter.embedding.android.FlutterActivity
 

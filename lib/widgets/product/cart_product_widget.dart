@@ -1,18 +1,26 @@
-import 'package:buy_it_app/screens/item_detail/item_detail_screen.dart';
+import 'package:bagit/bloc/cart/cart_bloc.dart';
+import 'package:bagit/bloc/cart/cart_event.dart';
+import 'package:bagit/bloc/cart/cart_state.dart';
+import 'package:bagit/bloc/favorites/favorites_bloc.dart';
+import 'package:bagit/bloc/favorites/favorites_event.dart';
+import 'package:bagit/bloc/favorites/favorites_state.dart';
+import 'package:bagit/model/product/product.dart';
+import 'package:bagit/screens/item_detail/item_detail_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:buy_it_app/bloc/favorites/favorites_bloc.dart';
-import 'package:buy_it_app/bloc/favorites/favorites_event.dart';
-import 'package:buy_it_app/bloc/favorites/favorites_state.dart';
-import 'package:buy_it_app/bloc/cart/cart_bloc.dart';
-import 'package:buy_it_app/bloc/cart/cart_state.dart';
-import 'package:buy_it_app/model/product/product.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
-class FavoriteProduct extends StatelessWidget {
+class CartProductWidget extends StatelessWidget {
   final Product product;
+  final bool isSelected;
+  final Function(bool?)? onSelect;
 
-  const FavoriteProduct({super.key, required this.product});
+  const CartProductWidget({
+    super.key,
+    required this.product,
+    required this.isSelected,
+    required this.onSelect,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -34,19 +42,21 @@ class FavoriteProduct extends StatelessWidget {
           ),
           child: Row(
             children: [
-              // Fixed-size image container
+              Checkbox(
+                value: isSelected,
+                onChanged: onSelect,
+              ),
               Container(
-                width: 100, // Fixed width for image container
-                height: 100, // Fixed height for image container
+                width: 100,
+                height: 100,
                 padding: const EdgeInsets.all(8.0),
                 child: Center(
                   child: Image.network(
                     product.productImage,
-                    fit: BoxFit.contain, // Ensures the whole image is visible
+                    fit: BoxFit.contain,
                   ),
                 ),
               ),
-              // Content
               Expanded(
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -78,7 +88,7 @@ class FavoriteProduct extends StatelessWidget {
                               color: Colors.amber,
                             ),
                             onRatingUpdate: (rating) {},
-                            ignoreGestures: true, // To make it read-only
+                            ignoreGestures: true,
                           ),
                           const SizedBox(width: 4),
                           Text(
@@ -99,68 +109,82 @@ class FavoriteProduct extends StatelessWidget {
                               color: Colors.black,
                             ),
                           ),
-                          const SizedBox(width: 8),
-                          BlocBuilder<FavoritesBloc, FavoritesState>(
-                            builder: (context, favoritesState) {
-                              final isFavorite = favoritesState.favoriteItems.any(
-                                (item) => item.productId == product.productId,
+                          const Spacer(),
+                          IconButton(
+                            icon: const Icon(Icons.remove_circle_outline, color: Colors.lightBlue),
+                            onPressed: () {
+                              BlocProvider.of<CartBloc>(context).add(
+                                DecreaseQuantity(product: product),
                               );
-                              return IconButton(
-                                icon: Icon(
-                                  isFavorite ? Icons.favorite : Icons.favorite_border,
-                                  color: isFavorite ? Colors.purple : Colors.grey,
-                                ),
-                                onPressed: () {
-                                  if (isFavorite) {
-                                    BlocProvider.of<FavoritesBloc>(context).add(
-                                      RemoveFromFavorites(product: product),
-                                    );
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      SnackBar(content: Text('${product.productTitle} removed from favorites')),
-                                    );
-                                  } else {
-                                    BlocProvider.of<FavoritesBloc>(context).add(
-                                      AddToFavorites(product: product),
-                                    );
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      SnackBar(content: Text('${product.productTitle} added to favorites')),
-                                    );
-                                  }
-                                },
+                            },
+                          ),
+                          BlocBuilder<CartBloc, CartState>(
+                            builder: (context, cartState) {
+                              final quantity = cartState.cartItems
+                                  .firstWhere((item) => item.productId == product.productId, orElse: () => product.copyWith(quantity: 0))
+                                  .quantity;
+                              return Text(
+                                '$quantity',
+                                style: Theme.of(context).textTheme.titleLarge,
+                              );
+                            },
+                          ),
+                          IconButton(
+                            icon: const Icon(Icons.add_circle_outline, color: Colors.green),
+                            onPressed: () {
+                              BlocProvider.of<CartBloc>(context).add(
+                                IncreaseQuantity(product: product),
                               );
                             },
                           ),
                         ],
                       ),
                       const SizedBox(height: 8),
-                      // Conditionally display "Move To Cart" button
-                      BlocBuilder<CartBloc, CartState>(
-                        builder: (context, cartState) {
-                          final isInCart = cartState.cartItems.any(
+                      BlocBuilder<FavoritesBloc, FavoritesState>(
+                        builder: (context, favoritesState) {
+                          final isFavorite = favoritesState.favoriteItems.any(
                             (item) => item.productId == product.productId,
                           );
-
                           return Visibility(
-                            visible: !isInCart, // Show button only if not in cart
+                            visible: !isFavorite,
                             child: ElevatedButton(
                               style: ElevatedButton.styleFrom(
                                 foregroundColor: Colors.white,
-                                backgroundColor: Colors.green, // Button color
+                                backgroundColor: Colors.purple,
                                 padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(5),
                                 ),
                               ),
                               onPressed: () {
-                                BlocProvider.of<FavoritesBloc>(context).add(MoveToCartEvent(product: product));
+                                BlocProvider.of<FavoritesBloc>(context).add(
+                                  AddToFavorites(product: product),
+                                );
+                                BlocProvider.of<CartBloc>(context).add(
+                                  RemoveFromCart(product: product),
+                                );
                                 ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(content: Text('${product.productTitle} moved to cart')),
+                                  SnackBar(content: Text('${product.productTitle} moved to favorites')),
                                 );
                               },
-                              child: const Text("Move To Cart"),
+                              child: const Text("Move To Favorites"),
                             ),
                           );
                         },
+                      ),
+                      const SizedBox(height: 8),
+                      TextButton(
+                        onPressed: () {
+                          BlocProvider.of<CartBloc>(context).add(
+                            RemoveFromCart(product: product),
+                          );
+                        },
+                        child: const Text(
+                          "Remove Item",
+                          style: TextStyle(
+                            color: Colors.red,
+                          ),
+                        ),
                       ),
                     ],
                   ),
