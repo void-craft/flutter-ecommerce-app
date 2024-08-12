@@ -10,14 +10,6 @@
 - **Loading Indicators**: Display progress indicators during data fetching.
 - **Error Handling**: Handle errors gracefully and provide user feedback.
 
-## Tech Stack
-
-- **Flutter**: UI toolkit for building natively compiled applications for mobile, web, and desktop from a single codebase.
-- **BLoC**: A pattern for managing state and business logic in Flutter applications.
-- **HTTP**: For making network requests to fetch product data.
-- **Equatable**: For value comparison in state management.
-- **JSON Serializable**: For serializing and deserializing JSON data.
-
 ## Getting Started
 
 Follow these steps to set up and run the app on your local machine:
