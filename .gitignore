@@ -49,13 +49,14 @@ android/app/google-services.json
 ios\Runner\GoogleService-Info.plist
 firebase.json
 lib\firebase_options.dart
+android\app\src\main\AndroidManifest.xml
 
 # Key store files
 *.keystore
 
 # Environment variables and sensitive files
 *.env
-
+.env
 # User-specific files
 *.tmp
 *.bak

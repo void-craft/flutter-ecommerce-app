@@ -1,3 +1,85 @@
+// ignore_for_file: avoid_print
+
+import 'package:flutter/material.dart';
+import 'package:mapbox_search/mapbox_search.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+
+class AddressEntryScreen extends StatefulWidget {
+  const AddressEntryScreen({super.key});
+
+  @override
+  _AddressEntryScreenState createState() => _AddressEntryScreenState();
+}
+
+class _AddressEntryScreenState extends State<AddressEntryScreen> {
+  final TextEditingController _addressController = TextEditingController();
+  List<MapBoxPlace> _suggestions = [];
+
+  Future<void> _onSearchChanged(String query) async {
+    if (query.isNotEmpty) {
+      final geoCoding = GeoCoding(apiKey: dotenv.env['MAPBOX_API_KEY'] ?? 'your_mapbox_access_token');
+      
+      final ApiResponse<List<MapBoxPlace>> response = await geoCoding.getPlaces(
+        query,
+      );
+      
+      response.fold(
+        (success) {
+          setState(() {
+            _suggestions = success;
+          });
+        },
+        (failure) {
+          // Handle failure
+          print('Error: ${failure.message}');
+        },
+      );
+    } else {
+      setState(() {
+        _suggestions = [];
+      });
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('Enter Address')),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          children: [
+            TextField(
+              controller: _addressController,
+              decoration: const InputDecoration(labelText: 'Address'),
+              onChanged: _onSearchChanged,
+            ),
+            Expanded(
+              child: ListView.builder(
+                itemCount: _suggestions.length,
+                itemBuilder: (context, index) {
+                  final place = _suggestions[index];
+                  return ListTile(
+                    title: Text(place.placeName ?? ''),
+                    onTap: () {
+                      _addressController.text = place.placeName!;
+                      setState(() {
+                        _suggestions = [];
+                      });
+                    },
+                  );
+                },
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+
+
 // import 'package:bagit/screens/payment/payment_screen.dart';
 // import 'package:flutter/material.dart';
 // import 'package:bagit/widgets/appbar/custom_appbar_widget.dart';

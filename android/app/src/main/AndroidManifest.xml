@@ -33,6 +33,16 @@
             android:exported="true"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"
             tools:replace="android:exported" />
+            
+        <activity
+            android:name="com.mapbox.maps.MapboxMapActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:configChanges="orientation|screenSize">
+        </activity>
+
+        <meta-data
+            android:name="com.mapbox.token"
+            android:value="pk.eyJ1Ijoidm9pZGNyYWZ0IiwiYSI6ImNsenJwaGVwZzF3NWkyanM4eTg2NmE0MGoifQ.0sNN8GcsSsG0uFCE5-mZMQ"/>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
@@ -48,6 +58,8 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.USE_CREDENTIALS" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <!-- Required to query activities that can process text -->
     <queries>
