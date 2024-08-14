@@ -2,6 +2,7 @@ import 'package:bagit/screens/base/base.dart';
 import 'package:bagit/widgets/appbar/custom_appbar_widget.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -12,7 +13,10 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen> {
   Future<void> _signOutAndNavigate() async {
+    final GoogleSignIn googleSignIn = GoogleSignIn();
+    await googleSignIn.signOut();
     await FirebaseAuth.instance.signOut();
+
     if (mounted) {
       _showLogoutDialog();
     }
@@ -57,8 +61,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             _buildUserInfoCard(user, padding),
-            SizedBox(height: padding),
-            _buildOrderHistoryCard(padding),
+            // SizedBox(height: padding),
+            // _buildOrderHistoryCard(padding),
             SizedBox(height: padding),
             _buildAddressBookCard(padding),
             SizedBox(height: padding),
@@ -87,34 +91,34 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
-  Widget _buildOrderHistoryCard(double padding) {
-    return Card(
-      child: Padding(
-        padding: EdgeInsets.all(padding),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _buildSectionTitle('Order History', padding),
-            ListView.builder(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              itemCount: 5,
-              itemBuilder: (context, index) {
-                return ListTile(
-                  title: Text('Order #${index + 1}'),
-                  subtitle: const Text('Status: Delivered'),
-                  trailing: TextButton(
-                    child: const Text('View Details'),
-                    onPressed: () {},
-                  ),
-                );
-              },
-            ),
-          ],
-        ),
-      ),
-    );
-  }
+  // Widget _buildOrderHistoryCard(double padding) {
+  //   return Card(
+  //     child: Padding(
+  //       padding: EdgeInsets.all(padding),
+  //       child: Column(
+  //         crossAxisAlignment: CrossAxisAlignment.start,
+  //         children: [
+  //           _buildSectionTitle('Order History', padding),
+  //           ListView.builder(
+  //             shrinkWrap: true,
+  //             physics: const NeverScrollableScrollPhysics(),
+  //             itemCount: 5,
+  //             itemBuilder: (context, index) {
+  //               return ListTile(
+  //                 title: Text('Order #${index + 1}'),
+  //                 subtitle: const Text('Status: Delivered'),
+  //                 trailing: TextButton(
+  //                   child: const Text('View Details'),
+  //                   onPressed: () {},
+  //                 ),
+  //               );
+  //             },
+  //           ),
+  //         ],
+  //       ),
+  //     ),
+  //   );
+  // }
 
   Widget _buildAddressBookCard(double padding) {
     return Card(
