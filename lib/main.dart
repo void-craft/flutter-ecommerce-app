@@ -1,4 +1,5 @@
 import 'package:bagit/screens/base/base.dart';
+import 'package:bagit/utils/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
@@ -14,9 +15,12 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
+      themeMode: ThemeMode.system,
+      theme: CustomAppTheme.lightTheme,
+      darkTheme: CustomAppTheme.darkTheme,
       title: 'BagIt',
-      home: BaseApp(),
+      home: const BaseApp(),
     );
   }
 }
