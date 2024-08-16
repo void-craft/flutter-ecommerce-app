@@ -22,6 +22,13 @@ dependencies:
   google_sign_in: ^6.2.1
   flutter_signin_button: ^2.0.0
   cloud_firestore: ^4.14.0
+  intl: ^0.19.0
+  logger: ^2.4.0
+  url_launcher: ^6.3.0
+  iconsax: ^0.0.8
+  get: ^4.6.6
+  get_storage: ^2.1.1
+  flutter_native_splash: ^2.4.1
 
 dev_dependencies:
   flutter_test:
@@ -32,5 +39,3 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
-  assets:
-    - assets/logo.png

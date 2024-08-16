@@ -43,7 +43,7 @@ pubspec.lock
 macos/Flutter/GeneratedPluginRegistrant.swift
 windows/flutter/generated_plugin_registrant.cc
 windows/flutter/generated_plugins.cmake
-
+lib\utils\constants\api_constants.dart
 # Firebase and Google services files
 android/app/google-services.json
 ios\Runner\GoogleService-Info.plist
