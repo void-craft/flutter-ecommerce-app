@@ -29,6 +29,7 @@ dependencies:
   get: ^4.6.6
   get_storage: ^2.1.1
   flutter_native_splash: ^2.4.1
+  smooth_page_indicator: ^1.2.0+3
 
 dev_dependencies:
   flutter_test:
@@ -39,3 +40,6 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  assets:
+    - assets/images/logo/
+    - assets/images/onboarding/
