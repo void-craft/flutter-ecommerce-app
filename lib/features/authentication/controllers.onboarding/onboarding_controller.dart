@@ -1,41 +1,37 @@
+import 'package:bagit/screens/login/login_screen.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class Controller extends GetxController {
-  static Controller get instance => Get.find();
+class OnboardingController extends GetxController {
+  static OnboardingController get instance => Get.find();
 
-  var currentIndex = 0.obs; // Observable to track the current index
+  // Variables
+  final pageController = PageController();
+  Rx<int> currentPageIndex = 0.obs;
 
-  // Method to update the current index when a page scrolls
-  void onPageChanged(int index) {
-    currentIndex.value = index;
+  // Update current index when page scrolls
+  void updatePageIndicator(index) => currentPageIndex.value = index;
+
+  // Jump to the specific dot selected page
+  void dotNavigationClick(index) {
+    currentPageIndex.value = index;
+    pageController.jumpTo(index);
   }
 
-  // Method to handle page navigation via dots (like in a PageIndicator)
-  void onDotClicked(int index) {
-    currentIndex.value = index;
-    jumpToPage(index);
-  }
-
-  // Method to jump to the next page
+  // Update current index & jump to the last page
   void nextPage() {
-    if (currentIndex.value < totalPageCount - 1) {
-      currentIndex.value++;
-      jumpToPage(currentIndex.value);
+    if(currentPageIndex.value == 2) {
+      Get.to(const LoginScreen());
+    } else {
+      int page = currentPageIndex.value + 1;
+      pageController.jumpToPage(page);
     }
   }
 
-  // Method to jump to the last page
-  void lastPage() {
-    currentIndex.value = totalPageCount - 1;
-    jumpToPage(currentIndex.value);
+  // Update current index & jump to the last page
+  void skipPage() {
+    currentPageIndex.value = 2;
+    // pageController.jumpToPage(2)
+    Get.to(const LoginScreen());
   }
-
-  // Method to jump to a specific page
-  void jumpToPage(int page) {
-    // Add your page controller logic here
-    // Example: pageController.jumpToPage(page);
-  }
-
-  // Define total page count
-  int get totalPageCount => 5; // Update this to your actual page count
 }

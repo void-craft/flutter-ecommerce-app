@@ -1,4 +1,4 @@
-import 'package:bagit/features/authentication/screens/onboarding.dart';
+import 'package:bagit/features/authentication/screens/onboarding/onboarding.dart';
 import 'package:bagit/utils/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/get_navigation.dart';
