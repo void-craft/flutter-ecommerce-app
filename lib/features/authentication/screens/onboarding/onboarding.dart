@@ -6,7 +6,7 @@ import 'package:bagit/utils/constants/image_strings.dart';
 import 'package:bagit/utils/constants/text_strings.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:bagit/features/authentication/controllers.onboarding/onboarding_controller.dart';
+import 'package:bagit/features/authentication/controllers/onboarding_controller.dart';
 
 class OnBoardingScreen extends StatelessWidget {
   const OnBoardingScreen({super.key});

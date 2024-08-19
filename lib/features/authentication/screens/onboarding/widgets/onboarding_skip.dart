@@ -1,4 +1,4 @@
-import 'package:bagit/features/authentication/controllers.onboarding/onboarding_controller.dart';
+import 'package:bagit/features/authentication/controllers/onboarding_controller.dart';
 import 'package:bagit/utils/constants/sizes.dart';
 import 'package:bagit/utils/device/device_utility.dart';
 import 'package:flutter/material.dart';
