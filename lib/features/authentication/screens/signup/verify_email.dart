@@ -1,0 +1,75 @@
+import 'package:bagit/common/widgets/success_scren/success_screen.dart';
+import 'package:bagit/features/authentication/screens/login/login.dart';
+import 'package:bagit/utils/constants/image_strings.dart';
+import 'package:bagit/utils/constants/sizes.dart';
+import 'package:bagit/utils/constants/text_strings.dart';
+import 'package:bagit/utils/helpers/helper_functions.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+class VerifyEmailScreen extends StatelessWidget {
+  const VerifyEmailScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        actions: [
+          IconButton(
+              onPressed: () => Get.offAll(() => const LoginScreen()),
+              icon: const Icon(CupertinoIcons.clear))
+        ],
+      ),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(CustomSizes.defaultSpace),
+          child: Column(
+            children: [
+              /// Image
+              Image(
+                image:
+                    const AssetImage(CustomImages.deliveredEmailIllustration),
+                width: CustomHelperFunctions.screenWidth() * 0.6,
+              ),
+              const SizedBox(height: CustomSizes.spaceBtwItems),
+
+              /// Title & Subtitle
+              Text(CustomTexts.confirmEmail,
+                  style: Theme.of(context).textTheme.headlineMedium,
+                  textAlign: TextAlign.center),
+              const SizedBox(height: CustomSizes.spaceBtwItems),
+              Text('support@voidcraft.com',
+                  style: Theme.of(context).textTheme.labelLarge,
+                  textAlign: TextAlign.center),
+              const SizedBox(height: CustomSizes.spaceBtwItems),
+              Text(CustomTexts.confirmEmailSubtitle,
+                  style: Theme.of(context).textTheme.bodySmall,
+                  textAlign: TextAlign.center),
+              const SizedBox(height: CustomSizes.spaceBtwItems),
+
+              /// Buttons
+              SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                      onPressed: () => Get.to(() => SuccessScreen(
+                            image: CustomImages.staticSuccessIllustration,
+                            title: CustomTexts.yourAccountCreatedTitle,
+                            subtitle: CustomTexts.yourAccountCreatedSubtitle,
+                            onPressed: () => Get.to(() => const LoginScreen()),
+                          )),
+                      child: const Text(CustomTexts.customContinue))),
+              const SizedBox(height: CustomSizes.spaceBtwItems),
+              SizedBox(
+                  width: double.infinity,
+                  child: TextButton(
+                      onPressed: () {},
+                      child: const Text(CustomTexts.resendEmail))),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
