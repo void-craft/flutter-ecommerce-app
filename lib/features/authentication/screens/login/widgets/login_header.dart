@@ -14,7 +14,7 @@ class CustomLoginHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     final dark = CustomHelperFunctions.isDarkMode(context);
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Image(
             height: 150,
