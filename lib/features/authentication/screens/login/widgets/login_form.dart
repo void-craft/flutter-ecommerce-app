@@ -1,5 +1,6 @@
 import 'package:bagit/features/authentication/screens/password/forgot_password.dart';
 import 'package:bagit/features/authentication/screens/signup/signup.dart';
+import 'package:bagit/navigation_menu.dart';
 import 'package:bagit/utils/constants/sizes.dart';
 import 'package:bagit/utils/constants/text_strings.dart';
 import 'package:flutter/material.dart';
@@ -55,7 +56,7 @@ class CustomLoginForm extends StatelessWidget {
           SizedBox(
               width: double.infinity,
               child: ElevatedButton(
-                  onPressed: () {}, child: const Text(CustomTexts.signIn))),
+                  onPressed: () => Get.to(() => const NavigationMenu()), child: const Text(CustomTexts.signIn))),
           const SizedBox(height: CustomSizes.spaceBtwItems),
 
           /// Create account button
