@@ -1,3 +1,4 @@
+import 'package:bagit/features/authentication/screens/password/forgot_password.dart';
 import 'package:bagit/features/authentication/screens/signup/signup.dart';
 import 'package:bagit/utils/constants/sizes.dart';
 import 'package:bagit/utils/constants/text_strings.dart';
@@ -46,7 +47,7 @@ class CustomLoginForm extends StatelessWidget {
 
             // Forgot password
             TextButton(
-                onPressed: () {}, child: const Text(CustomTexts.forgotPassword))
+                onPressed: () => Get.to(() => const ForgotPassword()), child: const Text(CustomTexts.forgotPassword))
           ]),
           const SizedBox(height: CustomSizes.spaceBtwSections),
 

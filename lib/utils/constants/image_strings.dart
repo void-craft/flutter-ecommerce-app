@@ -14,7 +14,7 @@ static const String onboardingImage2 = "assets/images/onboarding/shopping.gif";
 static const String onboardingImage3 = "assets/images/onboarding/delivery.gif";
 
 // -- Other Images
-static const String deliveredEmailIllustration = "assets/images/other/email.gif";
+static const String deliveredEmailIllustration = "assets/images/other/delivered.gif";
 static const String staticSuccessIllustration = "assets/images/other/success.gif";
 
 }
