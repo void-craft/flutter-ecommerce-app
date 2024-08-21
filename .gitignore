@@ -66,3 +66,6 @@ macos/Flutter/ephemeral/Flutter-Generated.xcconfig
 .gitignore
 windows/flutter/generated_plugin_registrant.cc
 windows/flutter/generated_plugins.cmake
+
+# Old code
+lib\z_old_items
