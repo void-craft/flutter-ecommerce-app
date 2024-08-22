@@ -1,5 +1,10 @@
 import 'package:bagit/common/widgets/custom_shapes/containers/primary_header_container.dart';
+import 'package:bagit/common/widgets/custom_shapes/containers/search_container.dart';
+import 'package:bagit/common/widgets/texts/section_heading.dart';
+import 'package:bagit/features/shop/screens/home/wigets/home_categories.dart';
 import 'package:bagit/features/shop/screens/home/wigets/theme_home_appbar.dart';
+import 'package:bagit/utils/constants/colors.dart';
+import 'package:bagit/utils/constants/sizes.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -11,7 +16,28 @@ class HomeScreen extends StatelessWidget {
         body: SingleChildScrollView(
             child: Column(children: [
       // Header
-      CustomPrimaryHeaderContainer(child: ThemeHomeAppBar())
-    ])));
+      CustomPrimaryHeaderContainer(
+          child: Column(children: [
+        // -- Appbar
+        ThemeHomeAppBar(),
+        SizedBox(height: CustomSizes.spaceBtwSections),
+        // -- Container
+        CustomSearchContainer(text: 'Search in Store'),
+        SizedBox(height: CustomSizes.spaceBtwSections),
+        // -- Categories Heading
+        Padding(
+            padding: EdgeInsets.only(left: CustomSizes.defaultSpace),
+            child: Column(children: [
+              // -- Heading
+              CustomSectionHeading(
+                  title: 'Popular Categories', showActionButton: false, textColor: CustomColors.white),
+              SizedBox(height: CustomSizes.spaceBtwItems),
+
+              // -- Categories
+              HomeCategories()
+            ]))
+      ]))
+    ]))
+    );
   }
 }

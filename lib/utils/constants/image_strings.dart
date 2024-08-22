@@ -17,4 +17,14 @@ static const String onboardingImage3 = "assets/images/onboarding/delivery.gif";
 static const String deliveredEmailIllustration = "assets/images/other/delivered.gif";
 static const String staticSuccessIllustration = "assets/images/other/success.gif";
 
+// -- Category Icons
+static const String sportIcon = "assets/icons/categories/sports.png";
+static const String clothIcon = "assets/icons/categories/clothes.png";
+static const String shoeIcon = "assets/icons/categories/shoes.png";
+static const String cosmeticIcon = "assets/icons/categories/cosmetics.png";
+static const String toyIcon = "assets/icons/categories/toys.png";
+static const String furnitureIcon = "assets/icons/categories/furniture.png";
+static const String jewelryIcon = "assets/icons/categories/jewelry.png";
+static const String elctronicsIcon = "assets/icons/categories/electronics.png";
+
 }

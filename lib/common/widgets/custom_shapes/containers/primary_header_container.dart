@@ -1,4 +1,3 @@
-import 'package:bagit/common/widgets/appbar/custom_appbar.dart';
 import 'package:bagit/common/widgets/custom_shapes/containers/circular_container.dart';
 import 'package:bagit/common/widgets/custom_shapes/curved_edges/curved_edges_widget.dart';
 import 'package:bagit/utils/constants/colors.dart';
