@@ -27,4 +27,8 @@ static const String furnitureIcon = "assets/icons/categories/furniture.png";
 static const String jewelryIcon = "assets/icons/categories/jewelry.png";
 static const String elctronicsIcon = "assets/icons/categories/electronics.png";
 
+// -- Banners
+static const String promoBanner1 = "assets/images/banners/one.png";
+static const String promoBanner2 = "assets/images/banners/two.png";
+static const String promoBanner3 = "assets/images/banners/three.png";
 }

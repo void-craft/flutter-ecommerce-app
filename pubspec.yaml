@@ -30,6 +30,7 @@ dependencies:
   get_storage: ^2.1.1
   flutter_native_splash: ^2.4.1
   smooth_page_indicator: ^1.2.0+3
+  carousel_slider: ^5.0.0
 
 dev_dependencies:
   flutter_test:
@@ -45,3 +46,4 @@ flutter:
     - assets/images/onboarding/
     - assets/images/other/
     - assets/icons/categories/
+    - assets/images/banners/
