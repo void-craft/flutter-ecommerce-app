@@ -31,4 +31,15 @@ static const String elctronicsIcon = "assets/icons/categories/electronics.png";
 static const String promoBanner1 = "assets/images/banners/one.png";
 static const String promoBanner2 = "assets/images/banners/two.png";
 static const String promoBanner3 = "assets/images/banners/three.png";
+
+// -- Products
+static const String productImage1 = "assets/images/products/prod1.jpg";
+static const String productImage2 = "assets/images/products/prod2.jpg";
+static const String productImage3 = "assets/images/products/prod3.jpg";
+static const String productImage4 = "assets/images/products/prod4.jpg";
+static const String productImage5 = "assets/images/products/prod5.jpg";
+static const String productImage6 = "assets/images/products/prod6.jpg";
+static const String productImage7 = "assets/images/products/prod7.jpg";
+static const String productImage8 = "assets/images/products/prod8.jpg";
+static const String productImage9 = "assets/images/products/prod9.jpg";
 }

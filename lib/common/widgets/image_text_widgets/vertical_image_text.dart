@@ -5,7 +5,12 @@ import 'package:flutter/material.dart';
 
 class CustomVerticalImageText extends StatelessWidget {
   const CustomVerticalImageText({
-    super.key, required this.image, required this.title, this.textColor = CustomColors.white, this.backgroundColor = CustomColors.white, this.onTap,
+    super.key,
+    required this.image,
+    required this.title,
+    this.textColor = CustomColors.white,
+    this.onTap,
+    this.backgroundColor,
   });
 
   final String image, title;
@@ -29,24 +34,31 @@ class CustomVerticalImageText extends StatelessWidget {
               height: 56,
               padding: const EdgeInsets.all(CustomSizes.sm),
               decoration: BoxDecoration(
-                  color: backgroundColor ?? (dark ? CustomColors.black : CustomColors.white),
-                  borderRadius: BorderRadius.circular(100)
-              ),
+                  color: backgroundColor ??
+                      (dark ? CustomColors.dark : CustomColors.light),
+                  borderRadius: BorderRadius.circular(100)),
               child: Center(
-                child: Image(image: AssetImage(image), fit: BoxFit.cover, color: dark ? CustomColors.dark : CustomColors.light),
+                child: Image(
+                    image: AssetImage(image),
+                    fit: BoxFit.cover,
+                    color: dark ? CustomColors.light : CustomColors.dark),
               ),
             ),
-            
+
             // -- Text
             const SizedBox(height: CustomSizes.spaceBtwItems / 2),
-            SizedBox(width: 55, child: Text(
-              title,
-              style: Theme.of(context).textTheme.labelMedium!.apply(color: textColor),
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis))
-            ],
-          ),
+            SizedBox(
+                width: 55,
+                child: Text(title,
+                    style: Theme.of(context)
+                        .textTheme
+                        .labelMedium!
+                        .apply(color: textColor),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis))
+          ],
         ),
+      ),
     );
-    }
+  }
 }
