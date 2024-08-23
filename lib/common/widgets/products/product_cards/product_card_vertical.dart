@@ -28,7 +28,7 @@ class CustomProductCardVertical extends StatelessWidget {
               boxShadow: [CustomShadowStyle.verticalProductShadow],
               borderRadius:
                   BorderRadius.circular(CustomSizes.productImageRadius),
-              color: dark ? CustomColors.dark : CustomColors.white,
+              color: dark ? CustomColors.darkerGrey : CustomColors.softGrey,
             ),
             child: Column(children: [
               // - Thumbnail, wishlist button, discount tag
@@ -47,7 +47,6 @@ class CustomProductCardVertical extends StatelessWidget {
                     // - On sale tag
                     Positioned(
                       top: 10,
-                      left: 10,
                       child: CustomRoundedContainer(
                         radius: CustomSizes.sm,
                         backgroundColor:
@@ -95,21 +94,22 @@ class CustomProductCardVertical extends StatelessWidget {
                             size: CustomSizes.iconxs)
                       ],
                     ),
+                  ],
+                ),
+              ),
+              const Spacer(),
                     const Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         // -- Price
-                        CustomProductPrice(price: '14.99'),
-                        // -- Add to cart button
                         Padding(
-                          padding: EdgeInsets.only(right: 8.0),
-                          child: CustomAddToCart(),
-                        )
+                          padding: EdgeInsets.only(left: CustomSizes.sm),
+                          child: CustomProductPrice(price: '14.99'),
+                        ),
+                        // -- Add to cart button
+                        CustomAddToCart(),
                       ],
                     )
-                  ],
-                ),
-              )
             ])));
     // );
   }

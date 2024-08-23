@@ -14,7 +14,7 @@ class CustomAddToCart extends StatelessWidget {
     final dark = CustomHelperFunctions.isDarkMode(context);
     return Container(
       decoration: BoxDecoration(
-          color: dark ? CustomColors.light : CustomColors.dark,
+          color: dark ? CustomColors.dark : CustomColors.black,
           borderRadius: const BorderRadius.only(
               topLeft:
                   Radius.circular(CustomSizes.cardRadiusMd),
@@ -25,7 +25,7 @@ class CustomAddToCart extends StatelessWidget {
           height: CustomSizes.iconLg * 1.2,
           child: Center(
               child: Icon(Iconsax.add,
-                  color: dark ? CustomColors.dark : CustomColors.light))),
+                  color: dark ? CustomColors.light : CustomColors.white))),
     );
   }
 }

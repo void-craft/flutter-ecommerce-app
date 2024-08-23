@@ -33,9 +33,9 @@ static const String promoBanner2 = "assets/images/banners/two.png";
 static const String promoBanner3 = "assets/images/banners/three.png";
 
 // -- Products
-static const String productImage1 = "assets/images/products/prod1.jpg";
-static const String productImage2 = "assets/images/products/prod2.jpg";
-static const String productImage3 = "assets/images/products/prod3.jpg";
+static const String productImage1 = "assets/images/products/prod1.png";
+static const String productImage2 = "assets/images/products/prod2.png";
+static const String productImage3 = "assets/images/products/prod3.png";
 static const String productImage4 = "assets/images/products/prod4.jpg";
 static const String productImage5 = "assets/images/products/prod5.jpg";
 static const String productImage6 = "assets/images/products/prod6.jpg";
