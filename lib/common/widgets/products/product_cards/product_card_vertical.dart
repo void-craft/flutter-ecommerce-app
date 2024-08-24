@@ -3,12 +3,10 @@ import 'package:bagit/common/widgets/custom_shapes/containers/rounded_container.
 import 'package:bagit/common/widgets/icons/add_to_cart.dart';
 import 'package:bagit/common/widgets/icons/circular_icon.dart';
 import 'package:bagit/common/widgets/images/rounded_images.dart';
-import 'package:bagit/common/widgets/texts/custom_brand_title_text.dart';
 import 'package:bagit/common/widgets/texts/custom_brand_title_text_verified_icon.dart';
 import 'package:bagit/common/widgets/texts/product_price.dart';
 import 'package:bagit/common/widgets/texts/product_title_text.dart';
 import 'package:bagit/utils/constants/colors.dart';
-import 'package:bagit/utils/constants/enums.dart';
 import 'package:bagit/utils/constants/image_strings.dart';
 import 'package:bagit/utils/constants/sizes.dart';
 import 'package:bagit/utils/helpers/helper_functions.dart';

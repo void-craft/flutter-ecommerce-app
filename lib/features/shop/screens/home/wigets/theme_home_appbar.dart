@@ -1,4 +1,4 @@
-import 'package:bagit/common/widgets/appbar/custom_appbar.dart';
+import 'package:bagit/common/widgets/appbar/appbar.dart';
 import 'package:bagit/common/widgets/products/custom_cart_counter_icon.dart';
 import 'package:bagit/utils/constants/colors.dart';
 import 'package:bagit/utils/constants/text_strings.dart';
