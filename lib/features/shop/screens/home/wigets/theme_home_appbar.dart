@@ -28,7 +28,7 @@ class ThemeHomeAppBar extends StatelessWidget {
         ],
       ),
       actions: [
-        CustomCartCounterIcon(onPressed: () {}, iconColor: CustomColors.white)
+        CustomCartCounterIcon(onPressed: () {})
       ],
       showBackArrow: false, 
     );

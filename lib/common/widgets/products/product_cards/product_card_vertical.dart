@@ -3,9 +3,12 @@ import 'package:bagit/common/widgets/custom_shapes/containers/rounded_container.
 import 'package:bagit/common/widgets/icons/add_to_cart.dart';
 import 'package:bagit/common/widgets/icons/circular_icon.dart';
 import 'package:bagit/common/widgets/images/rounded_images.dart';
+import 'package:bagit/common/widgets/texts/custom_brand_title_text.dart';
+import 'package:bagit/common/widgets/texts/custom_brand_title_text_verified_icon.dart';
 import 'package:bagit/common/widgets/texts/product_price.dart';
 import 'package:bagit/common/widgets/texts/product_title_text.dart';
 import 'package:bagit/utils/constants/colors.dart';
+import 'package:bagit/utils/constants/enums.dart';
 import 'package:bagit/utils/constants/image_strings.dart';
 import 'package:bagit/utils/constants/sizes.dart';
 import 'package:bagit/utils/helpers/helper_functions.dart';
@@ -73,27 +76,16 @@ class CustomProductCardVertical extends StatelessWidget {
                   ])),
               const SizedBox(height: CustomSizes.spaceBtwItems / 2),
 
-              // -- Product Details
-              Padding(
-                padding: const EdgeInsets.only(left: CustomSizes.sm),
+              // -- Details
+              const Padding(
+                padding: EdgeInsets.only(left: CustomSizes.sm),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const CustomProductTitleText(
+                    CustomProductTitleText(
                         title: 'Pink Casual Shoes', smallSize: true),
-                    const SizedBox(height: CustomSizes.spaceBtwItems / 2),
-                    Row(
-                      children: [
-                        Text('VShoes',
-                            overflow: TextOverflow.ellipsis,
-                            maxLines: 1,
-                            style: Theme.of(context).textTheme.labelMedium),
-                        const SizedBox(width: CustomSizes.xs),
-                        const Icon(Iconsax.verify5,
-                            color: CustomColors.primary,
-                            size: CustomSizes.iconxs)
-                      ],
-                    ),
+                    SizedBox(height: CustomSizes.spaceBtwItems / 2),
+                    CustomBrandTitleTextVerifiedIcon(title: 'VShoes')
                   ],
                 ),
               ),

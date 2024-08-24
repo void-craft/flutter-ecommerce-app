@@ -1,4 +1,5 @@
 import 'package:bagit/features/shop/screens/home/home.dart';
+import 'package:bagit/features/shop/screens/store/store.dart';
 import 'package:bagit/utils/constants/colors.dart';
 import 'package:bagit/utils/helpers/helper_functions.dart';
 import 'package:flutter/material.dart';
@@ -37,5 +38,5 @@ class NavigationMenu extends StatelessWidget {
 class NaigationController extends GetxController {
   final Rx<int> selectedIndex = 0.obs;
 
-  final screens = [const HomeScreen(), Container(color: Colors.pink), Container(color: Colors.blue), Container(color: Colors.orange)];
+  final screens = [const HomeScreen(), const StoreScreen(), Container(color: Colors.blue), Container(color: Colors.orange)];
 }
