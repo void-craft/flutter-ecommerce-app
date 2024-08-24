@@ -13,6 +13,9 @@ static const String onboardingImage1 = "assets/images/onboarding/browsing.gif";
 static const String onboardingImage2 = "assets/images/onboarding/payment.gif";
 static const String onboardingImage3 = "assets/images/onboarding/delivery.gif";
 
+// -- User
+static const String user = "assets/icons/user/user.png";
+
 // -- Other Images
 static const String deliveredEmailIllustration = "assets/images/other/delivered.gif";
 static const String staticSuccessIllustration = "assets/images/other/success.gif";

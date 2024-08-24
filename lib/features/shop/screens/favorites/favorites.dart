@@ -15,8 +15,9 @@ class FavoriteScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: CustomAppBar(
+            showBackArrow: false,
             title: Text('Favorites',
-                style: Theme.of(context).textTheme.headlineMedium),
+            style: Theme.of(context).textTheme.headlineMedium),
             actions: [
               CustomCircularIcon(
                   icon: Iconsax.add,

@@ -1,5 +1,6 @@
 import 'package:bagit/features/shop/screens/favorites/favorites.dart';
 import 'package:bagit/features/shop/screens/home/home.dart';
+import 'package:bagit/features/shop/screens/profile/profile.dart';
 import 'package:bagit/features/shop/screens/store/store.dart';
 import 'package:bagit/utils/constants/colors.dart';
 import 'package:bagit/utils/helpers/helper_functions.dart';
@@ -27,7 +28,7 @@ class NavigationMenu extends StatelessWidget {
           destinations: const [
             NavigationDestination(icon: Icon(Iconsax.home), label: 'Home'),
             NavigationDestination(icon: Icon(Iconsax.shop), label: 'Store'),
-            NavigationDestination(icon: Icon(Iconsax.heart), label: 'Wishlist'),
+            NavigationDestination(icon: Icon(Iconsax.heart), label: 'Favorites'),
             NavigationDestination(icon: Icon(Iconsax.user), label: 'Profile'),
           ]),
       ),
@@ -39,5 +40,5 @@ class NavigationMenu extends StatelessWidget {
 class NaigationController extends GetxController {
   final Rx<int> selectedIndex = 0.obs;
 
-  final screens = [const HomeScreen(), const StoreScreen(), const FavoriteScreen(), Container(color: Colors.orange)];
+  final screens = [const HomeScreen(), const StoreScreen(), const FavoriteScreen(), const ProfileScreen()];
 }

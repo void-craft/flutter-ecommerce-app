@@ -21,7 +21,8 @@ class HomeScreen extends StatelessWidget {
             child: Column(children: [
       // Header
       const CustomPrimaryHeaderContainer(
-          child: Column(children: [
+        child: Column(
+          children: [
         // -- Appbar
         ThemeHomeAppBar(),
         SizedBox(height: CustomSizes.spaceBtwSections),
@@ -42,30 +43,31 @@ class HomeScreen extends StatelessWidget {
               SizedBox(height: CustomSizes.spaceBtwItems),
 
               // -- Categories
-              HomeCategories()
-            ]))
+              CustomHomeCategories()
+            ])),
+            SizedBox(height: CustomSizes.spaceBtwSections)
       ])),
 
       // -- Promo slider
       Padding(
           padding: const EdgeInsets.all(CustomSizes.defaultSpace),
           child: Column(
-            children: [
-            const CustomPromoSlider(banners: [
-              CustomImages.promoBanner1,
-              CustomImages.promoBanner2,
-              CustomImages.promoBanner3
-            ]),
-            const SizedBox(height: CustomSizes.spaceBtwSections),
+              children: [
+                const CustomPromoSlider(banners: [
+                  CustomImages.promoBanner1,
+                  CustomImages.promoBanner2,
+                  CustomImages.promoBanner3
+                  ]
+                ),
+                const SizedBox(height: CustomSizes.spaceBtwSections),
 
-            // -- Heading: Popular Products
-            CustomSectionHeading(title: 'Popular Products', onPressed: (){}),
-            const SizedBox(height: CustomSizes.spaceBtwItems),
+                // -- Heading: Popular Products
+                CustomSectionHeading(title: 'Popular Products', onPressed: (){}),
+                const SizedBox(height: CustomSizes.spaceBtwItems),
 
-            // -- Popular products grid
-            CustomGridLayout(itemCount: 4, itemBuilder: (_, index) => const CustomProductCardVertical()),
+                // -- Popular products grid
+                CustomGridLayout(itemCount: 4, itemBuilder: (_, index) => const CustomProductCardVertical()),
           ]))
     ])));
   }
 }
-
