@@ -4,11 +4,13 @@ import 'package:bagit/utils/constants/image_strings.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 
-
 class CustomUserProfileTile extends StatelessWidget {
   const CustomUserProfileTile({
     super.key,
+    required this.onPressed,
   });
+
+  final VoidCallback onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +28,7 @@ class CustomUserProfileTile extends StatelessWidget {
               .bodyMedium!
               .apply(color: CustomColors.white)),
       trailing: IconButton(
-          onPressed: () {},
+          onPressed: onPressed,
           icon: const Icon(
             Iconsax.edit,
             color: CustomColors.white,

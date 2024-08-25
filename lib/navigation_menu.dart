@@ -1,6 +1,6 @@
 import 'package:bagit/features/shop/screens/favorites/favorites.dart';
 import 'package:bagit/features/shop/screens/home/home.dart';
-import 'package:bagit/features/shop/screens/profile/profile.dart';
+import 'package:bagit/features/shop/screens/settings/settings.dart';
 import 'package:bagit/features/shop/screens/store/store.dart';
 import 'package:bagit/utils/constants/colors.dart';
 import 'package:bagit/utils/helpers/helper_functions.dart';
@@ -40,5 +40,5 @@ class NavigationMenu extends StatelessWidget {
 class NaigationController extends GetxController {
   final Rx<int> selectedIndex = 0.obs;
 
-  final screens = [const HomeScreen(), const StoreScreen(), const FavoriteScreen(), const ProfileScreen()];
+  final screens = [const HomeScreen(), const StoreScreen(), const FavoriteScreen(), const SettingsScreen()];
 }
