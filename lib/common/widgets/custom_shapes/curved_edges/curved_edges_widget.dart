@@ -1,12 +1,13 @@
 import 'package:bagit/common/widgets/custom_shapes/curved_edges/curved_edges.dart';
 import 'package:flutter/material.dart';
 
-class CurvedEdges extends StatelessWidget {
-  const CurvedEdges({
-    super.key, this.child,
+class CustomCurvedEdgesWidget extends StatelessWidget {
+  const CustomCurvedEdgesWidget({
+    super.key,
+    required this.child,
   });
 
-  final Widget? child;
+  final Widget child;
 
   @override
   Widget build(BuildContext context) {

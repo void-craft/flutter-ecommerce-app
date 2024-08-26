@@ -24,14 +24,17 @@ class CustomCircularIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: width,
-      height: height,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(100),
-        color: backgroundColor != null ? backgroundColor! : CustomHelperFunctions.isDarkMode(context) ? CustomColors.black.withOpacity(0.9) : CustomColors.white.withOpacity(0.9),
-      ),
-      child: IconButton(onPressed: () {}, icon: Icon(icon, color: color, size: size))
-    );
+        width: width,
+        height: height,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(100),
+          color: backgroundColor != null
+              ? backgroundColor!
+              : CustomHelperFunctions.isDarkMode(context)
+                  ? CustomColors.black.withOpacity(0.9)
+                  : CustomColors.white.withOpacity(0.9),
+        ),
+        child: IconButton(
+            onPressed: () {}, icon: Icon(icon, color: color, size: size)));
   }
 }
- 

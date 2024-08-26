@@ -6,11 +6,13 @@ import 'package:bagit/common/widgets/images/rounded_images.dart';
 import 'package:bagit/common/widgets/texts/custom_brand_title_text_verified_icon.dart';
 import 'package:bagit/common/widgets/texts/product_price.dart';
 import 'package:bagit/common/widgets/texts/product_title_text.dart';
+import 'package:bagit/features/shop/screens/product_details/product_detail.dart';
 import 'package:bagit/utils/constants/colors.dart';
 import 'package:bagit/utils/constants/image_strings.dart';
 import 'package:bagit/utils/constants/sizes.dart';
 import 'package:bagit/utils/helpers/helper_functions.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 
 class CustomProductCardVertical extends StatelessWidget {
@@ -21,7 +23,7 @@ class CustomProductCardVertical extends StatelessWidget {
     final dark = CustomHelperFunctions.isDarkMode(context);
 
     return GestureDetector(
-        onTap: () {},
+        onTap: () => Get.to(() => const ProductDetailScreen()),
         child: Container(
             width: 180,
             padding: const EdgeInsets.all(1),

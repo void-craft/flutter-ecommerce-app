@@ -4,16 +4,16 @@ import 'package:flutter/material.dart';
 class CustomRoundedImage extends StatelessWidget {
   const CustomRoundedImage({
     super.key,
+    this.border,
+    this.padding,
+    this.onPressed,
     this.width,
     this.height,
-    required this.imageUrl,
     this.applyImageRadius = true,
-    this.border,
-    this.backgroundColor,
+    required this.imageUrl,
     this.fit = BoxFit.contain,
-    this.padding,
+    this.backgroundColor,
     this.isNetworkImage = false,
-    this.onPressed,
     this.borderRadius = CustomSizes.md,
   });
 
@@ -39,7 +39,7 @@ class CustomRoundedImage extends StatelessWidget {
         decoration: BoxDecoration(
             border: border,
             color: backgroundColor,
-            borderRadius: BorderRadius.circular(CustomSizes.md)),
+            borderRadius: BorderRadius.circular(borderRadius)),
         child: ClipRRect(
             borderRadius: applyImageRadius
                 ? BorderRadius.circular(borderRadius)
