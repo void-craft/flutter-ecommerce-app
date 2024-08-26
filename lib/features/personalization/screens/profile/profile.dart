@@ -1,7 +1,7 @@
 import 'package:bagit/common/widgets/appbar/appbar.dart';
 import 'package:bagit/common/widgets/images/circular_images.dart';
 import 'package:bagit/common/widgets/texts/section_heading.dart';
-import 'package:bagit/features/shop/screens/profile/widgets/profile_menu.dart';
+import 'package:bagit/features/personalization/screens/profile/widgets/profile_menu.dart';
 import 'package:bagit/utils/constants/image_strings.dart';
 import 'package:bagit/utils/constants/sizes.dart';
 import 'package:flutter/material.dart';

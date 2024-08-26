@@ -1,6 +1,6 @@
 import 'package:bagit/features/shop/screens/favorites/favorites.dart';
 import 'package:bagit/features/shop/screens/home/home.dart';
-import 'package:bagit/features/shop/screens/settings/settings.dart';
+import 'package:bagit/features/personalization/screens/settings/settings.dart';
 import 'package:bagit/features/shop/screens/store/store.dart';
 import 'package:bagit/utils/constants/colors.dart';
 import 'package:bagit/utils/helpers/helper_functions.dart';

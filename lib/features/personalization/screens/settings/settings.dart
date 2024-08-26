@@ -3,7 +3,8 @@ import 'package:bagit/common/widgets/custom_shapes/containers/primary_header_con
 import 'package:bagit/common/widgets/list_tile/settings_menu_tile.dart';
 import 'package:bagit/common/widgets/list_tile/user_profile.dart';
 import 'package:bagit/common/widgets/texts/section_heading.dart';
-import 'package:bagit/features/shop/screens/profile/profile.dart';
+import 'package:bagit/features/personalization/screens/address/widgets/address.dart';
+import 'package:bagit/features/personalization/screens/profile/profile.dart';
 import 'package:bagit/utils/constants/colors.dart';
 import 'package:bagit/utils/constants/sizes.dart';
 import 'package:flutter/material.dart';
@@ -44,10 +45,11 @@ class SettingsScreen extends StatelessWidget {
                 title: 'Account Settings', showActionButton: false),
             const SizedBox(height: CustomSizes.spaceBtwItems),
 
-            const CustomSettingsMenuTile(
+            CustomSettingsMenuTile(
                 icon: Iconsax.safe_home,
                 title: 'My Addresses',
-                subtitle: 'Set shipping address'),
+                subtitle: 'Set shipping address',
+                onTap: () => Get.to(() => const UserAddressesScreen())),
             const CustomSettingsMenuTile(
                 icon: Iconsax.shopping_cart,
                 title: 'My Cart',
