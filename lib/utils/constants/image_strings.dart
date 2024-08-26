@@ -16,6 +16,11 @@ static const String onboardingImage3 = "assets/images/onboarding/delivery.gif";
 // -- User
 static const String user = "assets/icons/user/user.png";
 
+// -- Review Users
+static const String reviewUser1 = "assets/images/reviews/review_user1";
+static const String reviewUser2 = "assets/images/reviews/review_user2";
+static const String reviewUser3 = "assets/images/reviews/review_user3";
+
 // -- Other Images
 static const String deliveredEmailIllustration = "assets/images/other/delivered.gif";
 static const String staticSuccessIllustration = "assets/images/other/success.gif";

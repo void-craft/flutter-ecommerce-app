@@ -9,12 +9,32 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+
+  # Icons
+  iconsax: ^0.0.8
   cupertino_icons: ^1.0.6
+
+  # State management
+  get: ^4.6.6
+  get_storage: ^2.1.1
+
+  # Utility Specific
   http: ^1.2.2
+  intl: ^0.19.0
+  logger: ^2.4.0
+  url_launcher: ^6.3.0
+  smooth_page_indicator: ^1.2.0+3
+  flutter_native_splash: ^2.4.1
+  
+  # Product Specific
+  carousel_slider: ^5.0.0
+  readmore: ^3.0.0
+  flutter_rating_bar: ^4.0.1
+
+  # Undefined
   equatable: ^2.0.5
   json_annotation: ^4.9.0
   flutter_bloc: ^8.1.6
-  flutter_rating_bar: ^4.0.0
   flutter_form_builder: ^9.4.0
   flutter_paytabs_bridge: ^2.6.15
   firebase_core: ^2.24.2
@@ -22,18 +42,6 @@ dependencies:
   google_sign_in: ^6.2.1
   flutter_signin_button: ^2.0.0
   cloud_firestore: ^4.14.0
-  intl: ^0.19.0
-  logger: ^2.4.0
-  url_launcher: ^6.3.0
-  iconsax: ^0.0.8
-  get: ^4.6.6
-  get_storage: ^2.1.1
-  flutter_native_splash: ^2.4.1
-  smooth_page_indicator: ^1.2.0+3
-
-  # Product Specific
-  carousel_slider: ^5.0.0
-  readmore: ^3.0.0
 
 dev_dependencies:
   flutter_test:
@@ -45,10 +53,11 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
-    - assets/images/logo/
-    - assets/images/onboarding/
-    - assets/images/other/
     - assets/icons/categories/
     - assets/icons/user/
     - assets/images/banners/
+    - assets/images/logo/
+    - assets/images/onboarding/
+    - assets/images/other/
     - assets/images/products/
+    - assets/images/reviews/
