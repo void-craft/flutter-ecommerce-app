@@ -5,6 +5,7 @@ import 'package:bagit/common/widgets/list_tile/user_profile.dart';
 import 'package:bagit/common/widgets/texts/section_heading.dart';
 import 'package:bagit/features/personalization/screens/address/widgets/address.dart';
 import 'package:bagit/features/personalization/screens/profile/profile.dart';
+import 'package:bagit/features/shop/screens/order/order.dart';
 import 'package:bagit/utils/constants/colors.dart';
 import 'package:bagit/utils/constants/sizes.dart';
 import 'package:flutter/material.dart';
@@ -54,10 +55,11 @@ class SettingsScreen extends StatelessWidget {
                 icon: Iconsax.shopping_cart,
                 title: 'My Cart',
                 subtitle: 'View items in your cart'),
-            const CustomSettingsMenuTile(
+            CustomSettingsMenuTile(
                 icon: Iconsax.bag_tick,
                 title: 'My Orders',
-                subtitle: 'Track your order history'),
+                subtitle: 'Track your order history',
+                onTap: () => Get.to(() => const OrderScreen())),
             const CustomSettingsMenuTile(
                 icon: Iconsax.bank,
                 title: 'Bank Account',
