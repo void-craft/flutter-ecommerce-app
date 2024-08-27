@@ -16,14 +16,18 @@ static const String onboardingImage3 = "assets/images/onboarding/delivery.gif";
 // -- User
 static const String user = "assets/icons/user/user.png";
 
+// -- Payment Methods
+static const String paypal = "assets/icons/payment_methods/paypal.png";
+
 // -- Review Users
 static const String reviewUser1 = "assets/images/reviews/review_user1";
 static const String reviewUser2 = "assets/images/reviews/review_user2";
 static const String reviewUser3 = "assets/images/reviews/review_user3";
 
 // -- Other Images
-static const String deliveredEmailIllustration = "assets/images/other/delivered.gif";
-static const String staticSuccessIllustration = "assets/images/other/success.gif";
+static const String successfulPaymentIllustration = "assets/images/others/payment_success.gif";
+static const String deliveredEmailIllustration = "assets/images/others/delivered.gif";
+static const String staticSuccessIllustration = "assets/images/others/success.gif";
 
 // -- Category Icons
 static const String sportIcon = "assets/icons/categories/sports.png";
