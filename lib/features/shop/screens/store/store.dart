@@ -23,7 +23,7 @@ class StoreScreen extends StatelessWidget {
             showBackArrow: false,
             title:
                 Text('Store', style: Theme.of(context).textTheme.headlineMedium),
-            actions: [CustomCartCounterIcon(onPressed: () {})],
+            actions: const [CustomCartCounterIcon()],
           ),
           body: NestedScrollView(
               headerSliverBuilder: (_, innerBoxIsScrolled) {
