@@ -8,9 +8,10 @@ class CustomCircularContainer extends StatelessWidget {
     this.width = 400,
     this.height = 400,
     this.radius = 400,
+    this.margin,
     this.padding = 0,
     this.backgroundColor = CustomColors.white,
-    this.margin,
+
   });
 
   final double? width;

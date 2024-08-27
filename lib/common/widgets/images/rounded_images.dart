@@ -11,7 +11,7 @@ class CustomRoundedImage extends StatelessWidget {
     this.height,
     this.applyImageRadius = true,
     required this.imageUrl,
-    this.fit = BoxFit.contain,
+    this.fit = BoxFit.cover,
     this.backgroundColor,
     this.isNetworkImage = false,
     this.borderRadius = CustomSizes.md,
@@ -31,26 +31,24 @@ class CustomRoundedImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: onPressed,
-      child: Container(
-        width: width,
-        height: height,
-        padding: padding,
-        decoration: BoxDecoration(
-            border: border,
-            color: backgroundColor,
-            borderRadius: BorderRadius.circular(borderRadius)),
-        child: ClipRRect(
-            borderRadius: applyImageRadius
-                ? BorderRadius.circular(borderRadius)
-                : BorderRadius.zero,
-            child: Image(
-              fit: fit,
-              image: isNetworkImage
-                  ? NetworkImage(imageUrl)
-                  : AssetImage(imageUrl) as ImageProvider,
-            )),
-      ),
-    );
+        onTap: onPressed,
+        child: Container(
+            width: width,
+            height: height,
+            padding: padding,
+            decoration: BoxDecoration(
+                border: border,
+                color: backgroundColor,
+                borderRadius: BorderRadius.circular(borderRadius)),
+            child: ClipRRect(
+                borderRadius: applyImageRadius
+                    ? BorderRadius.circular(borderRadius)
+                    : BorderRadius.zero,
+                child: Image(
+                  fit: fit,
+                  image: isNetworkImage
+                      ? NetworkImage(imageUrl)
+                      : AssetImage(imageUrl) as ImageProvider,
+                ))));
   }
 }
