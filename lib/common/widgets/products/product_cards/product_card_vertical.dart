@@ -31,7 +31,7 @@ class CustomProductCardVertical extends StatelessWidget {
               boxShadow: [CustomShadowStyle.verticalProductShadow],
               borderRadius:
                   BorderRadius.circular(CustomSizes.productImageRadius),
-              color: dark ? CustomColors.darkerGrey : CustomColors.softGrey,
+              color: dark ? CustomColors.darkerGrey : CustomColors.white,
             ),
             child: Column(children: [
               // - Thumbnail, wishlist button, discount tag

@@ -43,6 +43,7 @@ static const String elctronicsIcon = "assets/icons/categories/electronics.png";
 static const String promoBanner1 = "assets/images/banners/one.png";
 static const String promoBanner2 = "assets/images/banners/two.png";
 static const String promoBanner3 = "assets/images/banners/three.png";
+static const String promoBanner4 = "assets/images/banners/promobanner4.png";
 
 // -- Products
 static const String productImage1 = "assets/images/products/prod1.png";

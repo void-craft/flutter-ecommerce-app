@@ -1,6 +1,8 @@
 import 'package:bagit/common/widgets/image_text_widgets/vertical_image_text.dart';
+import 'package:bagit/features/shop/screens/sub_category/sub_categories.dart';
 import 'package:bagit/utils/constants/image_strings.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class CustomHomeCategories extends StatelessWidget {
   const CustomHomeCategories({
@@ -16,7 +18,7 @@ class CustomHomeCategories extends StatelessWidget {
           itemCount: 6,
           scrollDirection: Axis.horizontal,
           itemBuilder: (_, index) {
-            return CustomVerticalImageText(image: CustomImages.shoeIcon, title: 'Shoes', onTap: () {});
+            return CustomVerticalImageText(image: CustomImages.shoeIcon, title: 'Shoes', onTap: () => Get.to(() => const SubCategoriesScreen()));
           }),
     );
   }
