@@ -1,4 +1,4 @@
-import 'package:bagit/features/authentication/screens/onboarding/onboarding.dart';
+import 'package:bagit/utils/constants/colors.dart';
 import 'package:bagit/utils/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/get_navigation.dart';
@@ -9,10 +9,12 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      themeMode: ThemeMode.system,
-      theme: CustomAppTheme.lightTheme,
-      darkTheme: CustomAppTheme.darkTheme,
-      home: const OnBoardingScreen(),
-    );
+        themeMode: ThemeMode.system,
+        theme: CustomAppTheme.lightTheme,
+        darkTheme: CustomAppTheme.darkTheme,
+        home: const Scaffold(
+            backgroundColor: CustomColors.primary,
+            body:
+                Center(child: CircularProgressIndicator(color: Colors.white))));
   }
 }

@@ -18,6 +18,7 @@ class LoginScreen extends StatelessWidget {
         child: Padding(
           padding: CustomSpacingStyle.paddingWithAppbarHeight,
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               // Logo, Title, Subtitle
               const CustomLoginHeader(),
