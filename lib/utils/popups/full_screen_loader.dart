@@ -21,26 +21,21 @@ class CustomFullscreenLoader {
             canPop:
                 false, // Disable popping the dialog (e.g., via the back button).
             child: Container(
-                color: CustomHelperFunctions.isDarkMode(
-                        Get.context!)
-                    ? CustomColors
-                        .dark 
-                    : CustomColors
-                        .white, 
-                width: double
-                    .infinity, 
-                height: double
-                    .infinity, 
-                child: Column(children: [
-                  const SizedBox(
-                      height:
-                          250), 
-                  CustomAnimationLoaderWidget(
-                    // Display the custom animation loader widget.
-                    text: text, // Pass the text to display with the loader.
-                    animation: animation, // Pass the animation type.
-                  )
-                ]))));
+                color: CustomHelperFunctions.isDarkMode(Get.context!)
+                    ? CustomColors.dark
+                    : CustomColors.white,
+                width: double.infinity,
+                height: double.infinity,
+                child: SingleChildScrollView(
+                  child: Column(children: [
+                    const SizedBox(height: 250),
+                    CustomAnimationLoaderWidget(
+                      // Display the custom animation loader widget.
+                      text: text, // Pass the text to display with the loader.
+                      animation: animation, // Pass the animation type.
+                    )
+                  ]),
+                ))));
   }
 
   // This static method closes the currently open loading dialog.

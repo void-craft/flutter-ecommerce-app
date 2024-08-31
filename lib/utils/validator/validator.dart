@@ -50,9 +50,9 @@ class CustomValidator {
       return 'Phone number is required.';
     }
     // Regular expression for phone number validation (assuming a 10-digit US phone number)
-    final phoneRegExp = RegExp(r'^\d{10}$');
+    final phoneRegExp = RegExp(r'^\d{9}$');
     if (!phoneRegExp.hasMatch(value)) {
-      return 'Invalid phone number format (10 digits required).';
+      return 'Invalid phone number format (9 digits required).';
     }
     return null;
   }

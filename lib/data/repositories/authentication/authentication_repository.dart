@@ -31,27 +31,48 @@ class AuthenticationRepository extends GetxController {
   // Function to show relevant screen.
   screenRedirect() async {
     final user = _auth.currentUser;
+
     if (user != null) {
+      // If the user is logged in
       if (user.emailVerified) {
+        // If the user's email is verified, navigate to the main Navigation menu
         Get.offAll(() => const NavigationMenu());
       } else {
+        // If the user's email is not verified, navigate to the VerifyEmailScreen
         Get.offAll(() => VerifyEmailScreen(email: _auth.currentUser?.email));
       }
     } else {
       // Local Storage
       deviceStorage.writeIfNull('isFirsTime', true);
+
       // Check if it's app's first time loading.
       deviceStorage.read('isFirstTime') != true
-          // Redirect to login if not
-          ? Get.offAll(() => const LoginScreen())
-          // Redirect to onboarding if yes
-          : Get.offAll(const OnBoardingScreen());
+          ? Get.offAll(() => const LoginScreen()) // Redirect to login if not
+          : Get.offAll(const OnBoardingScreen()); // Redirect to onboarding if yes
     }
   }
 
-  /* ----------- Email & Password SignIn */
+  /*----------- Email & Password SignIn -----------*/
 
-  // Email Authentication - SignIn
+  // [EmailAuthentication] - SignIn
+  Future<UserCredential> loginWithEmailAndPassword(
+      String email, String password) async {
+    try {
+      return await _auth.signInWithEmailAndPassword(
+          email: email, password: password);
+    } on FirebaseAuthException catch (e) {
+      throw CustomFirebaseAuthException(e.code).message;
+    } on FirebaseException catch (e) {
+      throw CustomFirebaseException(e.code).message;
+    } on FormatException catch (_) {
+      throw const CustomFormatException();
+    } on PlatformException catch (e) {
+      throw CustomPlatformException(e.code).message;
+    } catch (e) {
+      throw 'Something went wrong. Please try again.';
+    }
+  }
+
   // Email Authentication - SignUp
   Future<UserCredential> registerWithEmailAndPassword(
       String email, String password) async {
@@ -91,26 +112,24 @@ class AuthenticationRepository extends GetxController {
   // [ReAuthentication] - ReAuthenticate user
 
   /* ----------- ./end Federated identity & social sign-in ----- */
-  
+
   // [LogoutUser] Valid for any authentication.
   Future<void> logout() async {
-  try {
-    await FirebaseAuth.instance.signOut();
-    Get.offAll(() => const LoginScreen());
-  } on FirebaseAuthException catch (e) {
-    throw CustomFirebaseAuthException(e.code).message;
-  } on FirebaseException catch (e) {
-    throw CustomFirebaseException(e.code).message;
-  } on FormatException catch (_) {
-    throw const CustomFormatException();
-  } on PlatformException catch (e) {
-    throw CustomPlatformException(e.code).message;
-  } catch (e) {
-    throw 'Something went wrong. Please try again later.';
+    try {
+      await FirebaseAuth.instance.signOut();
+      Get.offAll(() => const LoginScreen());
+    } on FirebaseAuthException catch (e) {
+      throw CustomFirebaseAuthException(e.code).message;
+    } on FirebaseException catch (e) {
+      throw CustomFirebaseException(e.code).message;
+    } on FormatException catch (_) {
+      throw const CustomFormatException();
+    } on PlatformException catch (e) {
+      throw CustomPlatformException(e.code).message;
+    } catch (e) {
+      throw 'Something went wrong. Please try again later.';
+    }
   }
-}
-
-
 
   // [DeleteUser] Remove user Auth and Firestore account.
 }
