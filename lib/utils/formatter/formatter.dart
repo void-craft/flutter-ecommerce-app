@@ -1,6 +1,6 @@
 import 'package:intl/intl.dart';
 
-class Formatter {
+class CustomFormatter {
   // Format a DateTime object to 'dd-MMM-yyyy'
   static String formatDate(DateTime? date) {
     date ??= DateTime.now();

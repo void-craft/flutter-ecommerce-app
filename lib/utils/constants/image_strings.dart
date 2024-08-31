@@ -27,7 +27,7 @@ static const String reviewUser3 = "assets/images/reviews/review_user3";
 // -- Other Images
 static const String successfulPaymentIllustration = "assets/images/others/payment_success.gif";
 static const String deliveredEmailIllustration = "assets/images/others/delivered.gif";
-static const String staticSuccessIllustration = "assets/images/others/success.gif";
+static const String staticSuccessIllustration = "assets/images/others/bluetick.gif";
 
 // -- Category Icons
 static const String sportIcon = "assets/icons/categories/sports.png";
