@@ -28,7 +28,7 @@ class SignupController extends GetxController {
   Future<void> signup() async {
     // Start loading
     CustomFullscreenLoader.openLoadingDialog(
-        'Processing information...', CustomImages.lottieSuccessllustration);
+        'Processing information...', CustomImages.lottieLoadingllustration);
 
     try {
       // Check internet connectivity

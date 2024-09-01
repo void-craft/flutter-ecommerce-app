@@ -3,6 +3,7 @@ import 'package:bagit/common/widgets/custom_shapes/containers/primary_header_con
 import 'package:bagit/common/widgets/list_tile/settings_menu_tile.dart';
 import 'package:bagit/common/widgets/list_tile/user_profile.dart';
 import 'package:bagit/common/widgets/texts/section_heading.dart';
+import 'package:bagit/features/personalization/controllers/logout_controller.dart';
 import 'package:bagit/features/personalization/screens/address/widgets/address.dart';
 import 'package:bagit/features/personalization/screens/profile/profile.dart';
 import 'package:bagit/features/shop/screens/order/order.dart';
@@ -17,8 +18,8 @@ class SettingsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-  // final controller = Get.put(VerifyEmailController()); 
-  
+    final LogoutController controller = Get.put(LogoutController());
+
     return Scaffold(
         body: SingleChildScrollView(
             child: Column(children: [
@@ -35,7 +36,8 @@ class SettingsScreen extends StatelessWidget {
         // const SizedBox(height: CustomSizes.spaceBtwSections),
 
         // User
-        CustomUserProfileTile(onPressed: () => Get.to(() => const ProfileScreen())),
+        CustomUserProfileTile(
+            onPressed: () => Get.to(() => const ProfileScreen())),
         const SizedBox(height: CustomSizes.spaceBtwSections),
       ])),
 
@@ -106,7 +108,9 @@ class SettingsScreen extends StatelessWidget {
             const SizedBox(height: CustomSizes.spaceBtwSections),
             SizedBox(
               width: double.infinity,
-              child: OutlinedButton(onPressed: () => Get.offAll(() => ()), child: const Text('Logout')),
+              child: OutlinedButton(
+                  onPressed: () => controller.logoutUser(),
+                  child: const Text('Logout')),
             ),
             const SizedBox(height: CustomSizes.spaceBtwSections * 2.5)
           ]))
