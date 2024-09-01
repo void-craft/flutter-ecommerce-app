@@ -1,0 +1,39 @@
+import 'package:bagit/data/repositories/authentication/authentication_repository.dart';
+import 'package:bagit/utils/constants/image_strings.dart';
+import 'package:bagit/utils/popups/full_screen_loader.dart';
+import 'package:bagit/common/widgets/loaders/loaders.dart';
+import 'package:get/get.dart';
+
+class LogoutController extends GetxController {
+  static LogoutController get instance => Get.find();
+
+  // --- Handle User Logout
+  Future<void> logoutUser() async {
+    try {
+      // Start loading
+      CustomFullscreenLoader.openLoadingDialog(
+          'Logging you out...', CustomImages.lottieLoadingllustration); // Replace with actual path to your animation file
+
+      // Perform logout operation
+      await AuthenticationRepository.instance.logout();
+
+      // Remove Loader
+      CustomFullscreenLoader.stopLoading();
+
+      // Show success snackbar
+      CustomLoaders.successSnackbar(
+        title: 'Logged Out',
+        message: 'You have been logged out successfully.',
+      );
+    } catch (e) {
+      // Remove Loader
+      CustomFullscreenLoader.stopLoading();
+
+      // Show error snackbar
+      CustomLoaders.errorSnackbar(
+        title: 'Logout Failed',
+        message: e.toString(),
+      );
+    }
+  }
+}

@@ -29,6 +29,12 @@ static const String successfulPaymentIllustration = "assets/images/others/paymen
 static const String deliveredEmailIllustration = "assets/images/others/delivered.gif";
 static const String staticSuccessIllustration = "assets/images/others/bluetick.gif";
 static const String loginIllustration = "assets/images/others/logging.gif";
+static const String loggingInIllustration = "assets/images/others/logging_in.gif";
+
+// -- Lottie Json images
+static const String lottieSuccessllustration = "assets/images/lottie/success.json";
+static const String lottieLoadingllustration = "assets/images/lottie/loading.json";
+
 
 // -- Category Icons
 static const String sportIcon = "assets/icons/categories/sports.png";

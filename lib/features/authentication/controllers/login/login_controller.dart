@@ -1,5 +1,6 @@
 import 'package:bagit/common/widgets/loaders/loaders.dart';
 import 'package:bagit/data/repositories/authentication/authentication_repository.dart';
+import 'package:bagit/features/personalization/controllers/user_controller.dart';
 import 'package:bagit/utils/constants/image_strings.dart';
 import 'package:bagit/utils/helpers/network_manager.dart';
 import 'package:bagit/utils/popups/full_screen_loader.dart';
@@ -15,11 +16,12 @@ class LoginController extends GetxController {
   final email = TextEditingController();
   final password = TextEditingController();
   GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();
+  final userController = Get.put(UserController());
 
   @override
   void onInit() {
-    email.text = localStorage.read('REMEMBER_ME_EMAIL');
-    email.text = localStorage.read('REMEMBER_ME_PASSWORD');
+    email.text = localStorage.read('REMEMBER_ME_EMAIL') ?? '';
+    password.text = localStorage.read('REMEMBER_ME_PASSWORD') ?? '';
     super.onInit();
   }
 
@@ -28,7 +30,7 @@ class LoginController extends GetxController {
     try {
       // Start the loading screen
       CustomFullscreenLoader.openLoadingDialog(
-          'Logging you in...', CustomImages.loginIllustration);
+          'Logging you in...', CustomImages.lottieLoadingllustration);
 
       // Check Internet Connectivity
       final isConnected = await NetworkManager.instance.isConnected();
@@ -61,6 +63,39 @@ class LoginController extends GetxController {
     } catch (e) {
       CustomFullscreenLoader.stopLoading();
       CustomLoaders.errorSnackbar(title: 'Oh, Snap!', message: e.toString());
+    }
+  }
+
+  /// --- Google SignIn Authentication
+  Future<void> googleSignIn() async {
+    try {
+      // Start loading
+      CustomFullscreenLoader.openLoadingDialog(
+          'Logging you in...', CustomImages.lottieLoadingllustration);
+
+      // Check Internet Connectivity
+      final isConnected = await NetworkManager.instance.isConnected();
+      if (!isConnected) {
+        CustomFullscreenLoader.stopLoading();
+        return;
+      }
+
+      // Google Authentication
+      final userCredentials = await AuthenticationRepository.instance.signInWithGoogle();
+
+      // Save user record
+      await userController.saveUserRecord(userCredentials);
+
+      // Remove Loader
+      CustomFullscreenLoader.stopLoading();
+
+      // Redirect User
+      AuthenticationRepository.instance.screenRedirect();
+
+    } catch (e) {
+      // Remove Loader
+      CustomFullscreenLoader.stopLoading();
+      CustomLoaders.errorSnackbar(title: 'Oh, snap!', message: e.toString());
     }
   }
 }

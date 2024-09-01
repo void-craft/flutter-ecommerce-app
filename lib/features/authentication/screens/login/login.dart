@@ -14,26 +14,24 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: CustomSpacingStyle.paddingWithAppbarHeight,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // Logo, Title, Subtitle
-              const CustomLoginHeader(),
-              // Form
-              const CustomLoginForm(),
-              /// Divider
-              CustomFormDivider(dividerText: CustomTexts.orSignInWith.capitalize!),
-              const SizedBox(height: CustomSizes.spaceBtwSections),
-              /// Footer
-              const CustomSocialButtons()
-            ],
-          ),
-        ),
-      ),
-    );
+        body: SingleChildScrollView(
+            child: Padding(
+                padding: CustomSpacingStyle.paddingWithAppbarHeight,
+                child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      // Logo, Title, Subtitle
+                      const CustomLoginHeader(),
+                      // Form
+                      const CustomLoginForm(),
+
+                      /// Divider
+                      CustomFormDivider(
+                          dividerText: CustomTexts.orSignInWith.capitalize!),
+                      const SizedBox(height: CustomSizes.spaceBtwSections),
+
+                      /// Footer
+                      const CustomSocialButtons()
+                    ]))));
   }
 }
-

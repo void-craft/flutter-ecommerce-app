@@ -17,6 +17,8 @@ class SettingsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+  // final controller = Get.put(VerifyEmailController()); 
+  
     return Scaffold(
         body: SingleChildScrollView(
             child: Column(children: [
@@ -104,7 +106,7 @@ class SettingsScreen extends StatelessWidget {
             const SizedBox(height: CustomSizes.spaceBtwSections),
             SizedBox(
               width: double.infinity,
-              child: OutlinedButton(onPressed: (){}, child: const Text('Logout')),
+              child: OutlinedButton(onPressed: () => Get.offAll(() => ()), child: const Text('Logout')),
             ),
             const SizedBox(height: CustomSizes.spaceBtwSections * 2.5)
           ]))

@@ -27,15 +27,14 @@ class CustomFullscreenLoader {
                 width: double.infinity,
                 height: double.infinity,
                 child: SingleChildScrollView(
-                  child: Column(children: [
-                    const SizedBox(height: 250),
-                    CustomAnimationLoaderWidget(
-                      // Display the custom animation loader widget.
-                      text: text, // Pass the text to display with the loader.
-                      animation: animation, // Pass the animation type.
-                    )
-                  ]),
-                ))));
+                    child: Column(children: [
+                  const SizedBox(height: 250),
+                  CustomAnimationLoaderWidget(
+                    // Display the custom animation loader widget.
+                    text: text, // Pass the text to display with the loader.
+                    animation: animation, // Pass the animation type.
+                  )
+                ])))));
   }
 
   // This static method closes the currently open loading dialog.

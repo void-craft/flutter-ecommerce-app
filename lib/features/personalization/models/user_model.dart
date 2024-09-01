@@ -6,7 +6,8 @@ class UserModel {
   // Keep values that should not be updated as final
   final String id;
   String firstName;
-  String lastName;
+  String firstSurname; 
+  String? lastSurname;
   final String username;
   final String email;
   String phoneNumber;
@@ -15,56 +16,70 @@ class UserModel {
   UserModel({
     required this.id,
     required this.firstName,
-    required this.lastName,
+    required this.firstSurname,
+    this.lastSurname,
     required this.username,
     required this.email,
     required this.phoneNumber,
-    required this.profilePicture
+    required this.profilePicture,
   });
 
   // Helper function to get the full name.
-  String get fullName => '$firstName $lastName';
-
+  String get fullName => lastSurname != null
+      ? '$firstName $firstSurname $lastSurname'
+      : '$firstName $firstSurname';
   // Helper function to format phone number.
   String get formattedPhoneNo => CustomFormatter.formatPhoneNumber(phoneNumber);
 
-  // Static function to split fullname to first and last name
-  static List<String> nameParts(fullName) => fullName.split(" ");
+  // Static function to split fullname to first and last name.
+  static List<String> nameParts(String fullName) => fullName.split(" ");
 
-  // Static function to generate a username
-  static String generateUsername(fullname) {
+  // Static function to generate a username.
+  static String generateUsername(String fullname) {
     List<String> nameParts = fullname.split(" ");
     String firstName = nameParts[0].toLowerCase();
-    String lastName = nameParts.length > 1 ? nameParts[1].toLowerCase() : "";
+    String firstSurname = nameParts.length > 1 ? nameParts[1].toLowerCase() : "";
+    String lastSurname = nameParts.length > 2 ? nameParts[2].toLowerCase() : "";
 
-    String camelCaseUsername = "$firstName$lastName";
+    String camelCaseUsername = "$firstName$firstSurname$lastSurname";
     String usernameWithPrefix = "cwt_$camelCaseUsername";
     return usernameWithPrefix;
   }
 
   // Static function to create an empty user model.
-  static UserModel empty() => UserModel(id: '', firstName: '', lastName: '', username: '', email: '', phoneNumber: '', profilePicture: '');
+  static UserModel empty() => UserModel(
+        id: '',
+        firstName: '',
+        firstSurname: '',
+        lastSurname: '',
+        username: '',
+        email: '',
+        phoneNumber: '',
+        profilePicture: '',
+      );
 
   // Convert model to JSON structure for storing data in Firebase.
   Map<String, dynamic> toJson() {
     return {
       'FirstName': firstName,
-      'LastName': lastName,
+      'FirstSurname': firstSurname,
+      'LastSurname': lastSurname,
       'Username': username,
       'Email': email,
       'PhoneNumber': phoneNumber,
-      'ProfilePicture': profilePicture
+      'ProfilePicture': profilePicture,
     };
   }
 
-  // Factory method to create a UserModel from a firebase document snapshot
+  // Factory method to create a UserModel from a Firebase document snapshot.
   factory UserModel.fromSnapshot(DocumentSnapshot<Map<String, dynamic>> document) {
     if (document.data() != null) {
       final data = document.data()!;
       return UserModel(
         id: document.id,
         firstName: data['FirstName'] ?? '',
-        lastName: data['LastName'] ?? '',
+        firstSurname: data['FirstSurname'] ?? '',
+        lastSurname: data['LastSurname'],
         username: data['Username'] ?? '',
         email: data['Email'] ?? '',
         phoneNumber: data['PhoneNumber'] ?? '',

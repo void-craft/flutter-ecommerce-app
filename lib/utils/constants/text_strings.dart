@@ -17,7 +17,8 @@ class CustomTexts {
   
   // Authentication form texts
   static const String firstName = "First Name";
-  static const String lastName = "Last Name";
+  static const String firstSurname = "First Surname";
+  static const String lastSurname = "Last Surname";
   static const String email = "Email";
   static const String password = "Password";
   static const String newPassword = "New Password";
@@ -38,7 +39,7 @@ class CustomTexts {
 
   // Authentication headings text
   static const String loginTitle = "Login";
-  static const String loginSubtitle = "Access your BagIt account";
+  static const String loginSubtitle = "First Login, then BagIt!";
   static const String signupTitle = "Create a BagIt Account";
   static const String forgotPasswordTitle = "Forgot Password?";
   static const String forgotPasswordSubtitle = "Enter your email to reset your password";
