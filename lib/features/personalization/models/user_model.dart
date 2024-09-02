@@ -6,7 +6,7 @@ class UserModel {
   // Keep values that should not be updated as final
   final String id;
   String firstName;
-  String firstSurname; 
+  String firstSurname;
   String? lastSurname;
   final String username;
   final String email;
@@ -38,7 +38,8 @@ class UserModel {
   static String generateUsername(String fullname) {
     List<String> nameParts = fullname.split(" ");
     String firstName = nameParts[0].toLowerCase();
-    String firstSurname = nameParts.length > 1 ? nameParts[1].toLowerCase() : "";
+    String firstSurname =
+        nameParts.length > 1 ? nameParts[1].toLowerCase() : "";
     String lastSurname = nameParts.length > 2 ? nameParts[2].toLowerCase() : "";
 
     String camelCaseUsername = "$firstName$firstSurname$lastSurname";
@@ -72,7 +73,8 @@ class UserModel {
   }
 
   // Factory method to create a UserModel from a Firebase document snapshot.
-  factory UserModel.fromSnapshot(DocumentSnapshot<Map<String, dynamic>> document) {
+  factory UserModel.fromSnapshot(
+      DocumentSnapshot<Map<String, dynamic>> document) {
     if (document.data() != null) {
       final data = document.data()!;
       return UserModel(

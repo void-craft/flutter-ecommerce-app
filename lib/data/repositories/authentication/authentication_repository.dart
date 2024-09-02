@@ -1,3 +1,4 @@
+import 'package:bagit/data/repositories/user/user_repository.dart';
 import 'package:bagit/features/authentication/screens/login/login.dart';
 import 'package:bagit/features/authentication/screens/onboarding/onboarding.dart';
 import 'package:bagit/features/authentication/screens/signup/verify_email.dart';
@@ -20,6 +21,9 @@ class AuthenticationRepository extends GetxController {
   // Variables
   final deviceStorage = GetStorage();
   final _auth = FirebaseAuth.instance;
+
+  // Get Authenticated user data
+  User? get authUser => _auth.currentUser;
 
   // Called from main.dart on app launch
   @override
@@ -76,7 +80,7 @@ class AuthenticationRepository extends GetxController {
     }
   }
 
-  // Email Authentication - REGISTER
+  // [EmailAuthentication] - REGISTER
   Future<UserCredential> registerWithEmailAndPassword(
       String email, String password) async {
     try {
@@ -95,7 +99,7 @@ class AuthenticationRepository extends GetxController {
     }
   }
 
-  // EmailVerification - MAIL VERIFICATION
+  // [EmailVerification] - MAIL VERIFICATION
   Future<void> sendEmailVerification() async {
     try {
       await _auth.currentUser?.sendEmailVerification();
@@ -128,8 +132,27 @@ class AuthenticationRepository extends GetxController {
       throw 'Something went wrong. Please try again';
     }
   }
-  
+
   // [ReAuthentication] - ReAuthenticate user
+  Future<void> reauthenticateWithEmailAndPassword(String email, String password) async {
+    try {
+      // Create a credential
+      AuthCredential credential = EmailAuthProvider.credential(email: email, password: password);
+
+      // Reauthenticate
+      await _auth.currentUser!.reauthenticateWithCredential(credential);
+    } on FirebaseAuthException catch (e) {
+      throw CustomFirebaseAuthException(e.code).message;
+    } on FirebaseException catch (e) {
+      throw CustomFirebaseException(e.code).message;
+    } on FormatException catch (_) {
+      throw const CustomFormatException();
+    } on PlatformException catch (e) {
+      throw CustomPlatformException(e.code).message;
+    } catch (e) {
+      throw 'Something went wrong. Please try again';
+    }
+  }
 
   /*----------- Federated identity & social sign-in -------------*/
 
@@ -185,4 +208,20 @@ class AuthenticationRepository extends GetxController {
   }
 
   // [DeleteUser] Remove user Auth and Firestore account.
+  Future<void> deleteAccount() async {
+    try {
+      await UserRepository.instance.removeUserRecord(_auth.currentUser!.uid);
+      await _auth.currentUser?.delete();
+    } on FirebaseAuthException catch (e) {
+      throw CustomFirebaseAuthException(e.code).message;
+    } on FirebaseException catch (e) {
+      throw CustomFirebaseException(e.code).message;
+    } on FormatException catch (_) {
+      throw const CustomFormatException();
+    } on PlatformException catch (e) {
+      throw CustomPlatformException(e.code).message;
+    } catch (e) {
+      throw 'Something went wrong. Please try again.';
+    }
+  }
 }

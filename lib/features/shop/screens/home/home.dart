@@ -6,7 +6,7 @@ import 'package:bagit/common/widgets/texts/section_heading.dart';
 import 'package:bagit/features/shop/screens/all_products/all_products.dart';
 import 'package:bagit/features/shop/screens/home/wigets/home_categories.dart';
 import 'package:bagit/features/shop/screens/home/wigets/promo_slider.dart';
-import 'package:bagit/features/shop/screens/home/wigets/theme_home_appbar.dart';
+import 'package:bagit/features/shop/screens/home/wigets/home_appbar.dart';
 import 'package:bagit/utils/constants/colors.dart';
 import 'package:bagit/utils/constants/image_strings.dart';
 import 'package:bagit/utils/constants/sizes.dart';
@@ -25,7 +25,7 @@ class HomeScreen extends StatelessWidget {
       const CustomPrimaryHeaderContainer(
           child: Column(children: [
         // -- Appbar
-        ThemeHomeAppBar(),
+        CustomHomeAppBar(),
         SizedBox(height: CustomSizes.spaceBtwSections),
 
         // -- Searchbar
