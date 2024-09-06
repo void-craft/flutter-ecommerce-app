@@ -6,6 +6,7 @@ import 'package:bagit/features/personalization/screens/profile/widgets/update_na
 import 'package:bagit/features/personalization/screens/profile/widgets/profile_menu.dart';
 import 'package:bagit/utils/constants/image_strings.dart';
 import 'package:bagit/utils/constants/sizes.dart';
+import 'package:bagit/common/widgets/shimmers/shimmer_effect.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
@@ -16,7 +17,7 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = UserController.instance;
-    
+
     return Scaffold(
         appBar: const CustomAppBar(title: Text('Profile'), showBackArrow: true),
 
@@ -29,10 +30,24 @@ class ProfileScreen extends StatelessWidget {
                   SizedBox(
                       width: double.infinity,
                       child: Column(children: [
-                        const CustomCircularImage(
-                            image: CustomImages.user, width: 80, height: 80),
+                        Obx(() {
+                          final networkImage =
+                              controller.user.value.profilePicture;
+                          final image = networkImage.isNotEmpty
+                              ? networkImage
+                              : CustomImages.user;
+                          return controller.imageUploading.value
+                              ? const CustomShimmerEffect(
+                                  width: 80, height: 80, radius: 80)
+                              : CustomCircularImage(
+                                  image: image,
+                                  width: 80,
+                                  height: 80,
+                                  isNetworkImage: networkImage.isNotEmpty);
+                        }),
                         TextButton(
-                            onPressed: () {},
+                            onPressed: () =>
+                                controller.uploadUserProfilePicture(),
                             child: const Text('Change Profile Picture'))
                       ])),
 
@@ -47,9 +62,13 @@ class ProfileScreen extends StatelessWidget {
                   const SizedBox(height: CustomSizes.spaceBtwItems),
 
                   CustomProfileMenu(
-                      onPressed: () => Get.to(() => const UpdateNameScreen()), title: 'Name', value: controller.user.value.fullName),
+                      onPressed: () => Get.to(() => const UpdateNameScreen()),
+                      title: 'Name',
+                      value: controller.user.value.fullName),
                   CustomProfileMenu(
-                      onPressed: () {}, title: 'Username', value: controller.user.value.username),
+                      onPressed: () {},
+                      title: 'Username',
+                      value: controller.user.value.username),
 
                   // -- Break
                   const SizedBox(height: CustomSizes.defaultSpace / 2),
@@ -84,7 +103,8 @@ class ProfileScreen extends StatelessWidget {
 
                   Center(
                       child: TextButton(
-                          onPressed: () => controller.deleteAccountWarningPopup(),
+                          onPressed: () =>
+                              controller.deleteAccountWarningPopup(),
                           child: const Text('Close Account',
                               style: TextStyle(color: Colors.red))))
                 ]))));

@@ -37,14 +37,14 @@ static const String lottieLoadingllustration = "assets/images/lottie/loading.jso
 
 
 // -- Category Icons
-static const String sportIcon = "assets/icons/categories/sports.png";
-static const String clothIcon = "assets/icons/categories/clothes.png";
-static const String shoeIcon = "assets/icons/categories/shoes.png";
-static const String cosmeticIcon = "assets/icons/categories/cosmetics.png";
-static const String toyIcon = "assets/icons/categories/toys.png";
+static const String sportsIcon = "assets/icons/categories/sports.png";
+static const String clothesIcon = "assets/icons/categories/clothes.png";
+static const String shoesIcon = "assets/icons/categories/shoes.png";
+static const String cosmeticsIcon = "assets/icons/categories/cosmetics.png";
+static const String petIcon = "assets/icons/categories/toys.png";
 static const String furnitureIcon = "assets/icons/categories/furniture.png";
 static const String jewelryIcon = "assets/icons/categories/jewelry.png";
-static const String elctronicsIcon = "assets/icons/categories/electronics.png";
+static const String electronicsIcon = "assets/icons/categories/electronics.png";
 
 // -- Banners
 static const String promoBanner1 = "assets/images/banners/one.png";
@@ -62,4 +62,5 @@ static const String productImage6 = "assets/images/products/prod6.jpg";
 static const String productImage7 = "assets/images/products/prod7.jpg";
 static const String productImage8 = "assets/images/products/prod8.jpg";
 static const String productImage9 = "assets/images/products/prod9.jpg";
+
 }

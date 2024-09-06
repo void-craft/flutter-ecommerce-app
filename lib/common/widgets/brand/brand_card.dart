@@ -36,7 +36,7 @@ class CustomBrandCard extends StatelessWidget {
               Flexible(
                 child: CustomCircularImage(
                     isNetworkImage: false,
-                    image: CustomImages.clothIcon,
+                    image: CustomImages.clothesIcon,
                     backgroundColor:
                         Colors.transparent,
                     overlayColor:

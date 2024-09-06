@@ -2,12 +2,15 @@ import 'package:bagit/common/widgets/brand/brand_showcase.dart';
 import 'package:bagit/common/widgets/layouts/grid_layout.dart';
 import 'package:bagit/common/widgets/products/product_cards/product_card_vertical.dart';
 import 'package:bagit/common/widgets/texts/section_heading.dart';
+import 'package:bagit/features/shop/models/category_model.dart';
 import 'package:bagit/utils/constants/image_strings.dart';
 import 'package:bagit/utils/constants/sizes.dart';
 import 'package:flutter/material.dart';
 
 class CustomCategotyTab extends StatelessWidget {
-  const CustomCategotyTab({super.key});
+  const CustomCategotyTab({super.key, required this.category});
+
+  final CategoryModel category;
 
   @override
   Widget build(BuildContext context) {

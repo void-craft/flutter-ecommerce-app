@@ -1,4 +1,5 @@
 import 'package:bagit/bindings/general_bindings.dart';
+import 'package:bagit/routes/app_routes.dart';
 import 'package:bagit/utils/constants/colors.dart';
 import 'package:bagit/utils/theme/theme.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +15,7 @@ class App extends StatelessWidget {
         theme: CustomAppTheme.lightTheme,
         darkTheme: CustomAppTheme.darkTheme,
         initialBinding: GeneralBindings(),
+        getPages: AppRoutes.pages,
         home: const Scaffold(
             backgroundColor: CustomColors.primary,
             body:

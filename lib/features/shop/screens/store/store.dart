@@ -5,6 +5,7 @@ import 'package:bagit/common/widgets/custom_shapes/containers/search_container.d
 import 'package:bagit/common/widgets/layouts/grid_layout.dart';
 import 'package:bagit/common/widgets/products/custom_cart_counter_icon.dart';
 import 'package:bagit/common/widgets/texts/section_heading.dart';
+import 'package:bagit/features/shop/controllers/category_controller.dart';
 import 'package:bagit/features/shop/screens/brand/all_brands.dart';
 import 'package:bagit/features/shop/screens/store/widgets/category_tab.dart';
 import 'package:bagit/utils/constants/colors.dart';
@@ -18,8 +19,10 @@ class StoreScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final categories = CategoryController.instance.featuredCategories;
+
     return DefaultTabController(
-        length: 5,
+        length: categories.length,
         child: Scaffold(
             appBar: CustomAppBar(
               showBackArrow: false,
@@ -75,21 +78,17 @@ class StoreScreen extends StatelessWidget {
                                 ])),
 
                         // Tabs
-                        bottom: const CustomTabBar(tabs: [
-                          Tab(child: Text('Sports')),
-                          Tab(child: Text('Furniture')),
-                          Tab(child: Text('Electronics')),
-                          Tab(child: Text('Clothes')),
-                          Tab(child: Text('Cosmetics')),
-                        ]))
+                        bottom: CustomTabBar(
+                            tabs: categories
+                                .map((category) =>
+                                    Tab(child: Text(category.name)))
+                                .toList()))
                   ];
                 },
-                body: const TabBarView(children: [
-                  CustomCategotyTab(),
-                  CustomCategotyTab(),
-                  CustomCategotyTab(),
-                  CustomCategotyTab(),
-                  CustomCategotyTab(),
-                ]))));
+                body: TabBarView(
+                    children: categories
+                        .map(
+                            (category) => CustomCategotyTab(category: category))
+                        .toList()))));
   }
 }

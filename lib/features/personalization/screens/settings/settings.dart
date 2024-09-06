@@ -6,6 +6,7 @@ import 'package:bagit/common/widgets/texts/section_heading.dart';
 import 'package:bagit/features/personalization/controllers/logout_controller.dart';
 import 'package:bagit/features/personalization/screens/address/widgets/address.dart';
 import 'package:bagit/features/personalization/screens/profile/profile.dart';
+import 'package:bagit/features/personalization/screens/profile/widgets/upload_data.dart';
 import 'package:bagit/features/shop/screens/order/order.dart';
 import 'package:bagit/utils/constants/colors.dart';
 import 'package:bagit/utils/constants/sizes.dart';
@@ -86,10 +87,11 @@ class SettingsScreen extends StatelessWidget {
             const CustomSectionHeading(
                 title: 'App Settings', showActionButton: false),
             const SizedBox(height: CustomSizes.spaceBtwItems),
-            const CustomSettingsMenuTile(
+            CustomSettingsMenuTile(
                 icon: Iconsax.document_upload,
                 title: 'Load Data',
-                subtitle: 'Upload Data to your Cloud Firebase'),
+                subtitle: 'Upload Data to your Cloud Firebase',
+                onTap: () => Get.to(() => const UploadDataScreen())),
             CustomSettingsMenuTile(
                 icon: Iconsax.location,
                 title: 'Geolocation',

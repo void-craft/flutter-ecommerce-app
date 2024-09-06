@@ -11,12 +11,14 @@ import 'package:bagit/utils/popups/full_screen_loader.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 
 class UserController extends GetxController {
   static UserController get instance => Get.find();
 
   final profileLoading = false.obs;
   Rx<UserModel> user = UserModel.empty().obs;
+  final imageUploading = false.obs;
   final userRepository = Get.put(UserRepository());
   final verifyEmail = TextEditingController();
   final verifyPassword = TextEditingController();
@@ -45,27 +47,33 @@ class UserController extends GetxController {
   // Save user Record from any Registration provider
   Future<void> saveUserRecord(UserCredential? userCredentials) async {
     try {
-      if (userCredentials != null) {
-        // Convert name to first and last name
-        final nameParts =
-            UserModel.nameParts(userCredentials.user!.displayName ?? '');
-        final username =
-            UserModel.generateUsername(userCredentials.user!.displayName ?? '');
+      // Refresh user record
+      await fetchUserRecord();
 
-        // Map Data
-        final user = UserModel(
-            id: userCredentials.user!.uid,
-            firstName: nameParts[0],
-            firstSurname: nameParts[1],
-            lastSurname:
-                nameParts.length > 2 ? nameParts.sublist(1).join(' ') : '',
-            username: username,
-            email: userCredentials.user!.email ?? '',
-            phoneNumber: userCredentials.user!.phoneNumber ?? '',
-            profilePicture: userCredentials.user!.photoURL ?? '');
+      // If no record exists
+      if (user.value.id.isEmpty) {
+        if (userCredentials != null) {
+          // Convert name to first and last name
+          final nameParts =
+              UserModel.nameParts(userCredentials.user!.displayName ?? '');
+          final username = UserModel.generateUsername(
+              userCredentials.user!.displayName ?? '');
 
-        // Save user data
-        await userRepository.saveUserRecord(user);
+          // Map Data
+          final user = UserModel(
+              id: userCredentials.user!.uid,
+              firstName: nameParts[0],
+              firstSurname: nameParts[1],
+              lastSurname:
+                  nameParts.length > 2 ? nameParts.sublist(1).join(' ') : '',
+              username: username,
+              email: userCredentials.user!.email ?? '',
+              phoneNumber: userCredentials.user!.phoneNumber ?? '',
+              profilePicture: userCredentials.user!.photoURL ?? '', addresses: []);
+
+          // Save user data
+          await userRepository.saveUserRecord(user);
+        }
       }
     } catch (e) {
       CustomLoaders.warningSnackbar(
@@ -126,27 +134,61 @@ class UserController extends GetxController {
   // Reauthenticate before deleting
   Future<void> reauthenticateEmailAndPasswordUser() async {
     try {
-      CustomFullscreenLoader.openLoadingDialog('Processing', CustomImages.lottieLoadingllustration);
+      CustomFullscreenLoader.openLoadingDialog(
+          'Processing', CustomImages.lottieLoadingllustration);
 
       // Check internet
       final isConnected = await NetworkManager.instance.isConnected();
-      if(!isConnected) {
+      if (!isConnected) {
         CustomFullscreenLoader.stopLoading();
         return;
       }
 
-      if(!reAuthFormKey.currentState!.validate()) {
+      if (!reAuthFormKey.currentState!.validate()) {
         CustomFullscreenLoader.stopLoading();
         return;
       }
 
-      await AuthenticationRepository.instance.reauthenticateWithEmailAndPassword(verifyEmail.text.trim(), verifyEmail.text.trim());
+      await AuthenticationRepository.instance
+          .reauthenticateWithEmailAndPassword(
+              verifyEmail.text.trim(), verifyEmail.text.trim());
       await AuthenticationRepository.instance.deleteAccount();
       CustomFullscreenLoader.stopLoading();
       Get.offAll(() => const LoginScreen());
     } catch (e) {
       CustomFullscreenLoader.stopLoading();
       CustomLoaders.warningSnackbar(title: 'Oh, snap!', message: e.toString());
+    }
+  }
+
+  // Upload profile picture
+  uploadUserProfilePicture() async {
+    try {
+      final image = await ImagePicker().pickImage(
+          source: ImageSource.gallery,
+          imageQuality: 70,
+          maxHeight: 512,
+          maxWidth: 512);
+      if (image != null) {
+        imageUploading.value = true;
+        final imageUrl =
+            await userRepository.uploadImage('Users/images/Profile', image);
+
+        // Update user image record
+        Map<String, dynamic> json = {'ProfilePicture': imageUrl};
+        await userRepository.updateSingleField(json);
+
+        user.value.profilePicture = imageUrl;
+        user.refresh();
+
+        CustomLoaders.successSnackbar(
+            title: 'Done!', message: 'Profile picture successfully updated!');
+      }
+    } catch (e) {
+      CustomLoaders.errorSnackbar(
+          title: 'Oh, snap!', message: 'Something went wrong: $e');
+    } finally {
+      imageUploading.value = false;
     }
   }
 }

@@ -1,3 +1,4 @@
+import 'package:bagit/common/widgets/images/circular_images.dart';
 import 'package:bagit/utils/constants/colors.dart';
 import 'package:bagit/utils/constants/sizes.dart';
 import 'package:bagit/utils/helpers/helper_functions.dart';
@@ -11,12 +12,14 @@ class CustomVerticalImageText extends StatelessWidget {
     this.textColor = CustomColors.white,
     this.onTap,
     this.backgroundColor,
+    this.isNetworkImage = true,
   });
 
   final String image, title;
   final Color textColor;
   final Color? backgroundColor;
   final void Function()? onTap;
+  final bool isNetworkImage;
 
   @override
   Widget build(BuildContext context) {
@@ -29,20 +32,12 @@ class CustomVerticalImageText extends StatelessWidget {
         child: Column(
           children: [
             // Circular icon
-            Container(
-              width: 56,
-              height: 56,
-              padding: const EdgeInsets.all(CustomSizes.sm),
-              decoration: BoxDecoration(
-                  color: backgroundColor ??
-                      (dark ? CustomColors.dark : CustomColors.light),
-                  borderRadius: BorderRadius.circular(100)),
-              child: Center(
-                child: Image(
-                    image: AssetImage(image),
-                    fit: BoxFit.cover,
-                    color: dark ? CustomColors.light : CustomColors.dark),
-              ),
+            CustomCircularImage(
+              padding: CustomSizes.sm * 1.4,
+              image: image,
+              isNetworkImage: isNetworkImage,
+              fit: BoxFit.fitWidth,
+              backgroundColor: backgroundColor ?? (dark ? CustomColors.black : CustomColors.white),
             ),
 
             // -- Text

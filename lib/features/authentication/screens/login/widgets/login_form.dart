@@ -61,7 +61,7 @@ class CustomLoginForm extends StatelessWidget {
 
                 // Forgot password
                 TextButton(
-                    onPressed: () => Get.to(() => const ForgotPassword()),
+                    onPressed: () => Get.to(() => const ForgotPasswordScreen()),
                     child: const Text(CustomTexts.forgotPassword))
               ]),
               const SizedBox(height: CustomSizes.spaceBtwSections),

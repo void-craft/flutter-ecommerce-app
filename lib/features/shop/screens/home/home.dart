@@ -8,7 +8,6 @@ import 'package:bagit/features/shop/screens/home/wigets/home_categories.dart';
 import 'package:bagit/features/shop/screens/home/wigets/promo_slider.dart';
 import 'package:bagit/features/shop/screens/home/wigets/home_appbar.dart';
 import 'package:bagit/utils/constants/colors.dart';
-import 'package:bagit/utils/constants/image_strings.dart';
 import 'package:bagit/utils/constants/sizes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -53,11 +52,7 @@ class HomeScreen extends StatelessWidget {
       Padding(
           padding: const EdgeInsets.all(CustomSizes.defaultSpace),
           child: Column(children: [
-            const CustomPromoSlider(banners: [
-              CustomImages.promoBanner1,
-              CustomImages.promoBanner2,
-              CustomImages.promoBanner3
-            ]),
+            const CustomPromoSlider(),
             const SizedBox(height: CustomSizes.spaceBtwSections),
             // -- Heading: Popular Products
             CustomSectionHeading(title: 'Popular Products', onPressed: () => Get.to(() => const AllProductsScreen())),

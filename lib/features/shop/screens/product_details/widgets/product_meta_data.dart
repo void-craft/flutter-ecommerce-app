@@ -61,7 +61,7 @@ class CustomProductMetaData extends StatelessWidget {
       // -- Brand
       Row(children: [
         CustomCircularImage(
-          image: CustomImages.shoeIcon,
+          image: CustomImages.shoesIcon,
           width: 32,
           height: 32,
           overlayColor: darkMode ? CustomColors.white : CustomColors.black,
