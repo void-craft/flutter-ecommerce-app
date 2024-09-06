@@ -2,6 +2,7 @@ import 'package:bagit/common/widgets/appbar/appbar.dart';
 import 'package:bagit/common/widgets/icons/circular_icon.dart';
 import 'package:bagit/common/widgets/layouts/grid_layout.dart';
 import 'package:bagit/common/widgets/products/product_cards/product_card_vertical.dart';
+import 'package:bagit/features/shop/models/product_model.dart';
 import 'package:bagit/features/shop/screens/home/home.dart';
 import 'package:bagit/utils/constants/sizes.dart';
 import 'package:flutter/material.dart';
@@ -30,7 +31,7 @@ class FavoriteScreen extends StatelessWidget {
                   CustomGridLayout(
                       itemCount: 4,
                       itemBuilder: (_, index) =>
-                          const CustomProductCardVertical())
+                          CustomProductCardVertical(product: ProductModel.empty()))
                 ]))));
   }
 }

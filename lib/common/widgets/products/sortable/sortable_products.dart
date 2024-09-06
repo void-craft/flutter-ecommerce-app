@@ -1,5 +1,6 @@
 import 'package:bagit/common/widgets/layouts/grid_layout.dart';
 import 'package:bagit/common/widgets/products/product_cards/product_card_vertical.dart';
+import 'package:bagit/features/shop/models/product_model.dart';
 import 'package:bagit/utils/constants/sizes.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
@@ -32,7 +33,7 @@ class CustomSortableProducts extends StatelessWidget {
       // Products
       CustomGridLayout(
           itemCount: 4,
-          itemBuilder: (_, index) => const CustomProductCardVertical())
+          itemBuilder: (_, index) => CustomProductCardVertical(product: ProductModel.empty()))
     ]);
   }
 }

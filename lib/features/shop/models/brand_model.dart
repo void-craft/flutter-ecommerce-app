@@ -1,51 +1,63 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class BrandModel {
-  final String id;
-  final String name;
-  final String image;
-  final int productsCount;
-  final bool isFeatured;
+  String id;
+  String name;
+  String image;
+  int? productsCount;
+  bool? isFeatured;
 
   BrandModel({
     required this.id,
     required this.name,
     required this.image,
-    required this.productsCount,
-    required this.isFeatured,
+    this.productsCount,
+    this.isFeatured,
   });
 
-  // Convert JSON to BrandModel
-  factory BrandModel.fromJson(Map<String, dynamic> json) {
-    return BrandModel(
-      id: json['id'] ?? '',
-      name: json['name'] ?? '',
-      image: json['image'] ?? '',
-      productsCount: json['productsCount'] ?? 0,
-      isFeatured: json['isFeatured'] ?? false,
-    );
-  }
+  // Empty helper function
+  static BrandModel empty() => BrandModel(id: '', name: '', image: '');
 
-  // Convert BrandModel to JSON
-  Map<String, dynamic> toJson() {
+  // convert model to JSON
+  toJson() {
     return {
-      'id': id,
-      'name': name,
-      'image': image,
-      'productsCount': productsCount,
-      'isFeatured': isFeatured,
+      'Id': id,
+      'Name': name,
+      'Image': image,
+      'ProductsCount': productsCount,
+      'IsFeatured': isFeatured,
     };
   }
 
-  // Convert a Firestore document snapshot to a BrandModel instance
-  factory BrandModel.fromSnapshot(DocumentSnapshot snapshot) {
-    final data = snapshot.data() as Map<String, dynamic>;
+  // Map Json oriented document snapshot from firebase to usermodel
+  factory BrandModel.fromJson(Map<String, dynamic> document) {
+    final data = document;
+    if (data.isEmpty) return BrandModel.empty();
     return BrandModel(
-      id: data['id'] ?? '',
-      name: data['name'] ?? '',
-      image: data['image'] ?? '',
-      productsCount: data['productsCount'] ?? 0,
-      isFeatured: data['isFeatured'] ?? false,
+      id: data['Id'] ?? '',
+      name: data['Name'] ?? '',
+      image: data['Image'] ?? '',
+      productsCount: int.parse((data['ProductsCount'] ?? 0).toString()),
+      isFeatured: data['IsFeatured'] ?? false,
     );
+  }
+
+  // Convert a Firestore document snapshot to a BrandModel instance
+  factory BrandModel.fromSnapshot(
+      DocumentSnapshot<Map<String, dynamic>> document) {
+    if (document.data() != null) {
+      final data = document.data()!;
+      // Map JSON record to the model
+      return BrandModel(
+        id: document.id,
+        name: data['Name'] ?? '',
+        image: data['Image'] ?? '',
+        productsCount: data['productsCount'] ?? 0,
+        isFeatured: data['isFeatured'] ?? false,
+      );
+    } else {
+      // Return an empty model if the document has no data
+      return BrandModel.empty();
+    }
   }
 }

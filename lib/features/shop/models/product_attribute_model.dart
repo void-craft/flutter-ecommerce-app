@@ -1,25 +1,29 @@
+// DONE
 class ProductAttributeModel {
-  final String name;
-  final List<String> values;
+  String? name;
+  List<String>? values;
 
   ProductAttributeModel({
-    required this.name,
-    required this.values,
+    this.name,
+    this.values,
   });
 
-  // Convert JSON to ProductAttributeModel
-  factory ProductAttributeModel.fromJson(Map<String, dynamic> json) {
-    return ProductAttributeModel(
-      name: json['name'] ?? '',
-      values: List<String>.from(json['values'] ?? []),
-    );
-  }
-
   // Convert ProductAttributeModel to JSON
-  Map<String, dynamic> toJson() {
+  toJson() {
     return {
       'name': name,
       'values': values,
     };
+  }
+
+  // Convert JSON to ProductAttributeModel
+  factory ProductAttributeModel.fromJson(Map<String, dynamic> document) {
+    final data = document;
+
+    if (data.isEmpty) return ProductAttributeModel();
+
+    return ProductAttributeModel(
+        name: data.containsKey('Name') ? data['Name'] : '',
+        values: List<String>.from(data['values']));
   }
 }

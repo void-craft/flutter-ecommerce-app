@@ -31,7 +31,7 @@ class BrandController extends GetxController {
 
       // Filter the featured brands
       featuredBrands.assignAll(allBrands
-          .where((brand) => brand.isFeatured)
+          .where((brand) => brand.isFeatured ?? false)
           .take(8) // Adjust the number as needed
           .toList());
     } catch (e) {

@@ -2,7 +2,9 @@ import 'package:bagit/common/widgets/custom_shapes/containers/primary_header_con
 import 'package:bagit/common/widgets/custom_shapes/containers/search_container.dart';
 import 'package:bagit/common/widgets/layouts/grid_layout.dart';
 import 'package:bagit/common/widgets/products/product_cards/product_card_vertical.dart';
+import 'package:bagit/common/widgets/shimmers/vertical_product_shimmer.dart';
 import 'package:bagit/common/widgets/texts/section_heading.dart';
+import 'package:bagit/features/shop/controllers/product/product_controller.dart';
 import 'package:bagit/features/shop/screens/all_products/all_products.dart';
 import 'package:bagit/features/shop/screens/home/wigets/home_categories.dart';
 import 'package:bagit/features/shop/screens/home/wigets/promo_slider.dart';
@@ -17,6 +19,8 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(ProductController());
+
     return Scaffold(
         body: SingleChildScrollView(
             child: Column(children: [
@@ -52,15 +56,28 @@ class HomeScreen extends StatelessWidget {
       Padding(
           padding: const EdgeInsets.all(CustomSizes.defaultSpace),
           child: Column(children: [
+            // Promo slider
             const CustomPromoSlider(),
             const SizedBox(height: CustomSizes.spaceBtwSections),
             // -- Heading: Popular Products
-            CustomSectionHeading(title: 'Popular Products', onPressed: () => Get.to(() => const AllProductsScreen())),
+            CustomSectionHeading(
+                title: 'Popular Products',
+                onPressed: () => Get.to(() => const AllProductsScreen())),
             const SizedBox(height: CustomSizes.spaceBtwItems),
             // -- Popular products grid
-            CustomGridLayout(
-                itemCount: 4,
-                itemBuilder: (_, index) => const CustomProductCardVertical()),
+            Obx(() {
+              if (controller.isLoading.value) return const CustomVerticalProductShimmer();
+
+              if (controller.featuredProducts.isEmpty) {
+                return Center(
+                    child: Text('No Data Found!',
+                        style: Theme.of(context).textTheme.bodyMedium));
+              }
+              return CustomGridLayout(
+                  itemCount: controller.featuredProducts.length,
+                  itemBuilder: (_, index) => CustomProductCardVertical(
+                      product: controller.featuredProducts[index]));
+            })
           ]))
     ])));
   }

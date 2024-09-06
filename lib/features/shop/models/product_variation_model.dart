@@ -1,45 +1,55 @@
+// DONE
 class ProductVariationModel {
   final String id;
-  final int stock;
-  final double price;
-  final double salePrice;
-  final String image;
-  final String description;
-  final Map<String, List<String>> attributeValues; // Assuming attribute values are key-value pairs.
+  String sku;
+  int stock;
+  double price;
+  double salePrice;
+  String image;
+  String? description;
+  Map<String, String> attributeValues;
 
   ProductVariationModel({
     required this.id,
-    required this.stock,
-    required this.price,
-    required this.salePrice,
-    required this.image,
-    required this.description,
-    required this.attributeValues, required String productType, required String variationType, required String value,
+    this.sku = '',
+    this.stock = 0,
+    this.price = 0.0,
+    this.salePrice = 0.0,
+    this.image = '',
+    this.description = '',
+    required this.attributeValues,
   });
 
-  // Convert JSON to ProductVariationModel
-  factory ProductVariationModel.fromJson(Map<String, dynamic> json) {
-    return ProductVariationModel(
-      id: json['id'] ?? '',
-      stock: json['stock'] ?? 0,
-      price: json['price']?.toDouble() ?? 0.0,
-      salePrice: json['salePrice']?.toDouble() ?? 0.0,
-      image: json['image'] ?? '',
-      description: json['description'] ?? '',
-      attributeValues: Map<String, List<String>>.from(json['attributeValues'] ?? {}), productType: '', variationType: '', value: '',
-    );
-  }
+  // Create empty func for clean code
+  static ProductVariationModel empty() =>
+      ProductVariationModel(id: '', attributeValues: {});
 
   // Convert ProductVariationModel to JSON
-  Map<String, dynamic> toJson() {
+  toJson() {
     return {
-      'id': id,
-      'stock': stock,
-      'price': price,
-      'salePrice': salePrice,
-      'image': image,
-      'description': description,
-      'attributeValues': attributeValues,
+      'Id': id,
+      'Stock': stock,
+      'Price': price,
+      'SalePrice': salePrice,
+      'Image': image,
+      'Description': description,
+      'AttributeValues': attributeValues,
+      'SKU': sku,
     };
+  }
+
+  // Convert JSON to ProductVariationModel
+  factory ProductVariationModel.fromJson(Map<String, dynamic> document) {
+    final data = document;
+    if (data.isEmpty) return ProductVariationModel.empty();
+    return ProductVariationModel(
+      id: data['Id'] ?? '',
+      price: double.parse((data['Price'] ?? 0.0).toString()),
+      sku: data['SKU'] ?? '',
+      stock: data['Stock'] ?? 0,
+      salePrice: double.parse((data['SalePrice'] ?? 0.0).toString()),
+      image: data['Image'] ?? '',
+      attributeValues: Map<String, String>.from(data['AttributeValues']),
+    );
   }
 }

@@ -26,7 +26,6 @@ class CustomGridLayout extends StatelessWidget {
         mainAxisSpacing: CustomSizes.gridViewSpacing,
         crossAxisSpacing: CustomSizes.gridViewSpacing,
       ),
-      // itemBuilder: (_, index) => const CustomProductCardVertical(),
       itemBuilder: itemBuilder
     );
   }

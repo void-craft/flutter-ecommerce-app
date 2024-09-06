@@ -6,9 +6,11 @@ import 'package:bagit/common/widgets/images/rounded_images.dart';
 import 'package:bagit/common/widgets/texts/custom_brand_title_text_verified_icon.dart';
 import 'package:bagit/common/widgets/texts/product_price.dart';
 import 'package:bagit/common/widgets/texts/product_title_text.dart';
+import 'package:bagit/features/shop/controllers/product/product_controller.dart';
+import 'package:bagit/features/shop/models/product_model.dart';
 import 'package:bagit/features/shop/screens/product_details/product_detail.dart';
 import 'package:bagit/utils/constants/colors.dart';
-import 'package:bagit/utils/constants/image_strings.dart';
+import 'package:bagit/utils/constants/enums.dart';
 import 'package:bagit/utils/constants/sizes.dart';
 import 'package:bagit/utils/helpers/helper_functions.dart';
 import 'package:flutter/material.dart';
@@ -16,14 +18,19 @@ import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 
 class CustomProductCardVertical extends StatelessWidget {
-  const CustomProductCardVertical({super.key});
+  const CustomProductCardVertical({super.key, required this.product});
+
+  final ProductModel product;
 
   @override
   Widget build(BuildContext context) {
+    final controller = ProductController.instance;
+    final salePercentage =
+        controller.calculateSalePercentage(product.price, product.salePrice);
     final dark = CustomHelperFunctions.isDarkMode(context);
 
     return GestureDetector(
-        onTap: () => Get.to(() => const ProductDetailScreen()),
+        onTap: () => Get.to(() => ProductDetailScreen(product: product)),
         child: Container(
             width: 180,
             padding: const EdgeInsets.all(1),
@@ -36,18 +43,22 @@ class CustomProductCardVertical extends StatelessWidget {
             child: Column(children: [
               // - Thumbnail, wishlist button, discount tag
               CustomRoundedContainer(
-                  height: 136,
+                  height: 180,
+                  width: 180,
                   padding: const EdgeInsets.all(CustomSizes.sm),
                   backgroundColor:
                       dark ? CustomColors.dark : CustomColors.light,
                   child: Stack(children: [
                     // - Thumbnail
-                    const CustomRoundedImage(
-                        height: CustomSizes.productImageSize,
-                        imageUrl: CustomImages.productImage1,
-                        applyImageRadius: true),
+                    Center(
+                      child: CustomRoundedImage(
+                          height: CustomSizes.productImageSize,
+                          imageUrl: product.thumbnail,
+                          applyImageRadius: true,
+                          isNetworkImage: true),
+                    ),
 
-                    // - On sale tag
+                    // - On sale tag -- DONE
                     Positioned(
                       top: 10,
                       child: CustomRoundedContainer(
@@ -57,7 +68,7 @@ class CustomProductCardVertical extends StatelessWidget {
                         padding: const EdgeInsets.symmetric(
                             horizontal: CustomSizes.sm,
                             vertical: CustomSizes.xs),
-                        child: Text('25%',
+                        child: Text('$salePercentage%',
                             style: Theme.of(context)
                                 .textTheme
                                 .labelLarge!
@@ -77,31 +88,44 @@ class CustomProductCardVertical extends StatelessWidget {
               const SizedBox(height: CustomSizes.spaceBtwItems / 2),
 
               // -- Details
-              const Padding(
-                padding: EdgeInsets.only(left: CustomSizes.sm),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    CustomProductTitleText(
-                        title: 'Pink Casual Shoes', smallSize: true),
-                    SizedBox(height: CustomSizes.spaceBtwItems / 2),
-                    CustomBrandTitleTextVerifiedIcon(title: 'VShoes')
-                  ],
-                ),
-              ),
-              const Spacer(),
-                    const Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              Padding(
+                  padding: const EdgeInsets.only(left: CustomSizes.sm),
+                  child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        // -- Price
-                        Padding(
-                          padding: EdgeInsets.only(left: CustomSizes.sm),
-                          child: CustomProductPrice(price: '14.99'),
-                        ),
-                        // -- Add to cart button
-                        CustomAddToCart(),
-                      ],
-                    )
+                        CustomProductTitleText(
+                            title: product.title, smallSize: true),
+                        const SizedBox(height: CustomSizes.spaceBtwItems / 2),
+                        CustomBrandTitleTextVerifiedIcon(
+                            title: product.brand!.name)
+                      ])),
+              const Spacer(),
+              Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+                // -- Price
+                Flexible(
+                    child: Column(children: [
+                  if (product.productType == ProductType.single.toString() &&
+                      product.salePrice > 0)
+                    Padding(
+                        padding: const EdgeInsets.only(left: CustomSizes.sm),
+                        child: Text(
+                          product.price.toString(),
+                          style: Theme.of(context)
+                              .textTheme
+                              .labelMedium!
+                              .apply(decoration: TextDecoration.lineThrough),
+                        )),
+
+                  // Price - show sale price as main price if sale exists
+                  Padding(
+                    padding: const EdgeInsets.only(left: CustomSizes.sm),
+                    child: CustomProductPrice(
+                        price: controller.getProductPrice(product)),
+                  )
+                ])),
+                // -- Add to cart button
+                const CustomAddToCart(),
+              ])
             ])));
     // );
   }
