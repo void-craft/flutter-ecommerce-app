@@ -63,7 +63,7 @@ class CategoryController extends GetxController {
 
       if (pickedFile != null) {
         File imageFile = File(pickedFile.path);
-        await CategoryRepository.instance.uploadCategory(
+        await _categoryRepository.uploadCategory(
           imageFile: imageFile,
           targetScreen: targetScreen,
           active: active,
@@ -79,53 +79,3 @@ class CategoryController extends GetxController {
     }
   }
 }
-
-
-// import 'package:bagit/common/widgets/loaders/loaders.dart';
-// import 'package:bagit/data/repositories/categories/category_repository.dart';
-// import 'package:bagit/features/shop/models/category_model.dart';
-// import 'package:get/get.dart';
-
-// class CategoryController extends GetxController {
-//   static CategoryController get instance => Get.find();
-
-//   final isLoading = false.obs;
-//   final _categoryRepository = Get.put(CategoryRepository());
-//   RxList<CategoryModel> allCategories = <CategoryModel>[].obs;
-//   RxList<CategoryModel> featuredCategories = <CategoryModel>[].obs;
-
-//   @override
-//   void onInit() {
-//     fetchCategories();
-//     super.onInit();
-//   }
-
-//   // --- Load category data
-//   Future<void> fetchCategories() async {
-//     try {
-//       // Show loader while loading categories
-//       isLoading.value = true;
-
-//       // Fetch categories from data source (Firestore, API, etc.)
-//       final categories = await _categoryRepository.getAllCategories();
-
-//       // Update the categories list
-//       allCategories.assignAll(categories);
-
-//       // Filter the featured categories
-//       featuredCategories.assignAll(allCategories
-//           .where((category) => category.isFeatured && category.parentId.isEmpty)
-//           .take(8)
-//           .toList());
-//     } catch (e) {
-//       CustomLoaders.errorSnackbar(title: 'Oh, snap!', message: e.toString());
-//     } finally {
-//       // Remove loader
-//       isLoading.value = false;
-//     }
-//   }
-
-//   // --- Load selected category data
-
-//   // --- Get category or sub-category products
-// }

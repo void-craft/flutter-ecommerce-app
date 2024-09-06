@@ -28,7 +28,7 @@ class UploadDataScreen extends StatelessWidget {
                     title: 'Main Record', showActionButton: false),
                 const SizedBox(height: CustomSizes.spaceBtwItems),
 
-                // Upload Categories
+                // Upload Categories --- DONE
                 CustomSettingsMenuTile(
                     icon: Iconsax.category,
                     title: 'Upload Categories',

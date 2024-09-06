@@ -22,14 +22,14 @@ class CategoryModel {
   // Convert model to json structure to store data in firebase
   Map<String, dynamic> toJson() {
     return {
-      "Name": "name",
-      "Image": "image",
-      "ParentId": "parentId",
-      "IsFeatured": "isFeatured"
+      "Name": name,
+      "Image": image,
+      "ParentId": parentId,
+      "IsFeatured": isFeatured
     };
   }
 
-  // Map json oriented document snapshot from firebase to usermodel
+  // Map json oriented document snapshot from firebase to CategoryModel
   factory CategoryModel.fromSnapshot(
       DocumentSnapshot<Map<String, dynamic>> document) {
     if (document.data() != null) {
