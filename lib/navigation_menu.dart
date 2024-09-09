@@ -13,7 +13,7 @@ class NavigationMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(NaigationController());
+    final controller = Get.put(NavigationController());
     final darkMode = CustomHelperFunctions.isDarkMode(context);
 
     return Scaffold(
@@ -37,7 +37,7 @@ class NavigationMenu extends StatelessWidget {
   }
 }
 
-class NaigationController extends GetxController {
+class NavigationController extends GetxController {
   final Rx<int> selectedIndex = 0.obs;
 
   final screens = [const HomeScreen(), const StoreScreen(), const FavoriteScreen(), const SettingsScreen()];

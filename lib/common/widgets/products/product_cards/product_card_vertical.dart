@@ -7,7 +7,7 @@ import 'package:bagit/common/widgets/texts/custom_brand_title_text_verified_icon
 import 'package:bagit/common/widgets/texts/product_price.dart';
 import 'package:bagit/common/widgets/texts/product_title_text.dart';
 import 'package:bagit/features/shop/controllers/product/product_controller.dart';
-import 'package:bagit/features/shop/models/product_model.dart';
+import 'package:bagit/features/shop/models/product/product_model.dart';
 import 'package:bagit/features/shop/screens/product_details/product_detail.dart';
 import 'package:bagit/utils/constants/colors.dart';
 import 'package:bagit/utils/constants/enums.dart';

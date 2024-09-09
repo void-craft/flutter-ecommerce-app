@@ -10,7 +10,7 @@ class CustomFirebaseStorageService extends GetxController {
   final _firebaseStorage = FirebaseStorage.instance;
 
   // Upload local assets from IDE
-  // Returns a Unit8list containing image data
+  // Returns a Uint8List containing image data
   Future<Uint8List> getImageDataFromAssets(String path) async {
     try {
       final byteData = await rootBundle.load(path);
@@ -46,8 +46,8 @@ class CustomFirebaseStorageService extends GetxController {
     }
   }
 
-// Upload image on cloud firebase storage
-// Returns the download url of the uploaded image
+  // Upload image on cloud firebase storage
+  // Returns the download url of the uploaded image
   Future<String> uploadImageFile(String path, XFile image) async {
     try {
       final ref = _firebaseStorage.ref(path).child(image.name);

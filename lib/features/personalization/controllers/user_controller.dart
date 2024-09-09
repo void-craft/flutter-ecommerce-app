@@ -18,12 +18,14 @@ class UserController extends GetxController {
 
   final profileLoading = false.obs;
   Rx<UserModel> user = UserModel.empty().obs;
-  final imageUploading = false.obs;
-  final userRepository = Get.put(UserRepository());
+  final hidePassword = false.obs;
   final verifyEmail = TextEditingController();
   final verifyPassword = TextEditingController();
+  // Confirmed twice 
+  final userRepository = Get.put(UserRepository(), permanent: true);
   GlobalKey<FormState> reAuthFormKey = GlobalKey<FormState>();
-  final hidePassword = false.obs;
+  
+  final imageUploading = false.obs;
 
   @override
   void onInit() {
@@ -35,10 +37,10 @@ class UserController extends GetxController {
   Future<void> fetchUserRecord() async {
     try {
       profileLoading.value = true;
-      final user = await userRepository.fetchUserDetails();
-      this.user(user);
+      final fetchedUser = await userRepository.fetchUserDetails();
+      user.value = fetchedUser;
     } catch (e) {
-      user(UserModel.empty());
+      user.value = UserModel.empty();
     } finally {
       profileLoading.value = false;
     }
@@ -60,7 +62,7 @@ class UserController extends GetxController {
               userCredentials.user!.displayName ?? '');
 
           // Map Data
-          final user = UserModel(
+          final newUser = UserModel(
               id: userCredentials.user!.uid,
               firstName: nameParts[0],
               firstSurname: nameParts[1],
@@ -72,7 +74,7 @@ class UserController extends GetxController {
               profilePicture: userCredentials.user!.photoURL ?? '', addresses: []);
 
           // Save user data
-          await userRepository.saveUserRecord(user);
+          await userRepository.saveUserRecord(newUser);
         }
       }
     } catch (e) {
@@ -162,7 +164,7 @@ class UserController extends GetxController {
   }
 
   // Upload profile picture
-  uploadUserProfilePicture() async {
+  Future<void> uploadUserProfilePicture() async {
     try {
       final image = await ImagePicker().pickImage(
           source: ImageSource.gallery,
@@ -172,7 +174,7 @@ class UserController extends GetxController {
       if (image != null) {
         imageUploading.value = true;
         final imageUrl =
-            await userRepository.uploadImage('Users/images/Profile', image);
+            await userRepository.uploadImage('Users/Images/Profile', image);
 
         // Update user image record
         Map<String, dynamic> json = {'ProfilePicture': imageUrl};

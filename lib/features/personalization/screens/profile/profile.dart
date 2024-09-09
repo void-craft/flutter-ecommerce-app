@@ -17,7 +17,6 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = UserController.instance;
-
     return Scaffold(
         appBar: const CustomAppBar(title: Text('Profile'), showBackArrow: true),
 

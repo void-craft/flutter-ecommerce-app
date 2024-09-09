@@ -1,6 +1,8 @@
 import 'package:bagit/features/shop/controllers/banner_controller.dart';
 import 'package:bagit/features/shop/controllers/category_controller.dart';
+import 'package:bagit/features/shop/screens/upload_product/upload_product_dialog.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:bagit/common/widgets/appbar/appbar.dart';
 import 'package:bagit/common/widgets/list_tile/settings_menu_tile.dart';
@@ -14,9 +16,9 @@ class UploadDataScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     BannerController bannerController = BannerController();
     CategoryController categoryController = CategoryController();
+
     return Scaffold(
-        appBar:
-            const CustomAppBar(title: Text('Upload Data')),
+        appBar: const CustomAppBar(title: Text('Upload Data')),
         body: SingleChildScrollView(
             child: Column(children: [
           // -- Body
@@ -55,8 +57,8 @@ class UploadDataScreen extends StatelessWidget {
                     subtitle: 'Upload product data',
                     trailing: IconButton(
                         icon: const Icon(Icons.upload),
-                        onPressed: () {
-                          // Handle upload action
+                        onPressed: () async {
+                          await Get.dialog(UploadProductDialog());
                         })),
                 // Upload Banners - DONE
                 CustomSettingsMenuTile(

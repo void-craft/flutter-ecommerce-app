@@ -9,6 +9,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
 class LoginController extends GetxController {
+
   // Variables
   final rememberMe = false.obs;
   final hidePassword = true.obs;
@@ -16,12 +17,12 @@ class LoginController extends GetxController {
   final email = TextEditingController();
   final password = TextEditingController();
   GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();
-  final userController = Get.put(UserController());
+  final userController = Get.put(UserController(), permanent: true);
 
   @override
   void onInit() {
     email.text = localStorage.read('REMEMBER_ME_EMAIL') ?? '';
-    password.text = localStorage.read('REMEMBER_ME_PASSWORD') ?? '';
+    password.text = localStorage.read('REMEMBER_ME_PASSWORD');
     super.onInit();
   }
 
@@ -31,33 +32,28 @@ class LoginController extends GetxController {
       // Start the loading screen
       CustomFullscreenLoader.openLoadingDialog(
           'Logging you in...', CustomImages.lottieLoadingllustration);
-
       // Check Internet Connectivity
       final isConnected = await NetworkManager.instance.isConnected();
       if (!isConnected) {
         CustomFullscreenLoader.stopLoading();
         return;
       }
-
       // Form validation
       if (!loginFormKey.currentState!.validate()) {
         CustomFullscreenLoader.stopLoading();
         return;
       }
-
       // Save data if remember me is selected
       if (rememberMe.value) {
         localStorage.write('REMEMBER_ME_EMAIL', email.text.trim());
         localStorage.write('REMEMBER_ME_PASSWORD', password.text.trim());
       }
-
       // Login user using Email & Password Authentication
-      await AuthenticationRepository.instance
+      final userCredentials = await AuthenticationRepository.instance
           .loginWithEmailAndPassword(email.text.trim(), password.text.trim());
-
+      await userController.saveUserRecord(userCredentials);
       // Remove loader
       CustomFullscreenLoader.stopLoading();
-
       // Redirect
       AuthenticationRepository.instance.screenRedirect();
     } catch (e) {

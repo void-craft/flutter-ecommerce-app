@@ -1,6 +1,6 @@
 import 'dart:io';
 import 'package:bagit/features/shop/models/category_model.dart';
-import 'package:bagit/features/shop/models/product_model.dart';
+import 'package:bagit/features/shop/models/product/product_model.dart';
 import 'package:bagit/utils/exceptions/firebase_exceptions.dart';
 import 'package:bagit/utils/exceptions/platform_exceptions.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -81,7 +81,7 @@ class CategoryRepository extends GetxController {
         // Create a new category document with the next ID
         final category = CategoryModel(
           id: nextId,
-          name: 'New Category',
+          name: '',
           image: downloadURL,
           isFeatured: true,
         );

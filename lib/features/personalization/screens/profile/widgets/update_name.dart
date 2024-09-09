@@ -50,13 +50,20 @@ class UpdateNameScreen extends StatelessWidget {
                             prefixIcon: Icon(Iconsax.user))),
                     const SizedBox(height: CustomSizes.spaceBtwInputFields),
                     TextFormField(
-                        controller: controller.lastSurname,
-                        validator: (value) => CustomValidator.validateEmptyText(
-                            'Last Surname', value),
-                        expands: false,
-                        decoration: const InputDecoration(
-                            labelText: CustomTexts.lastSurname,
-                            prefixIcon: Icon(Iconsax.user)))
+                      controller: controller.lastSurname,
+                      validator: (value) {
+                        if (value != null && value.isNotEmpty) {
+                          return CustomValidator.validateEmptyText(
+                              'Last Surname', value);
+                        }
+                        return null;
+                      },
+                      expands: false,
+                      decoration: const InputDecoration(
+                        labelText: CustomTexts.lastSurname,
+                        prefixIcon: Icon(Iconsax.user),
+                      ),
+                    )
                   ])),
               const SizedBox(height: CustomSizes.spaceBtwSections),
               SizedBox(

@@ -3,7 +3,7 @@ import 'package:bagit/common/widgets/custom_shapes/curved_edges/curved_edges_wid
 import 'package:bagit/common/widgets/icons/circular_icon.dart';
 import 'package:bagit/common/widgets/images/rounded_images.dart';
 import 'package:bagit/features/shop/controllers/product/images_controller.dart';
-import 'package:bagit/features/shop/models/product_model.dart';
+import 'package:bagit/features/shop/models/product/product_model.dart';
 import 'package:bagit/utils/constants/colors.dart';
 import 'package:bagit/utils/constants/sizes.dart';
 import 'package:bagit/utils/helpers/helper_functions.dart';

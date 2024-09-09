@@ -1,7 +1,7 @@
 import 'package:bagit/common/widgets/appbar/appbar.dart';
 import 'package:bagit/common/widgets/products/custom_cart_counter_icon.dart';
-import 'package:bagit/features/personalization/controllers/user_controller.dart';
 import 'package:bagit/common/widgets/shimmers/shimmer_effect.dart';
+import 'package:bagit/features/personalization/controllers/user_controller.dart';
 import 'package:bagit/utils/constants/colors.dart';
 import 'package:bagit/utils/constants/text_strings.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +14,8 @@ class CustomHomeAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(UserController());
+    // Confirmed
+    final controller = UserController.instance;
     return CustomAppBar(
       title: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         Text(CustomTexts.homeAppbarTitle,

@@ -1,6 +1,6 @@
 import 'package:bagit/features/shop/models/brand_model.dart';
-import 'package:bagit/features/shop/models/product_attribute_model.dart';
-import 'package:bagit/features/shop/models/product_variation_model.dart';
+import 'package:bagit/features/shop/models/product/product_attribute_model.dart';
+import 'package:bagit/features/shop/models/product/product_variation_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 // DONE
@@ -77,8 +77,8 @@ class ProductModel {
     final data = document.data()!;
     return ProductModel(
       id: document.id,
-      sku: data['SKU'],
-      title: data['Title'],
+      sku: data['SKU'] ?? '',
+      title: data['Title'] ?? '',
       stock: data['Stock'] ?? 0,
       price: double.parse((data['Price'] ?? 0.0).toString()),
       isFeatured: data['IsFeatured'] ?? false,
@@ -104,8 +104,8 @@ class ProductModel {
     final data = document.data() as Map<String, dynamic>;
     return ProductModel(
       id: document.id,
-      sku: data['SKU'],
-      title: data['Title'],
+      sku: data['SKU'] ?? '',
+      title: data['Title'] ?? '',
       stock: data['Stock'] ?? 0,
       price: double.parse((data['Price'] ?? 0.0).toString()),
       salePrice: double.parse((data['SalePrice'] ?? 0.0).toString()),

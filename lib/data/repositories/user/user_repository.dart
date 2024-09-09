@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:bagit/data/repositories/authentication/authentication_repository.dart';
 import 'package:bagit/features/personalization/models/user_model.dart';
 import 'package:bagit/utils/exceptions/firebase_exceptions.dart';
@@ -31,13 +30,13 @@ class UserRepository extends GetxController {
     }
   }
 
-  // Function to fetch user details based on user ID.
   Future<UserModel> fetchUserDetails() async {
     try {
-      final documentSnapshot = await _db
-          .collection("Users")
-          .doc(AuthenticationRepository.instance.authUser?.uid)
-          .get();
+      final uid = AuthenticationRepository.instance.authUser?.uid;
+      if (uid == null) {
+        throw 'User ID is null. User might not be authenticated.';
+      }
+      final documentSnapshot = await _db.collection("Users").doc(uid).get();
       if (documentSnapshot.exists) {
         return UserModel.fromSnapshot(documentSnapshot);
       } else {
@@ -54,7 +53,7 @@ class UserRepository extends GetxController {
     }
   }
 
-  // Function to update user data in firestore.
+  // Function to update user data in Firestore.
   Future<void> updateUserDetails(UserModel updatedUser) async {
     try {
       await _db
@@ -72,7 +71,7 @@ class UserRepository extends GetxController {
     }
   }
 
-  // Function to update any field in Users collection.
+  // Update any field in Users collection.
   Future<void> updateSingleField(Map<String, dynamic> json) async {
     try {
       await _db

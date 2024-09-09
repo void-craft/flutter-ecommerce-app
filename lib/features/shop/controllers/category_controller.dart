@@ -2,7 +2,7 @@ import 'dart:io';
 import 'package:bagit/common/widgets/loaders/loaders.dart';
 import 'package:bagit/data/repositories/categories/category_repository.dart';
 import 'package:bagit/features/shop/models/category_model.dart';
-import 'package:bagit/features/shop/models/product_model.dart';
+import 'package:bagit/features/shop/models/product/product_model.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -53,7 +53,7 @@ class CategoryController extends GetxController {
   }
 
   Future<void> uploadCategory({
-    String targetScreen = '/shop',
+    String targetScreen = '',
     bool active = true,
   }) async {
     try {

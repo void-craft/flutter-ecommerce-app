@@ -20,7 +20,6 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(ProductController());
-
     return Scaffold(
         body: SingleChildScrollView(
             child: Column(children: [
@@ -62,12 +61,14 @@ class HomeScreen extends StatelessWidget {
             // -- Heading: Popular Products
             CustomSectionHeading(
                 title: 'Popular Products',
-                onPressed: () => Get.to(() => const AllProductsScreen())),
+                onPressed: () => Get.to(() => AllProductsScreen(
+                      title: 'Popular Products',
+                      futureMethod: controller.fetchAllFeaturedProducts(),
+                    ))),
             const SizedBox(height: CustomSizes.spaceBtwItems),
             // -- Popular products grid
             Obx(() {
               if (controller.isLoading.value) return const CustomVerticalProductShimmer();
-
               if (controller.featuredProducts.isEmpty) {
                 return Center(
                     child: Text('No Data Found!',

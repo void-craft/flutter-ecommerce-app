@@ -10,22 +10,15 @@ class BrandProductsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
-      appBar: CustomAppBar(
-        title: Text('VShoes')
-      ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: EdgeInsets.all(CustomSizes.defaultSpace),
-          child: Column(
-            children: [
-              // Brand Detail
-              CustomBrandCard(showBorder: true),
-              SizedBox(height: CustomSizes.spaceBtwSections),
-              CustomSortableProducts()
-            ],
-          ),
-          ),
-      )
-    ) ;
+        appBar: CustomAppBar(title: Text('VShoes')),
+        body: SingleChildScrollView(
+            child: Padding(
+                padding: EdgeInsets.all(CustomSizes.defaultSpace),
+                child: Column(children: [
+                  // Brand Detail
+                  CustomBrandCard(showBorder: true),
+                  SizedBox(height: CustomSizes.spaceBtwSections),
+                  CustomSortableProducts(products: [])
+                ]))));
   }
 }

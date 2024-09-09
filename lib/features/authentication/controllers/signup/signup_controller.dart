@@ -74,7 +74,7 @@ class SignupController extends GetxController {
           phoneNumber: phoneNumber.text.trim(),
           profilePicture: '');
 
-      final userRepository = Get.find<UserRepository>(); // Use Get.find instead of Get.put if already instantiated
+      final userRepository = UserRepository.instance;
       await userRepository.saveUserRecord(newUser);
 
       // Remove loader

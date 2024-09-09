@@ -13,11 +13,13 @@ class CustomVerticalImageText extends StatelessWidget {
     this.onTap,
     this.backgroundColor,
     this.isNetworkImage = true,
+    this.overlayColor,
   });
 
   final String image, title;
   final Color textColor;
   final Color? backgroundColor;
+  final Color? overlayColor;
   final void Function()? onTap;
   final bool isNetworkImage;
 
@@ -38,6 +40,7 @@ class CustomVerticalImageText extends StatelessWidget {
               isNetworkImage: isNetworkImage,
               fit: BoxFit.fitWidth,
               backgroundColor: backgroundColor ?? (dark ? CustomColors.black : CustomColors.white),
+              overlayColor: overlayColor ?? (dark ? CustomColors.white : CustomColors.black),
             ),
 
             // -- Text

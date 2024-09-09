@@ -1,4 +1,4 @@
-import 'package:bagit/features/shop/models/product_model.dart';
+import 'package:bagit/features/shop/models/product/product_model.dart';
 import 'package:bagit/utils/constants/sizes.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';

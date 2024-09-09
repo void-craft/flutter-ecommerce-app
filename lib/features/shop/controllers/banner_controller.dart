@@ -8,6 +8,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 // DONE
 class BannerController extends GetxController {
+  static BannerController get instance => Get.find();
   final carousalCurrentIndex = 0.obs;
   final isLoading = false.obs;
   final RxList<BannerModel> banners = <BannerModel>[].obs;
