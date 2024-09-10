@@ -59,22 +59,23 @@ class CustomProductCardVertical extends StatelessWidget {
                     ),
 
                     // - On sale tag -- DONE
-                    Positioned(
-                      top: 10,
-                      child: CustomRoundedContainer(
-                        radius: CustomSizes.sm,
-                        backgroundColor:
-                            CustomColors.secondary.withOpacity(0.8),
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: CustomSizes.sm,
-                            vertical: CustomSizes.xs),
-                        child: Text('$salePercentage%',
-                            style: Theme.of(context)
-                                .textTheme
-                                .labelLarge!
-                                .apply(color: CustomColors.black)),
+                    if (salePercentage != null)
+                      Positioned(
+                        top: 10,
+                        child: CustomRoundedContainer(
+                          radius: CustomSizes.sm,
+                          backgroundColor:
+                              CustomColors.secondary.withOpacity(0.8),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: CustomSizes.sm,
+                              vertical: CustomSizes.xs),
+                          child: Text('$salePercentage%',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .labelLarge!
+                                  .apply(color: CustomColors.black)),
+                        ),
                       ),
-                    ),
 
                     // - Favorite icon button
                     const Positioned(

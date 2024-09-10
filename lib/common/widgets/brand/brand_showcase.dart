@@ -1,5 +1,6 @@
 import 'package:bagit/common/widgets/brand/brand_card.dart';
 import 'package:bagit/common/widgets/custom_shapes/containers/rounded_container.dart';
+import 'package:bagit/features/shop/models/brand_model.dart';
 import 'package:bagit/utils/constants/colors.dart';
 import 'package:bagit/utils/constants/sizes.dart';
 import 'package:bagit/utils/helpers/helper_functions.dart';
@@ -21,7 +22,7 @@ class CustomBrandShowcase extends StatelessWidget {
       child: Column(
         children: [
           // Brand with product count
-          const CustomBrandCard(showBorder: false),
+          CustomBrandCard(showBorder: false, brand: BrandModel.empty()),
 
           // Brand's top 3 products
           Row(

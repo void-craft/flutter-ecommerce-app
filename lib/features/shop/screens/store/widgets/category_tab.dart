@@ -8,8 +8,8 @@ import 'package:bagit/utils/constants/image_strings.dart';
 import 'package:bagit/utils/constants/sizes.dart';
 import 'package:flutter/material.dart';
 
-class CustomCategotyTab extends StatelessWidget {
-  const CustomCategotyTab({super.key, required this.category});
+class CustomCategoryTab extends StatelessWidget {
+  const CustomCategoryTab({super.key, required this.category});
 
   final CategoryModel category;
 

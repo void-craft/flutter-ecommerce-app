@@ -1,39 +1,33 @@
 import 'package:bagit/common/widgets/loaders/loaders.dart';
 import 'package:bagit/data/repositories/brand/brand_repository.dart';
+import 'package:bagit/data/repositories/product/product_repository.dart';
 import 'package:bagit/features/shop/models/brand_model.dart';
+import 'package:bagit/features/shop/models/product/product_model.dart';
 import 'package:get/get.dart';
 
 class BrandController extends GetxController {
   static BrandController get instance => Get.find();
 
   final isLoading = false.obs;
-  final _brandRepository = Get.put(BrandRepository());
+  final brandRepository = Get.put(BrandRepository());
   RxList<BrandModel> allBrands = <BrandModel>[].obs;
   RxList<BrandModel> featuredBrands = <BrandModel>[].obs;
 
   @override
   void onInit() {
-    fetchBrands();
+    getFeaturedBrands();
     super.onInit();
   }
 
-  // --- Load brand data
-  Future<void> fetchBrands() async {
+  // --- Load featured brand data
+  Future<void> getFeaturedBrands() async {
     try {
-      // Show loader while loading brands
       isLoading.value = true;
-
-      // Fetch brands from data source (Firestore, API, etc.)
-      final brands = await _brandRepository.getAllBrands();
-
-      // Update the brands list
+      final brands = await brandRepository.getAllBrands();
       allBrands.assignAll(brands);
-
-      // Filter the featured brands
       featuredBrands.assignAll(allBrands
           .where((brand) => brand.isFeatured ?? false)
-          .take(8) // Adjust the number as needed
-          .toList());
+          .take(4));
     } catch (e) {
       CustomLoaders.errorSnackbar(title: 'Oh, snap!', message: e.toString());
     } finally {
@@ -45,4 +39,13 @@ class BrandController extends GetxController {
   // --- Load selected brand data
 
   // --- Get brand details
+  Future<List<ProductModel>> getBrandProducts(String brandId) async {
+    try {
+    final products = await ProductRepository.instance.getProductsForBrand(brandId: brandId);
+    return products;
+    } catch (e) {
+      CustomLoaders.errorSnackbar(title: 'Oh, snap!', message: e.toString());
+      return [];
+    }
+  }
 }

@@ -5,8 +5,11 @@ import 'package:bagit/common/widgets/custom_shapes/containers/search_container.d
 import 'package:bagit/common/widgets/layouts/grid_layout.dart';
 import 'package:bagit/common/widgets/products/custom_cart_counter_icon.dart';
 import 'package:bagit/common/widgets/texts/section_heading.dart';
+import 'package:bagit/features/shop/controllers/brand_controller.dart';
 import 'package:bagit/features/shop/controllers/category_controller.dart';
 import 'package:bagit/features/shop/screens/brand/all_brands.dart';
+import 'package:bagit/features/shop/screens/brand/brand_products.dart';
+import 'package:bagit/features/shop/screens/brand/widget/brand_shimmer.dart';
 import 'package:bagit/features/shop/screens/store/widgets/category_tab.dart';
 import 'package:bagit/utils/constants/colors.dart';
 import 'package:bagit/utils/constants/sizes.dart';
@@ -19,6 +22,7 @@ class StoreScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final brandController = Get.put(BrandController());
     final categories = CategoryController.instance.featuredCategories;
 
     return DefaultTabController(
@@ -62,19 +66,38 @@ class StoreScreen extends StatelessWidget {
                                   // -- Featured Brands
                                   CustomSectionHeading(
                                       title: 'Featured Brands',
-                                      onPressed: () => Get.to(
-                                          () => const AllBrandsScreen())),
+                                      onPressed: () =>
+                                          Get.to(() => const AllBrandsScreen())),
                                   const SizedBox(
                                       height: CustomSizes.spaceBtwItems / 1.5),
 
                                   // -- Brands grid
-                                  CustomGridLayout(
-                                      itemCount: 4,
-                                      mainAxisExtent: 80,
-                                      itemBuilder: (_, index) {
-                                        return const CustomBrandCard(
-                                            showBorder: true);
-                                      })
+                                  Obx(() {
+                                    if (brandController.isLoading.value) return const CustomBrandShimmer();
+                                    if (brandController
+                                        .featuredBrands.isEmpty) {
+                                      return Center(
+                                          child: Text('No Data Found!',
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .bodyMedium!
+                                                  .apply(color: Colors.white)));
+                                    }
+                                    return CustomGridLayout(
+                                        itemCount: brandController
+                                            .featuredBrands.length,
+                                        mainAxisExtent: 80,
+                                        itemBuilder: (_, index) {
+                                          final brand = brandController
+                                              .featuredBrands[index];
+                                          return CustomBrandCard(
+                                              showBorder: true,
+                                              brand: brand,
+                                              onTap: () => Get.to(() =>
+                                                  BrandProductsScreen(
+                                                      brand: brand)));
+                                        });
+                                  })
                                 ])),
 
                         // Tabs
@@ -88,7 +111,7 @@ class StoreScreen extends StatelessWidget {
                 body: TabBarView(
                     children: categories
                         .map(
-                            (category) => CustomCategotyTab(category: category))
+                            (category) => CustomCategoryTab(category: category))
                         .toList()))));
   }
 }
