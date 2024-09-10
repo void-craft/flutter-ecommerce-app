@@ -9,6 +9,14 @@ class ProductCategoryModel {
     required this.categoryId,
   });
 
+  // Convert a ProductCategoryModel instance to JSON
+  Map<String, dynamic> toJson() {
+    return {
+      'productId': productId,
+      'categoryId': categoryId,
+    };
+  }
+
   // Convert a Firestore document snapshot to a ProductCategoryModel instance
   factory ProductCategoryModel.fromSnapshot(DocumentSnapshot snapshot) {
     final data = snapshot.data() as Map<String, dynamic>;
@@ -16,13 +24,5 @@ class ProductCategoryModel {
       productId: data['productId'] ?? '',
       categoryId: data['categoryId'] ?? '',
     );
-  }
-
-  // Convert a ProductCategoryModel instance to JSON
-  Map<String, dynamic> toJson() {
-    return {
-      'productId': productId,
-      'categoryId': categoryId,
-    };
   }
 }

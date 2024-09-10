@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:bagit/common/widgets/loaders/loaders.dart';
 import 'package:bagit/data/repositories/categories/category_repository.dart';
+import 'package:bagit/data/repositories/product/product_repository.dart';
 import 'package:bagit/features/shop/models/category_model.dart';
 import 'package:bagit/features/shop/models/product/product_model.dart';
 import 'package:get/get.dart';
@@ -14,6 +15,7 @@ class CategoryController extends GetxController {
   RxList<CategoryModel> featuredCategories = <CategoryModel>[].obs;
   Rx<CategoryModel?> selectedCategory = Rx<CategoryModel?>(null);
   RxList<ProductModel> categoryProducts = <ProductModel>[].obs;
+  final productRepository = ProductRepository.instance;
 
   @override
   void onInit() {
@@ -21,7 +23,7 @@ class CategoryController extends GetxController {
     super.onInit();
   }
 
-  // --- Load all categories
+  // --- Load category data
   Future<void> getAllCategories() async {
     try {
       isLoading.value = true;
@@ -40,18 +42,11 @@ class CategoryController extends GetxController {
   }
 
   // --- Get products for selected category or subcategory
-  Future<void> getCategoryProducts(String categoryId) async {
-    try {
-      isLoading.value = true;
-      final products = await _categoryRepository.getProductsByCategory(categoryId);
-      categoryProducts.assignAll(products);
-    } catch (e) {
-      CustomLoaders.errorSnackbar(title: 'Oh, snap!', message: e.toString());
-    } finally {
-      isLoading.value = false;
-    }
+  Future<List<ProductModel>> getCategoryProducts({required String categoryId, int limit = 4}) async {
+      final products = await productRepository.getProductsForCategory(categoryId: categoryId, limit: limit);
+      return products;
   }
-
+////////////
   Future<void> uploadCategory({
     String targetScreen = '',
     bool active = true,

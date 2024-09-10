@@ -25,9 +25,8 @@ class BrandController extends GetxController {
       isLoading.value = true;
       final brands = await brandRepository.getAllBrands();
       allBrands.assignAll(brands);
-      featuredBrands.assignAll(allBrands
-          .where((brand) => brand.isFeatured ?? false)
-          .take(4));
+      featuredBrands.assignAll(
+          allBrands.where((brand) => brand.isFeatured ?? false).take(4));
     } catch (e) {
       CustomLoaders.errorSnackbar(title: 'Oh, snap!', message: e.toString());
     } finally {
@@ -36,13 +35,26 @@ class BrandController extends GetxController {
     }
   }
 
-  // --- Load selected brand data
-
-  // --- Get brand details
-  Future<List<ProductModel>> getBrandProducts(String brandId) async {
+  // Get Brands for a Category
+  Future<List<BrandModel>> getBrandsForCategory(String categoryId) async {
     try {
-    final products = await ProductRepository.instance.getProductsForBrand(brandId: brandId);
-    return products;
+      final brands = await brandRepository.getBrandsForCategory(categoryId);
+      return brands;
+    } catch (e) {
+      CustomLoaders.errorSnackbar(
+        title: 'Oh Snap!',
+        message: e.toString(),
+      );
+      return [];
+    }
+  }
+
+  // --- Get brand specific products from your data source
+  Future<List<ProductModel>> getBrandProducts({required String brandId, int limit = -1}) async {
+    try {
+      final products = await ProductRepository.instance
+          .getProductsForBrand(brandId: brandId, limit: limit);
+      return products;
     } catch (e) {
       CustomLoaders.errorSnackbar(title: 'Oh, snap!', message: e.toString());
       return [];

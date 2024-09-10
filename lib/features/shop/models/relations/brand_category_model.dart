@@ -9,6 +9,14 @@ class BrandCategoryModel {
     required this.categoryId,
   });
 
+  // Converts a BrandCategoryModel instance into a JSON map
+  Map<String, dynamic> toJson() {
+    return {
+      'brandId': brandId,
+      'categoryId': categoryId,
+    };
+  }
+
   // Converts a Firestore document snapshot into a BrandCategoryModel instance
   factory BrandCategoryModel.fromSnapshot(DocumentSnapshot snapshot) {
     final data = snapshot.data() as Map<String, dynamic>;
@@ -16,13 +24,5 @@ class BrandCategoryModel {
       brandId: data['brandId'] ?? '',
       categoryId: data['categoryId'] ?? '',
     );
-  }
-
-  // Converts a BrandCategoryModel instance into a JSON map
-  Map<String, dynamic> toJson() {
-    return {
-      'brandId': brandId,
-      'categoryId': categoryId,
-    };
   }
 }
