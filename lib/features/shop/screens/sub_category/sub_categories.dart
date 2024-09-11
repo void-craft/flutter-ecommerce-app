@@ -34,11 +34,12 @@ class SubCategoriesScreen extends StatelessWidget {
                 SizedBox(
                   height: 120,
                   child: ListView.separated(
-                    itemCount: 4,
-                    scrollDirection: Axis.horizontal,
-                    separatorBuilder: (context, index) => const SizedBox(width: CustomSizes.spaceBtwItems),
-                    itemBuilder: (context, index) => const CustomProductCardHorizontal()
-                  ),
+                      itemCount: 4,
+                      scrollDirection: Axis.horizontal,
+                      separatorBuilder: (context, index) =>
+                          const SizedBox(width: CustomSizes.spaceBtwItems),
+                      itemBuilder: (context, index) =>
+                          const CustomProductCardHorizontal()),
                 )
               ])
             ])));

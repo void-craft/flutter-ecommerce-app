@@ -1,8 +1,8 @@
 import 'package:bagit/common/styles/shadows.dart';
 import 'package:bagit/common/widgets/custom_shapes/containers/rounded_container.dart';
 import 'package:bagit/common/widgets/icons/add_to_cart.dart';
-import 'package:bagit/common/widgets/icons/circular_icon.dart';
 import 'package:bagit/common/widgets/images/rounded_images.dart';
+import 'package:bagit/common/widgets/products/favorite_icon/favorite_icon.dart';
 import 'package:bagit/common/widgets/texts/custom_brand_title_text_verified_icon.dart';
 import 'package:bagit/common/widgets/texts/product_price.dart';
 import 'package:bagit/common/widgets/texts/product_title_text.dart';
@@ -15,7 +15,6 @@ import 'package:bagit/utils/constants/sizes.dart';
 import 'package:bagit/utils/helpers/helper_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:iconsax/iconsax.dart';
 
 class CustomProductCardVertical extends StatelessWidget {
   const CustomProductCardVertical({super.key, required this.product});
@@ -61,30 +60,25 @@ class CustomProductCardVertical extends StatelessWidget {
                     // - On sale tag -- DONE
                     if (salePercentage != null)
                       Positioned(
-                        top: 10,
-                        child: CustomRoundedContainer(
-                          radius: CustomSizes.sm,
-                          backgroundColor:
-                              CustomColors.secondary.withOpacity(0.8),
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: CustomSizes.sm,
-                              vertical: CustomSizes.xs),
-                          child: Text('$salePercentage%',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .labelLarge!
-                                  .apply(color: CustomColors.black)),
-                        ),
-                      ),
+                          top: 10,
+                          child: CustomRoundedContainer(
+                              radius: CustomSizes.sm,
+                              backgroundColor:
+                                  CustomColors.secondary.withOpacity(0.8),
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: CustomSizes.sm,
+                                  vertical: CustomSizes.xs),
+                              child: Text('$salePercentage%',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .labelLarge!
+                                      .apply(color: CustomColors.black)))),
 
                     // - Favorite icon button
-                    const Positioned(
+                    Positioned(
                         top: 0,
                         right: 0,
-                        child: CustomCircularIcon(
-                            icon: Iconsax.heart5,
-                            color: Colors.red,
-                            backgroundColor: Colors.transparent))
+                        child: CustomFavoriteIcon(productId: product.id))
                   ])),
               const SizedBox(height: CustomSizes.spaceBtwItems / 2),
 

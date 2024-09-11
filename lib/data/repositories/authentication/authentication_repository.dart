@@ -7,6 +7,7 @@ import 'package:bagit/utils/exceptions/firebase_auth_exceptions.dart';
 import 'package:bagit/utils/exceptions/firebase_exceptions.dart';
 import 'package:bagit/utils/exceptions/format_exceptions.dart';
 import 'package:bagit/utils/exceptions/platform_exceptions.dart';
+import 'package:bagit/utils/local_storage/storage_utility.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
@@ -41,6 +42,8 @@ class AuthenticationRepository extends GetxController {
     if (user != null) {
       // If the user is logged in
       if (user.emailVerified) {
+        // Initialize user specific storage
+        await CustomLocalStorage.init(user.uid);
         // If the user's email is verified, navigate to the main Navigation menu
         Get.offAll(() => const NavigationMenu());
       } else {

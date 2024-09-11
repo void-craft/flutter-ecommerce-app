@@ -1,19 +1,26 @@
 import 'package:get_storage/get_storage.dart';
 
 class CustomLocalStorage {
-  // Singleton instance
-  static final CustomLocalStorage _instance = CustomLocalStorage._internal();
 
-  // Factory constructor
-  factory CustomLocalStorage() {
-    return _instance;
-  }
+  late final GetStorage _storage;
+
+  // Singleton instance
+  static CustomLocalStorage? _instance;
 
   // Private constructor
   CustomLocalStorage._internal();
 
-  // GetStorage instance
-  final GetStorage _storage = GetStorage();
+  // Factory constructor
+  factory CustomLocalStorage.instance() {
+    _instance ??= CustomLocalStorage._internal();
+    return _instance!;
+  }
+
+  static Future<void> init(String bucketName) async {
+    await GetStorage.init(bucketName);
+    _instance = CustomLocalStorage._internal();
+    _instance!._storage = GetStorage(bucketName);
+  }
 
   // Generic method to save data
   Future<void> saveData<T>(String key, T value) async {

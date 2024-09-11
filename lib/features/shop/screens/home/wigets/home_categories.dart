@@ -7,7 +7,7 @@ import 'package:get/get.dart';
 
 class CustomHomeCategories extends StatelessWidget {
   const CustomHomeCategories({
-    super.key,
+    super.key
   });
 
   @override

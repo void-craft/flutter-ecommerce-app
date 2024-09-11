@@ -25,6 +25,7 @@ static const String reviewUser2 = "assets/images/reviews/review_user2";
 static const String reviewUser3 = "assets/images/reviews/review_user3";
 
 // -- Other Images
+static const String emptyIllustration = "assets/images/others/empty.gif";
 static const String successfulPaymentIllustration = "assets/images/others/payment_success.gif";
 static const String deliveredEmailIllustration = "assets/images/others/delivered.gif";
 static const String staticSuccessIllustration = "assets/images/others/bluetick.gif";
@@ -34,7 +35,6 @@ static const String loggingInIllustration = "assets/images/others/logging_in.gif
 // -- Lottie Json images
 static const String lottieSuccessllustration = "assets/images/lottie/success.json";
 static const String lottieLoadingllustration = "assets/images/lottie/loading.json";
-
 
 // -- Category Icons
 static const String sportsIcon = "assets/icons/categories/sports.png";
