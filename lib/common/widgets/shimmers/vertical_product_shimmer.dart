@@ -16,20 +16,17 @@ class CustomVerticalProductShimmer extends StatelessWidget {
     return CustomGridLayout(
         itemCount: itemCount,
         itemBuilder: (_, __) => const SizedBox(
-              width: 180,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  // Image
-                  CustomShimmerEffect(width: 180, height: 180),
-                  SizedBox(height: CustomSizes.spaceBtwItems),
+            width: 180,
+            child:
+                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              // Image
+              CustomShimmerEffect(width: 180, height: 180),
+              SizedBox(height: CustomSizes.spaceBtwItems),
 
-                  // Text
-                  CustomShimmerEffect(width: 160, height: 15),
-                  SizedBox(height: CustomSizes.spaceBtwItems / 2),
-                  CustomShimmerEffect(width: 10, height: 15)
-                ],
-              ),
-            ));
+              // Text
+              CustomShimmerEffect(width: 160, height: 15),
+              SizedBox(height: CustomSizes.spaceBtwItems / 2),
+              CustomShimmerEffect(width: 10, height: 15)
+            ])));
   }
 }

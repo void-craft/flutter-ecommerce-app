@@ -7,7 +7,7 @@ import 'package:get/get.dart';
 
 class CustomHomeCategories extends StatelessWidget {
   const CustomHomeCategories({
-    super.key
+    super.key,
   });
 
   @override
@@ -32,7 +32,7 @@ class CustomHomeCategories extends StatelessWidget {
                 return CustomVerticalImageText(
                     image: category.image,
                     title: category.name,
-                    onTap: () => Get.to(() => const SubCategoriesScreen()));
+                    onTap: () => Get.to(() => SubCategoriesScreen(category: category)));
               }));
     });
   }

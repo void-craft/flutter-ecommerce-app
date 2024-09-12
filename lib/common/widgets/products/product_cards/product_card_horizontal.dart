@@ -5,18 +5,25 @@ import 'package:bagit/common/widgets/products/favorite_icon/favorite_icon.dart';
 import 'package:bagit/common/widgets/texts/custom_brand_title_text_verified_icon.dart';
 import 'package:bagit/common/widgets/texts/product_price.dart';
 import 'package:bagit/common/widgets/texts/product_title_text.dart';
+import 'package:bagit/features/shop/controllers/product/product_controller.dart';
+import 'package:bagit/features/shop/models/product/product_model.dart';
 import 'package:bagit/utils/constants/colors.dart';
-import 'package:bagit/utils/constants/image_strings.dart';
+import 'package:bagit/utils/constants/enums.dart';
 import 'package:bagit/utils/constants/sizes.dart';
 import 'package:bagit/utils/helpers/helper_functions.dart';
 import 'package:flutter/material.dart';
 
 class CustomProductCardHorizontal extends StatelessWidget {
-  const CustomProductCardHorizontal({super.key});
+  const CustomProductCardHorizontal({super.key, required this.product});
 
+  final ProductModel product;
 
   @override
   Widget build(BuildContext context) {
+    final controller = ProductController.instance;
+    final salePercentage =
+        controller.calculateSalePercentage(product.price, product.salePrice);
+
     final dark = CustomHelperFunctions.isDarkMode(context);
 
     return Container(
@@ -34,35 +41,41 @@ class CustomProductCardHorizontal extends StatelessWidget {
               backgroundColor: dark ? CustomColors.dark : CustomColors.white,
               child: Stack(children: [
                 // -- Thumbnail Image
-                const SizedBox(
+                SizedBox(
                     height: 120,
                     width: 120,
                     child: CustomRoundedImage(
-                        imageUrl: CustomImages.productImage1,
-                        applyImageRadius: true)),
+                        imageUrl: product.thumbnail,
+                        applyImageRadius: true,
+                        isNetworkImage: true)),
                 // -- Sale Tag
-                Positioned(
-                    top: 10,
-                    child: CustomRoundedContainer(
-                        radius: CustomSizes.sm,
-                        backgroundColor:
-                            CustomColors.secondary.withOpacity(0.8),
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: CustomSizes.sm,
-                          vertical: CustomSizes.xs,
-                        ),
-                        child: Text('25%',
-                            style: Theme.of(context)
-                                .textTheme
-                                .labelLarge!
-                                .apply(color: CustomColors.black)))),
+                if (salePercentage != null)
+                  Positioned(
+                      top: 10,
+                      child: CustomRoundedContainer(
+                          radius: CustomSizes.sm,
+                          backgroundColor:
+                              CustomColors.secondary.withOpacity(0.8),
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: CustomSizes.sm,
+                            vertical: CustomSizes.xs,
+                          ),
+                          child: Text('$salePercentage%',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .labelLarge!
+                                  .apply(color: CustomColors.black)))),
+
                 // - Favorite icon button
-                const Positioned(top: 0, right: 0, child: CustomFavoriteIcon(productId: ''))
+                Positioned(
+                    top: 0,
+                    right: 0,
+                    child: CustomFavoriteIcon(productId: product.id))
               ])),
           // -- Details
-          const Expanded(
+          Expanded(
               child: Padding(
-                  padding: EdgeInsets.only(
+                  padding: const EdgeInsets.only(
                     top: CustomSizes.sm,
                     left: CustomSizes.sm,
                     right: CustomSizes.sm,
@@ -76,23 +89,46 @@ class CustomProductCardHorizontal extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               CustomProductTitleText(
-                                title: 'Pink Casual Shoes',
+                                title: product.title,
                                 smallSize: true,
                               ),
-                              SizedBox(height: CustomSizes.spaceBtwItems / 2),
-                              CustomBrandTitleTextVerifiedIcon(title: 'V-Shoes')
+                              const SizedBox(
+                                  height: CustomSizes.spaceBtwItems / 2),
+                              CustomBrandTitleTextVerifiedIcon(
+                                  title: product.brand!.name)
                             ]),
-                        Spacer(),
+                        const Spacer(),
                         // -- Price and Add to Cart
                         Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               // -- Pricing
                               Flexible(
-                                  child: CustomProductPrice(price: '14.99')),
+                                  child: Column(children: [
+                                if (product.productType ==
+                                        ProductType.single.toString() &&
+                                    product.salePrice > 0)
+                                  Padding(
+                                      padding: const EdgeInsets.only(
+                                          left: CustomSizes.sm),
+                                      child: Text(product.price.toString(),
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .labelMedium!
+                                              .apply(
+                                                  decoration: TextDecoration
+                                                      .lineThrough))),
+                                // Price, show sole price as main price if sale exist.
+                                Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: CustomSizes.sm),
+                                    child: CustomProductPrice(
+                                        price: controller
+                                            .getProductPrice(product)))
+                              ])),
 
                               // -- Add to cart
-                              CustomAddToCart()
+                              const CustomAddToCart()
                             ])
                       ])))
         ]));

@@ -15,6 +15,7 @@ class CategoryController extends GetxController {
   RxList<CategoryModel> featuredCategories = <CategoryModel>[].obs;
   Rx<CategoryModel?> selectedCategory = Rx<CategoryModel?>(null);
   RxList<ProductModel> categoryProducts = <ProductModel>[].obs;
+
   final productRepository = ProductRepository.instance;
 
   @override
@@ -41,12 +42,30 @@ class CategoryController extends GetxController {
     selectedCategory.value = category;
   }
 
+  // ----- Load selected sub category data
+  Future<List<CategoryModel>> getSubCategories(String categoryId) async {
+    try {
+      final subCategories = await _categoryRepository.getSubCategories(categoryId);
+      return subCategories;
+    } catch (e) {
+      CustomLoaders.errorSnackbar(title: 'Oh, snap!', message: e.toString());
+      return [];
+    }
+  }
+
   // --- Get products for selected category or subcategory
   Future<List<ProductModel>> getCategoryProducts({required String categoryId, int limit = 4}) async {
+    try {
       final products = await productRepository.getProductsForCategory(categoryId: categoryId, limit: limit);
       return products;
+    } catch (e) {
+      CustomLoaders.errorSnackbar(title: 'Oh, snap!', message: e.toString());
+      return [];
+    }
   }
+
 ////////////
+
   Future<void> uploadCategory({
     String targetScreen = '',
     bool active = true,
