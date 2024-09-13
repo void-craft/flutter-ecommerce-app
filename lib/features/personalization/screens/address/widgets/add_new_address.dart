@@ -1,5 +1,7 @@
 import 'package:bagit/common/widgets/appbar/appbar.dart';
+import 'package:bagit/features/personalization/controllers/address_controller.dart';
 import 'package:bagit/utils/constants/sizes.dart';
+import 'package:bagit/utils/validator/validator.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 
@@ -8,6 +10,8 @@ class AddNewAddress extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final controller = AddressController.instance;
+
     return Scaffold(
         appBar: const CustomAppBar(
           showBackArrow: true,
@@ -17,8 +21,12 @@ class AddNewAddress extends StatelessWidget {
             child: Padding(
                 padding: const EdgeInsets.all(CustomSizes.defaultSpace),
                 child: Form(
-                    child: Column(children: [
+                  key: controller.addressFormKey,
+                    child: Column(
+                      children: [
                   TextFormField(
+                    controller: controller.name,
+                    validator: (value) => CustomValidator.validateEmptyText('Name', value),
                       decoration: const InputDecoration(
                           prefixIcon: Icon(Iconsax.user), labelText: 'Name')),
                   const SizedBox(height: CustomSizes.spaceBtwInputFields),

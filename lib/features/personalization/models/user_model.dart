@@ -86,7 +86,7 @@ class UserModel {
       final data = document.data()!;
       List<AddressModel> addresses = (data['Addresses'] as List<dynamic>?)
               ?.map((address) =>
-                  AddressModel.fromJson(address as Map<String, dynamic>))
+                  AddressModel.fromMap(address as Map<String, dynamic>))
               .toList() ??
           []; // Default to an empty list if null
       return UserModel(
