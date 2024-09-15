@@ -9,13 +9,13 @@ class CustomCircularLoader extends StatelessWidget {
   final double padding;
 
   const CustomCircularLoader({
-    Key? key,
+    super.key,
     this.loaderColor,
     this.loaderSize = 50.0,
     this.backgroundColor,
     this.borderRadius = 10.0,
     this.padding = 20.0,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

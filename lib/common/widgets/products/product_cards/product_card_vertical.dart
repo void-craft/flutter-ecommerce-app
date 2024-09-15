@@ -1,6 +1,6 @@
 import 'package:bagit/common/styles/shadows.dart';
 import 'package:bagit/common/widgets/custom_shapes/containers/rounded_container.dart';
-import 'package:bagit/common/widgets/icons/add_to_cart.dart';
+import 'package:bagit/common/widgets/icons/add_to_cart_button.dart';
 import 'package:bagit/common/widgets/images/rounded_images.dart';
 import 'package:bagit/common/widgets/products/favorite_icon/favorite_icon.dart';
 import 'package:bagit/common/widgets/texts/custom_brand_title_text_verified_icon.dart';
@@ -119,9 +119,8 @@ class CustomProductCardVertical extends StatelessWidget {
                   )
                 ])),
                 // -- Add to cart button
-                const CustomAddToCart(),
+                ProductCardAddToCartButton(product: product)
               ])
             ])));
-    // );
   }
 }

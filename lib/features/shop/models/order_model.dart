@@ -1,4 +1,4 @@
-import 'package:bagit/features/shop/models/cart_model.dart';
+import 'package:bagit/features/shop/models/cart_item_model.dart';
 import 'package:bagit/utils/constants/enums.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 

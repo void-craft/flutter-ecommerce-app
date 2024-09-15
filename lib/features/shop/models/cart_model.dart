@@ -1,3 +1,4 @@
+import 'package:bagit/features/shop/models/cart_item_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class CartModel {
@@ -31,55 +32,5 @@ class CartModel {
     } else {
       return CartModel(cartId: '', items: []);
     }
-  }
-}
-
-class CartItemModel {
-  final String productId;
-  final String variationId;
-  final int quantity;
-  final String title;
-  final String image;
-  final String brandName;
-  final double price;
-  final Map<String, dynamic> selectedVariation;
-
-  CartItemModel({
-    required this.productId,
-    required this.variationId,
-    required this.quantity,
-    required this.title,
-    required this.image,
-    required this.brandName,
-    required this.price,
-    required this.selectedVariation,
-  });
-
-  // Convert model to JSON structure for storing data.
-  Map<String, dynamic> toJson() {
-    return {
-      'ProductId': productId,
-      'VariationId': variationId,
-      'Quantity': quantity,
-      'Title': title,
-      'Image': image,
-      'BrandName': brandName,
-      'Price': price,
-      'SelectedVariation': selectedVariation,
-    };
-  }
-
-  // Factory method to create a CartItemModel from JSON data.
-  factory CartItemModel.fromJson(Map<String, dynamic> json) {
-    return CartItemModel(
-      productId: json['ProductId'] ?? '',
-      variationId: json['VariationId'] ?? '',
-      quantity: json['Quantity'] ?? 0,
-      title: json['Title'] ?? '',
-      image: json['Image'] ?? '',
-      brandName: json['BrandName'] ?? '',
-      price: json['Price']?.toDouble() ?? 0.0,
-      selectedVariation: json['SelectedVariation'] ?? {},
-    );
   }
 }
