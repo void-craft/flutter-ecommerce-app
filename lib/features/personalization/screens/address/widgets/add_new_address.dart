@@ -5,8 +5,8 @@ import 'package:bagit/utils/validator/validator.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 
-class AddNewAddress extends StatelessWidget {
-  const AddNewAddress({super.key});
+class AddNewAddressScreen extends StatelessWidget {
+  const AddNewAddressScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -67,7 +67,7 @@ class AddNewAddress extends StatelessWidget {
                 const SizedBox(height: CustomSizes.spaceBtwInputFields),
                 TextFormField(decoration: const InputDecoration(prefixIcon: Icon(Iconsax.global), labelText: 'Country')),
                 const SizedBox(height: CustomSizes.defaultSpace),
-                SizedBox(width: double.infinity, child: ElevatedButton(onPressed: (){}, child: const Text('Save')))
+                SizedBox(width: double.infinity, child: ElevatedButton(onPressed: () => controller.addNewAddresses(), child: const Text('Save')))
                 ])))));
   }
 }

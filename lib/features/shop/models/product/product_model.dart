@@ -57,7 +57,8 @@ class ProductModel {
       'IsFeatured': isFeatured,
       'Thumbnail': thumbnail,
       'Description': description,
-      'Brand': brand!.toJson(),
+      // 'Brand': brand!.toJson(),
+      'Brand': brand?.toJson() ?? {},
       'Images': images ?? [],
       'ProductType': productType,
       'ProductVariations': productVariations != null

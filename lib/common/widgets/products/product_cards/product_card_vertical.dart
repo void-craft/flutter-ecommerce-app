@@ -96,7 +96,6 @@ class CustomProductCardVertical extends StatelessWidget {
                       ])),
               const Spacer(),
               Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-                // -- Price
                 Flexible(
                     child: Column(children: [
                   if (product.productType == ProductType.single.toString() &&
@@ -111,7 +110,7 @@ class CustomProductCardVertical extends StatelessWidget {
                               .apply(decoration: TextDecoration.lineThrough),
                         )),
 
-                  // Price - show sale price as main price if sale exists
+                  // Ensure getProductPrice handles cases where no variations exist
                   Padding(
                     padding: const EdgeInsets.only(left: CustomSizes.sm),
                     child: CustomProductPrice(

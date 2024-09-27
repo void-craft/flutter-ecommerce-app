@@ -18,6 +18,11 @@ static const String user = "assets/icons/user/user.png";
 
 // -- Payment Methods
 static const String paypal = "assets/icons/payment_methods/paypal.png";
+static const String gpay = "assets/icons/payment_methods/gpay.png";
+static const String applepay = "assets/icons/payment_methods/applepay.png";
+static const String mastercard = "assets/icons/payment_methods/mastercard.png";
+static const String visa = "assets/icons/payment_methods/visa.png";
+static const String creditcard = "assets/icons/payment_methods/creditcard.png";
 
 // -- Review Users
 static const String reviewUser1 = "assets/images/reviews/review_user1";
@@ -31,10 +36,13 @@ static const String deliveredEmailIllustration = "assets/images/others/delivered
 static const String staticSuccessIllustration = "assets/images/others/bluetick.gif";
 static const String loginIllustration = "assets/images/others/logging.gif";
 static const String loggingInIllustration = "assets/images/others/logging_in.gif";
+static const String processingIllustration = "assets/images/others/processing.gif";
+static const String orderCompleteIllustration = "assets/images/others/ordercomplete.gif";
 
 // -- Lottie Json images
 static const String lottieSuccessllustration = "assets/images/lottie/success.json";
 static const String lottieLoadingllustration = "assets/images/lottie/loading.json";
+static const String lottieGhostIllustration = "assets/images/lottie/lottieghost.json";
 
 // -- Category Icons
 static const String sportsIcon = "assets/icons/categories/sports.png";

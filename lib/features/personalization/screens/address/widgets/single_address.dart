@@ -10,7 +10,9 @@ import 'package:iconsax/iconsax.dart';
 
 class CustomSingleAddress extends StatelessWidget {
   const CustomSingleAddress(
-      {super.key, required this.address, required this.onTap});
+      {super.key,
+      required this.address,
+      required this.onTap});
 
   final AddressModel address;
   final VoidCallback onTap;
@@ -25,7 +27,9 @@ class CustomSingleAddress extends StatelessWidget {
       final selectedAddress = selectedAddressId == address.id;
 
       return InkWell(
-          onTap: onTap,
+          onTap: () async {
+            await controller.selectAddress(address); 
+          },
           child: CustomRoundedContainer(
               padding: const EdgeInsets.all(CustomSizes.md),
               width: double.infinity,
@@ -57,8 +61,10 @@ class CustomSingleAddress extends StatelessWidget {
                     style: Theme.of(context).textTheme.titleLarge,
                   ),
                   const SizedBox(height: CustomSizes.sm / 2),
-                  Text(address.formattedPhoneNo,
-                      maxLines: 1, overflow: TextOverflow.ellipsis),
+                  Text(
+                    address.formattedPhoneNo,
+                    maxLines: 1,
+                  overflow: TextOverflow.ellipsis),
                   const SizedBox(height: CustomSizes.sm / 2),
                   Text(address.toString(),
                       softWrap: true)

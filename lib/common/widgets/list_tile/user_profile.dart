@@ -1,7 +1,6 @@
 import 'package:bagit/common/widgets/images/circular_images.dart';
 import 'package:bagit/features/personalization/controllers/user_controller.dart';
 import 'package:bagit/utils/constants/colors.dart';
-import 'package:bagit/utils/constants/image_strings.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 
@@ -18,8 +17,12 @@ class CustomUserProfileTile extends StatelessWidget {
     final controller = UserController.instance;
 
     return ListTile(
-        leading: const CustomCircularImage(
-            image: CustomImages.user, width: 50, height: 50, padding: 0),
+        leading: CustomCircularImage(
+            isNetworkImage: true,
+            width: 50,
+            height: 50,
+            padding: 0,
+            image: controller.user.value.profilePicture),
         title: Text(controller.user.value.fullName,
             style: Theme.of(context)
                 .textTheme

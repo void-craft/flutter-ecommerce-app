@@ -21,8 +21,12 @@ class CustomAnimationLoaderWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-        child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-      Lottie.asset(animation, width: MediaQuery.of(context).size.width * 0.8),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+      Lottie.asset(
+        animation,
+        width: MediaQuery.of(context).size.width * 0.8),
       const SizedBox(height: CustomSizes.defaultSpace),
       Text(
         text,

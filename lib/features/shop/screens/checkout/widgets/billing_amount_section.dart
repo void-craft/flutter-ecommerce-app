@@ -1,4 +1,6 @@
+import 'package:bagit/features/shop/controllers/product/cart_controller.dart';
 import 'package:bagit/utils/constants/sizes.dart';
+import 'package:bagit/utils/helpers/pricing_calculator.dart';
 import 'package:flutter/material.dart';
 
 class CustomBillingAmountSection extends StatelessWidget {
@@ -6,32 +8,39 @@ class CustomBillingAmountSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final cartController = CartController.instance;
+    final subTotal = cartController.totalCartPrice.value;
+
     return Column(children: [
       // -- Subtotal
       Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
         Text('Subtotal', style: Theme.of(context).textTheme.bodyMedium),
-        Text('€34.99', style: Theme.of(context).textTheme.bodyMedium)
+        Text('€$subTotal', style: Theme.of(context).textTheme.bodyMedium)
       ]),
       const SizedBox(height: CustomSizes.spaceBtwItems / 2),
 
       // -- Shipping Fee
       Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
         Text('Shipping Cost', style: Theme.of(context).textTheme.bodyMedium),
-        Text('€4.99', style: Theme.of(context).textTheme.labelLarge)
+        Text(
+            '€${CustomPricingCalculator.calculateShippingCost(subTotal, 'ES')}',
+            style: Theme.of(context).textTheme.labelLarge)
       ]),
       const SizedBox(height: CustomSizes.spaceBtwItems / 2),
 
       // -- Tax
       Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
         Text('Tax', style: Theme.of(context).textTheme.bodyMedium),
-        Text('€3.99', style: Theme.of(context).textTheme.labelLarge)
+        Text('€${CustomPricingCalculator.calculateTax(subTotal, 'ES')}',
+            style: Theme.of(context).textTheme.labelLarge)
       ]),
       const SizedBox(height: CustomSizes.spaceBtwItems / 2),
 
       // -- Order Total
       Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
         Text('Order Total', style: Theme.of(context).textTheme.bodyMedium),
-        Text('€49.99', style: Theme.of(context).textTheme.titleMedium)
+        Text('€${CustomPricingCalculator.calculateTotalPrice(subTotal, 'ES')}',
+            style: Theme.of(context).textTheme.titleMedium)
       ])
     ]);
   }

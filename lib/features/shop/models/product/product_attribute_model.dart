@@ -1,7 +1,7 @@
 // DONE
 class ProductAttributeModel {
   String? name;
-  List<String>? values;
+  final List<String>? values;
 
   ProductAttributeModel({
     this.name,

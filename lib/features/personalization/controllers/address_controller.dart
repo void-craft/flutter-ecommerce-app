@@ -1,8 +1,13 @@
 import 'package:bagit/common/widgets/loaders/circular_loader.dart';
 import 'package:bagit/common/widgets/loaders/loaders.dart';
+import 'package:bagit/common/widgets/texts/section_heading.dart';
 import 'package:bagit/data/repositories/address/address_repository.dart';
 import 'package:bagit/features/personalization/models/address_model.dart';
+import 'package:bagit/features/personalization/screens/address/widgets/add_new_address.dart';
+import 'package:bagit/features/personalization/screens/address/widgets/single_address.dart';
 import 'package:bagit/utils/constants/image_strings.dart';
+import 'package:bagit/utils/constants/sizes.dart';
+import 'package:bagit/utils/helpers/cloud_helper_functions.dart';
 import 'package:bagit/utils/helpers/network_manager.dart';
 import 'package:bagit/utils/popups/full_screen_loader.dart';
 import 'package:flutter/material.dart';
@@ -42,12 +47,13 @@ class AddressController extends GetxController {
   Future selectAddress(AddressModel newSelectedAddress) async {
     try {
       Get.defaultDialog(
-        title: '',
-        onWillPop: () async {return false;},
-        barrierDismissible: false,
-        backgroundColor: Colors.transparent,
-        content: const CustomCircularLoader()
-      );
+          title: '',
+          onWillPop: () async {
+            return false;
+          },
+          barrierDismissible: false,
+          backgroundColor: Colors.transparent,
+          content: const CustomCircularLoader());
       // Clear the selected field
       if (selectedAddress.value.id.isNotEmpty) {
         await addressRepository.updateSelectedField(
@@ -126,6 +132,44 @@ class AddressController extends GetxController {
       CustomLoaders.errorSnackbar(
           title: 'Error Selecting', message: e.toString());
     }
+  }
+
+  // Show addresses ModalBottomSheet at Checkout
+  Future<dynamic> selectNewAddressPopup(BuildContext context) {
+    return showModalBottomSheet(
+        context: context,
+        builder: (_) => Container(
+            padding: const EdgeInsets.all(CustomSizes.lg),
+            child:
+                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              const CustomSectionHeading(
+                  title: 'Select Address', showActionButton: false),
+              FutureBuilder(
+                  future: getAllUserAddresses(),
+                  builder: (_, snapshot) {
+                    final response =
+                        CustomCloudHelperFunctions.checkMultipleRecordState(
+                            snapshot: snapshot);
+                    if (response != null) return response;
+
+                    return ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: snapshot.data!.length,
+                        itemBuilder: (_, index) => CustomSingleAddress(
+                            address: snapshot.data![index],
+                            onTap: () async {
+                              selectedAddress(snapshot.data![index]);
+                              Get.back();
+                            }));
+                  }),
+              const SizedBox(height: CustomSizes.defaultSpace * 2),
+              SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                      onPressed: () =>
+                          Get.to(() => const AddNewAddressScreen()),
+                      child: const Text('Add New Address')))
+            ])));
   }
 
   // Function to reset form fields

@@ -21,7 +21,7 @@ Future<void> main() async {
   // Initialize firebase & authentication repository
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform)
       .then((FirebaseApp value) async {
-    Get.put(AuthenticationRepository());
+    Get.put(AuthenticationRepository(), permanent: true);
   });
 
   runApp(const App());

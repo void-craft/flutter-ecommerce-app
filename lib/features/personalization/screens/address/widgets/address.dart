@@ -16,16 +16,15 @@ class UserAddressesScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final controller = Get.put(AddressController());
     return Scaffold(
-      appBar: CustomAppBar(
-        showBackArrow: true,
-        title: Text('Addressess',
-            style: Theme.of(context).textTheme.headlineSmall),
-      ),
-      body: SingleChildScrollView(
-          child: Padding(
-              padding: const EdgeInsets.all(CustomSizes.defaultSpace),
-              child: Obx(
-                () => FutureBuilder(
+        appBar: CustomAppBar(
+          showBackArrow: true,
+          title: Text('Addressess',
+              style: Theme.of(context).textTheme.headlineSmall),
+        ),
+        body: SingleChildScrollView(
+            child: Padding(
+                padding: const EdgeInsets.all(CustomSizes.defaultSpace),
+                child: Obx(() => FutureBuilder(
                     key: Key(controller.refreshData.value.toString()),
                     future: controller.getAllUserAddresses(),
                     builder: (context, snapshot) {
@@ -34,7 +33,7 @@ class UserAddressesScreen extends StatelessWidget {
                           CustomCloudHelperFunctions.checkMultipleRecordState(
                               snapshot: snapshot);
                       if (response != null) return response;
-                
+
                       final addresses = snapshot.data!;
                       return ListView.builder(
                         shrinkWrap: true,
@@ -44,13 +43,10 @@ class UserAddressesScreen extends StatelessWidget {
                             onTap: () =>
                                 controller.selectAddress(addresses[index])),
                       );
-                    }),
-              ))),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => Get.to(() => const AddNewAddress()),
-        backgroundColor: CustomColors.primary,
-        child: const Icon(Iconsax.add, color: CustomColors.white),
-      ),
-    );
+                    })))),
+        floatingActionButton: FloatingActionButton(
+            onPressed: () => Get.to(() => const AddNewAddressScreen()),
+            backgroundColor: CustomColors.primary,
+            child: const Icon(Iconsax.add, color: CustomColors.white)));
   }
 }

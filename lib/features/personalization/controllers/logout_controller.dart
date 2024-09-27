@@ -13,8 +13,8 @@ class LogoutController extends GetxController {
     try {
       // Start loading
       CustomFullscreenLoader.openLoadingDialog(
-          'Logging you out...', CustomImages.lottieLoadingllustration); // Replace with actual path to your animation file
-
+          'Logging you out...', CustomImages.lottieLoadingllustration);
+          
       // Perform logout operation using AuthenticationRepository
       await AuthenticationRepository.instance.logout();
 
@@ -28,7 +28,7 @@ class LogoutController extends GetxController {
       );
 
       // Redirect to login screen
-      Get.offAll(() => const LoginScreen()); // Adjust if you need to navigate somewhere else
+      Get.offAll(() => const LoginScreen());
 
     } catch (e) {
       // Remove Loader

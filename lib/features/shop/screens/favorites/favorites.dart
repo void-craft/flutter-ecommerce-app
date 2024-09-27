@@ -19,7 +19,7 @@ class FavoriteScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = FavoritesController.instance;
+    final controller = Get.put(FavoritesController());
     return Scaffold(
         appBar: CustomAppBar(
             showBackArrow: false,
@@ -41,7 +41,7 @@ class FavoriteScreen extends StatelessWidget {
                     builder: (context, snapshot) {
                       final emptyWidget = CustomAnimationLoaderWidget(
                           text: 'Whoops! Wishlist is empty!',
-                          animation: CustomImages.emptyIllustration,
+                          animation: CustomImages.lottieGhostIllustration,
                           showAction: true,
                           actionText: 'Let\'s add some',
                           onActionPressed: () =>

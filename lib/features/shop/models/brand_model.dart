@@ -4,8 +4,9 @@ class BrandModel {
   String id;
   String name;
   String image;
-  int? productsCount;
   bool? isFeatured;
+  int? productsCount;
+  
 
   BrandModel({
     required this.id,

@@ -15,6 +15,7 @@ class CartScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = CartController.instance;
+    
     return Scaffold(
         appBar: CustomAppBar(
             showBackArrow: true,
@@ -24,7 +25,7 @@ class CartScreen extends StatelessWidget {
           // Nothing found widget
           final emptyWidget = CustomAnimationLoaderWidget(
               text: 'Cart is empty!',
-              animation: CustomImages.emptyIllustration,
+              animation: CustomImages.lottieGhostIllustration,
               showAction: true,
               actionText: 'Let\'s fill it',
               onActionPressed: () => Get.off(() => const NavigationMenu()));

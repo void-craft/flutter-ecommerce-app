@@ -1,5 +1,6 @@
 import 'package:bagit/common/widgets/loaders/animation_loader.dart';
 import 'package:bagit/utils/constants/colors.dart';
+import 'package:bagit/utils/constants/sizes.dart';
 import 'package:bagit/utils/helpers/helper_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -28,7 +29,7 @@ class CustomFullscreenLoader {
                 height: double.infinity,
                 child: SingleChildScrollView(
                     child: Column(children: [
-                  const SizedBox(height: 250),
+                  const SizedBox(height: CustomSizes.defaultSpace),
                   CustomAnimationLoaderWidget(
                     // Display the custom animation loader widget.
                     text: text, // Pass the text to display with the loader.

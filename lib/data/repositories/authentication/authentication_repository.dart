@@ -36,12 +36,13 @@ class AuthenticationRepository extends GetxController {
   }
 
   // Function to show relevant screen.
-  screenRedirect() async {
+  void screenRedirect() async {
     final user = _auth.currentUser;
 
     if (user != null) {
       // If the user is logged in
       if (user.emailVerified) {
+        
         // Initialize user specific storage
         await CustomLocalStorage.init(user.uid);
         // If the user's email is verified, navigate to the main Navigation menu

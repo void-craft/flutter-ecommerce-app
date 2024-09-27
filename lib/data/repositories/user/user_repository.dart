@@ -32,11 +32,11 @@ class UserRepository extends GetxController {
 
   Future<UserModel> fetchUserDetails() async {
     try {
-      final uid = AuthenticationRepository.instance.authUser?.uid;
-      if (uid == null) {
-        throw 'User ID is null. User might not be authenticated.';
-      }
-      final documentSnapshot = await _db.collection("Users").doc(uid).get();
+      // final uid = AuthenticationRepository.instance.authUser?.uid;
+      // if (uid == null) {
+      //   throw 'User ID is null. User might not be authenticated.';
+      // }
+      final documentSnapshot = await _db.collection("Users").doc(AuthenticationRepository.instance.authUser!.uid).get();
       if (documentSnapshot.exists) {
         return UserModel.fromSnapshot(documentSnapshot);
       } else {

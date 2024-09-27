@@ -54,4 +54,14 @@ class CustomTexts {
   // - - Home
   static const String homeAppbarTitle = "A Perfect Day to BagIt";
   static const String homeAppbarSubtitle = "Void Craft";
+
+  // Upload Product Texts
+static const String uploadProductTitle = "Upload Your Product";
+static const String productTitle = "Product Title";
+static const String price = "Price";
+static const String stock = "Stock";
+static const String description = "Description (optional)";
+static const String uploadThumbnail = "Upload Thumbnail";
+static const String uploadProduct = "Upload Product";
+
 }

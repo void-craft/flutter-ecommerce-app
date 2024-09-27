@@ -1,13 +1,9 @@
 import 'dart:io';
-import 'package:bagit/common/widgets/loaders/loaders.dart';
-import 'package:bagit/features/shop/models/brand_model.dart';
-import 'package:bagit/features/shop/models/product/product_attribute_model.dart';
+
 import 'package:bagit/features/shop/models/product/product_model.dart';
-import 'package:bagit/features/shop/models/product/product_variation_model.dart';
 import 'package:bagit/utils/exceptions/firebase_exceptions.dart';
 import 'package:bagit/utils/exceptions/platform_exceptions.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -15,9 +11,9 @@ import 'package:get/get.dart';
 class ProductRepository extends GetxController {
   static ProductRepository get instance => Get.find();
 
-  final _db = FirebaseFirestore.instance;
-
+  final FirebaseFirestore _db = FirebaseFirestore.instance;
   final FirebaseStorage _storage = FirebaseStorage.instance;
+
 
   // Get limited featured products
   Future<List<ProductModel>> getFeaturedProducts() async {
@@ -33,7 +29,7 @@ class ProductRepository extends GetxController {
     } on PlatformException catch (e) {
       throw CustomPlatformException(e.code).message;
     } catch (e) {
-      throw 'Something went wrong. Please try again.';
+      throw 'Something went wrong while fetching featured products. Please try again.';
     }
   }
 
@@ -50,7 +46,7 @@ class ProductRepository extends GetxController {
     } on PlatformException catch (e) {
       throw CustomPlatformException(e.code).message;
     } catch (e) {
-      throw 'Something went wrong. Please try again.';
+      throw 'Something went wrong while fetching all featured products. Please try again.';
     }
   }
 
@@ -58,30 +54,35 @@ class ProductRepository extends GetxController {
   Future<List<ProductModel>> fetchProductsByQuery(Query query) async {
     try {
       final querySnapshot = await query.get();
-      final List<ProductModel> productList = querySnapshot.docs
+      return querySnapshot.docs
           .map((doc) => ProductModel.fromQuerySnapshot(doc))
           .toList();
-      return productList;
     } on FirebaseException catch (e) {
       throw CustomFirebaseException(e.code).message;
     } on PlatformException catch (e) {
       throw CustomPlatformException(e.code).message;
     } catch (e) {
-      throw 'Something went wrong. Please try again.';
+      throw 'Something went wrong while fetching products by query. Please try again.';
     }
   }
 
-  // Get favortie products
-  Future<List<ProductModel>> getFavoriteProducts(List<String> productIds) async {
+  // Get favorite products
+  Future<List<ProductModel>> getFavoriteProducts(
+      List<String> productIds) async {
     try {
-      final snapshot = await _db.collection('Products').where(FieldPath.documentId, whereIn: productIds).get();
-      return snapshot.docs.map((querySnapshot) => ProductModel.fromSnapshot(querySnapshot)).toList();
+      final snapshot = await _db
+          .collection('Products')
+          .where(FieldPath.documentId, whereIn: productIds)
+          .get();
+      return snapshot.docs
+          .map((querySnapshot) => ProductModel.fromSnapshot(querySnapshot))
+          .toList();
     } on FirebaseException catch (e) {
       throw CustomFirebaseException(e.code).message;
     } on PlatformException catch (e) {
       throw CustomPlatformException(e.code).message;
     } catch (e) {
-      throw 'Something went wrong. Please try again.';
+      throw 'Something went wrong while fetching favorite products. Please try again.';
     }
   }
 
@@ -99,24 +100,38 @@ class ProductRepository extends GetxController {
               .where('Brand.Id', isEqualTo: brandId)
               .limit(limit)
               .get();
-      final products = querySnapshot.docs
+      return querySnapshot.docs
           .map((doc) => ProductModel.fromQuerySnapshot(doc))
           .toList();
-      return products;
     } on FirebaseException catch (e) {
       throw CustomFirebaseException(e.code).message;
     } on PlatformException catch (e) {
       throw CustomPlatformException(e.code).message;
     } catch (e) {
-      throw 'Something went wrong. Please try again.';
+      throw 'Something went wrong while fetching products for brand. Please try again.';
     }
   }
 
-  // Get products based on the brand
+  // Method to upload a file
+  Future<String> uploadFile(String filePath, String fileName) async {
+    try {
+      File file = File(filePath);
+      // Create a reference to the location you want to upload to
+      Reference ref = _storage.ref().child('products/$fileName');
+      // Upload the file to the specified reference
+      await ref.putFile(file);
+      // Get the download URL
+      String downloadUrl = await ref.getDownloadURL();
+      return downloadUrl; // Return the URL of the uploaded file
+    } catch (e) {
+      throw 'Failed to upload file: $e';
+    }
+  }
+
+  // Get products based on the category
   Future<List<ProductModel>> getProductsForCategory(
       {required String categoryId, int limit = 4}) async {
     try {
-      // Query to get all documents where productId matches the provided categoryId & fetch limited or unlimited based on limit
       QuerySnapshot productCategoryQuery = limit == -1
           ? await _db
               .collection('ProductCategory')
@@ -127,116 +142,45 @@ class ProductRepository extends GetxController {
               .where('CategoryId', isEqualTo: categoryId)
               .limit(limit)
               .get();
-      // Extract productIds from the documents
-      List<String> productIds = productCategoryQuery.docs
-          .map((doc) => doc['productId'] as String)
-          .toList();
+      List<String> productIds =
+          productCategoryQuery.docs.map((doc) => doc['Id'] as String).toList();
 
-      // Query to get all documents where the brandId is in the list of brandIds, fieldPath.documentId to query documents in collection
       final productsQuery = await _db
           .collection('Products')
           .where(FieldPath.documentId, whereIn: productIds)
           .get();
 
-      // Extract brand names or other relevant datqa from the documents
-      List<ProductModel> products = productsQuery.docs
+      return productsQuery.docs
           .map((doc) => ProductModel.fromSnapshot(doc))
           .toList();
-      return products;
     } on FirebaseException catch (e) {
       throw CustomFirebaseException(e.code).message;
     } on PlatformException catch (e) {
       throw CustomPlatformException(e.code).message;
     } catch (e) {
-      throw 'Something went wrong. Please try again.';
+      throw 'Something went wrong while fetching products for category. Please try again.';
     }
   }
 
-  /////////
-
-  Future<void> uploadProduct({
-    required String id,
-    required String title,
-    required int stock,
-    required double price,
-    required File thumbnail,
-    required String productType,
-    String? sku,
-    bool? isFeatured,
-    String? description,
-    DateTime? date,
-    BrandModel? brand,
-    List<File>? images,
-    double salePrice = 0.0,
-    List<ProductVariationModel>? productVariations,
-    List<ProductAttributeModel>? productAttributes,
-    String? categoryId,
-  }) async {
+  // Method to delete a product by its ID
+  Future<void> deleteProduct(String id) async {
     try {
-      // Ensure user is authenticated
-      final user = FirebaseAuth.instance.currentUser;
-      if (user == null) {
-        throw 'User is not authenticated.';
-      }
+      await _db.collection('Products').doc(id).delete();
+    } catch (e) {
+      throw 'Error deleting product: $e';
+    }
+  }
 
-      // Upload the thumbnail and get the URL
-      final thumbnailUrl = await _uploadFileToStorage(thumbnail,
-          'products/thumbnails/${DateTime.now().millisecondsSinceEpoch}_${thumbnail.uri.pathSegments.last}');
-
-      // Upload the images and get their URLs
-      final imageUrls = await Future.wait(images?.map((file) async =>
-              await _uploadFileToStorage(file,
-                  'products/images/${DateTime.now().millisecondsSinceEpoch}_${file.uri.pathSegments.last}')) ??
-          []);
-
-      // Ensure imageUrls is a List<String>
-      final imageUrlsString = imageUrls.map((url) => url as String).toList();
-
-      // Create and upload product data
-      final product = ProductModel(
-        id: id,
-        title: title,
-        stock: stock,
-        price: price,
-        thumbnail: thumbnailUrl,
-        productType: productType,
-        sku: sku,
-        isFeatured: isFeatured,
-        description: description,
-        date: date,
-        brand: brand,
-        images: imageUrlsString, // List of URLs as Strings
-        salePrice: salePrice,
-        productVariations: productVariations,
-        productAttributes: productAttributes,
-        categoryId: categoryId,
-      );
-
-      await _db.collection('Products').doc(id).set(product.toJson());
-      CustomLoaders.successSnackbar(
-          title: 'Success',
-          message: 'Product uploaded and saved successfully!');
+  Future<void> uploadProduct(ProductModel product) async {
+    try {
+      // Assuming you want to add a new product
+      await _db.collection('Products').add(product.toJson());
     } on FirebaseException catch (e) {
-      CustomLoaders.errorSnackbar(
-          title: 'Error', message: 'Firebase Exception: ${e.message}');
+      throw CustomFirebaseException(e.code).message;
     } on PlatformException catch (e) {
-      CustomLoaders.errorSnackbar(
-          title: 'Error', message: 'Platform Exception: ${e.message}');
+      throw CustomPlatformException(e.code).message;
     } catch (e) {
-      CustomLoaders.errorSnackbar(
-          title: 'Error', message: 'Something went wrong. Please try again.');
-    }
-  }
-
-  Future<String> _uploadFileToStorage(File file, String path) async {
-    try {
-      final storageRef = _storage.ref().child(path);
-      final uploadTask = storageRef.putFile(file);
-      final snapshot = await uploadTask.whenComplete(() => {});
-      final downloadUrl = await snapshot.ref.getDownloadURL();
-      return downloadUrl;
-    } catch (e) {
-      throw 'Error uploading file: $e';
+      throw 'Something went wrong while uploading the product. Please try again.';
     }
   }
 }

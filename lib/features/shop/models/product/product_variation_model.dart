@@ -2,11 +2,11 @@
 class ProductVariationModel {
   final String id;
   String sku;
-  int stock;
-  double price;
-  double salePrice;
   String image;
   String? description;
+  double price;
+  double salePrice;
+  int stock;
   Map<String, String> attributeValues;
 
   ProductVariationModel({
@@ -28,11 +28,11 @@ class ProductVariationModel {
   toJson() {
     return {
       'Id': id,
-      'Stock': stock,
-      'Price': price,
-      'SalePrice': salePrice,
       'Image': image,
       'Description': description,
+      'Price': price,
+      'SalePrice': salePrice,
+      'Stock': stock,   
       'AttributeValues': attributeValues,
       'SKU': sku,
     };

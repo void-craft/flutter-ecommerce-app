@@ -23,4 +23,5 @@ class CustomRoutes {
   static const resetPassword = '/reset-password';
   static const forgetPassword = '/forget-password';
   static const onboarding = '/onboarding';
+  static const dummyScreen = '/dummy';
 }
