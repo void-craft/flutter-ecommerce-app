@@ -31,17 +31,18 @@ class CustomUploadBrandActions extends StatelessWidget {
 
         const SizedBox(height: CustomSizes.spaceBtwItems),
 
+        /// Upload Button
         ElevatedButton(
           onPressed: () {
             if (controller.validateForm()) {
-              controller.uploadBrand(); 
+              controller.uploadBrand();
             } else {
               CustomLoaders.errorSnackbar(title: 'Error.', message: 'Please fill in all required fields!');
             }
           },
           style: ElevatedButton.styleFrom(
             padding: const EdgeInsets.symmetric(vertical: CustomSizes.buttonRadius),
-            minimumSize: const Size(double.infinity), // Ensure it takes full width
+            minimumSize: const Size(double.infinity, 0),
           ),
           child: const Text('Upload'),
         ),
@@ -49,59 +50,3 @@ class CustomUploadBrandActions extends StatelessWidget {
     );
   }
 }
-
-
-// import 'package:bagit/common/widgets/loaders/loaders.dart';
-// import 'package:bagit/features/shop/controllers/brand_controller.dart';
-// import 'package:bagit/utils/constants/sizes.dart';
-// import 'package:flutter/material.dart';
-// import 'package:iconsax/iconsax.dart';
-// import 'package:get/get.dart';
-
-// class CustomUploadBrandActions extends StatelessWidget {
-//   const CustomUploadBrandActions({super.key});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     final controller = BrandController.instance;
-
-//     return Row(
-//       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//       children: [
-//         /// Cancel Button
-//         Flexible(
-//           child: ElevatedButton.icon(
-//             icon: const Icon(Iconsax.close_circle),
-//             label: const Text('Cancel'),
-//             onPressed: () {
-//               controller.cancelUpload();
-//               Get.back();
-//             },
-//             style: ElevatedButton.styleFrom(
-//               padding: const EdgeInsets.symmetric(vertical: CustomSizes.buttonRadius),
-//             ),
-//           ),
-//         ),
-//         const SizedBox(width: CustomSizes.spaceBtwItems),
-
-//         /// Upload Button
-//         Expanded(
-//           child: ElevatedButton.icon(
-//             icon: const Icon(Icons.upload),
-//             label: const Text('Upload'),
-//             onPressed: () {
-//               if (controller.validateForm()) {
-//                 controller.uploadBrand(); 
-//               } else {
-//                 CustomLoaders.errorSnackbar(title: 'Error.', message: 'Please fill in all required fields!');
-//               }
-//             },
-//             style: ElevatedButton.styleFrom(
-//               padding: const EdgeInsets.symmetric(vertical: CustomSizes.buttonRadius),
-//             ),
-//           ),
-//         ),
-//       ],
-//     );
-//   }
-// }

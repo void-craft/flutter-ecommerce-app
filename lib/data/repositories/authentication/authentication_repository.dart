@@ -42,7 +42,6 @@ class AuthenticationRepository extends GetxController {
     if (user != null) {
       // If the user is logged in
       if (user.emailVerified) {
-        
         // Initialize user specific storage
         await CustomLocalStorage.init(user.uid);
         // If the user's email is verified, navigate to the main Navigation menu
@@ -53,7 +52,7 @@ class AuthenticationRepository extends GetxController {
       }
     } else {
       // Local Storage
-      deviceStorage.writeIfNull('isFirsTime', true);
+      deviceStorage.writeIfNull('isFirstTime', true);
 
       // Check if it's app's first time loading.
       deviceStorage.read('isFirstTime') != true
@@ -138,10 +137,12 @@ class AuthenticationRepository extends GetxController {
   }
 
   // [ReAuthentication] - ReAuthenticate user
-  Future<void> reauthenticateWithEmailAndPassword(String email, String password) async {
+  Future<void> reauthenticateWithEmailAndPassword(
+      String email, String password) async {
     try {
       // Create a credential
-      AuthCredential credential = EmailAuthProvider.credential(email: email, password: password);
+      AuthCredential credential =
+          EmailAuthProvider.credential(email: email, password: password);
 
       // Reauthenticate
       await _auth.currentUser!.reauthenticateWithCredential(credential);
@@ -195,7 +196,11 @@ class AuthenticationRepository extends GetxController {
   // [LogoutUser] Valid for any authentication.
   Future<void> logout() async {
     try {
-      await GoogleSignIn().signOut();
+      if (_auth.currentUser?.providerData
+              .any((info) => info.providerId == 'google.com') ??
+          false) {
+        await GoogleSignIn().signOut();
+      }
       await FirebaseAuth.instance.signOut();
       Get.offAll(() => const LoginScreen());
     } on FirebaseAuthException catch (e) {

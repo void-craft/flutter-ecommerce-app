@@ -8,37 +8,42 @@ import 'package:get/get.dart';
 class LogoutController extends GetxController {
   static LogoutController get instance => Get.find();
 
-  // Handle User Logout
   Future<void> logoutUser() async {
-    try {
-      // Start loading
-      CustomFullscreenLoader.openLoadingDialog(
-          'Logging you out...', CustomImages.lottieLoadingllustration);
-          
-      // Perform logout operation using AuthenticationRepository
-      await AuthenticationRepository.instance.logout();
+  try {
+    print('Attempting to log out');
 
-      // Remove Loader
-      CustomFullscreenLoader.stopLoading();
+    // Start loading
+    CustomFullscreenLoader.openLoadingDialog(
+        'Logging you out...', CustomImages.lottieLoadingllustration);
 
-      // Show success snackbar
-      CustomLoaders.successSnackbar(
-        title: 'Logged Out',
-        message: 'You have been logged out successfully.',
-      );
+    // Perform logout operation using AuthenticationRepository
+    await AuthenticationRepository.instance.logout();
+    print('Logout successful');
 
-      // Redirect to login screen
-      Get.offAll(() => const LoginScreen());
+    // Remove Loader
+    CustomFullscreenLoader.stopLoading();
 
-    } catch (e) {
-      // Remove Loader
-      CustomFullscreenLoader.stopLoading();
+    // Redirect to login screen
+    Get.offAll(() => const LoginScreen());
 
-      // Show error snackbar
-      CustomLoaders.errorSnackbar(
-        title: 'Logout Failed',
-        message: e.toString(),
-      );
-    }
+    // Show success snackbar
+    CustomLoaders.successSnackbar(
+      title: 'Logged Out',
+      message: 'You have been logged out successfully.',
+    );
+
+  } catch (e) {
+    print('Logout error: $e');
+
+    // Remove Loader
+    CustomFullscreenLoader.stopLoading();
+
+    // Show error snackbar
+    CustomLoaders.errorSnackbar(
+      title: 'Logout Failed',
+      message: e.toString(),
+    );
   }
+}
+
 }
