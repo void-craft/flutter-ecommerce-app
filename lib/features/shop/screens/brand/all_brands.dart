@@ -14,6 +14,7 @@ class AllBrandsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    
     final brandController = BrandController.instance;
     return Scaffold(
         appBar: const CustomAppBar(

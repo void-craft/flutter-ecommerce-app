@@ -12,7 +12,6 @@ class CustomUploadProductForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = ProductController.instance;
-    
 
     return Form(
       key: controller.uploadFormKey,
@@ -54,10 +53,11 @@ class CustomUploadProductForm extends StatelessWidget {
           ),
 
           /// Product Type Selection (Radio Buttons)
-          const SizedBox(height: CustomSizes.spaceBtwSections),
-          Text('Product Type', style: Theme.of(context).textTheme.titleMedium),
+          Text('Product Type', style: Theme.of(context).textTheme.bodyLarge),
+          const SizedBox(height: CustomSizes.sm),
           Row(
-           children: [
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
               Obx(() => Radio<ProductType>(
                     value: ProductType.single,
                     groupValue: controller.productType.value,
@@ -82,11 +82,13 @@ class CustomUploadProductForm extends StatelessWidget {
           ),
 
           /// Thumbnail Upload (Required)
-          const SizedBox(height: CustomSizes.spaceBtwSections),
           Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Text('Thumbnail', style: Theme.of(context).textTheme.titleMedium),
-              const SizedBox(width: CustomSizes.spaceBtwInputFields),
+              const Icon(Iconsax.image),
+              Text('Thumbnail', style: Theme.of(context).textTheme.bodyLarge),
+              const SizedBox(width: CustomSizes.spaceBtwItems * 4 ),
               IconButton(
                 onPressed: controller.pickThumbnail,
                 icon: const Icon(Icons.upload), // Upload icon
@@ -96,9 +98,10 @@ class CustomUploadProductForm extends StatelessWidget {
           ),
           if (controller.thumbnail.value.isNotEmpty)
             Text('Thumbnail Selected: ${controller.thumbnail.value}'),
+            const SizedBox(height: CustomSizes.spaceBtwItems / 2),         
 
           /// Optional Fields Header
-          const SizedBox(height: CustomSizes.spaceBtwSections),
+          const SizedBox(height: CustomSizes.spaceBtwInputFields),
           Text('Optional Fields', style: Theme.of(context).textTheme.titleMedium),
           const SizedBox(height: CustomSizes.spaceBtwInputFields),
 
@@ -138,12 +141,43 @@ class CustomUploadProductForm extends StatelessWidget {
             onChanged: (value) => controller.salePrice.value = double.tryParse(value) ?? 0.0,
           ),
 
-          /// Product Images Upload (Optional)
-          const SizedBox(height: CustomSizes.spaceBtwSections),
+          /// IsFeatured Selection (Yes/No Radio Buttons)
+          Text('Is Featured', style: Theme.of(context).textTheme.bodyLarge),
+          const SizedBox(height: CustomSizes.sm),
           Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              Text('Product Images (Optional)', style: Theme.of(context).textTheme.titleMedium),
-              const SizedBox(width: CustomSizes.spaceBtwInputFields),
+              Obx(() => Radio<bool>(
+                    value: true,
+                    groupValue: controller.isFeatured.value,
+                    onChanged: (bool? value) {
+                      if (value != null) {
+                        controller.isFeatured.value = value;
+                      }
+                    },
+                  )),
+              const Text('Yes'),
+              Obx(() => Radio<bool>(
+                    value: false,
+                    groupValue: controller.isFeatured.value,
+                    onChanged: (bool? value) {
+                      if (value != null) {
+                        controller.isFeatured.value = value;
+                      }
+                    },
+                  )),
+              const Text('No'),
+            ],
+          ),
+
+          /// Product Images Upload (Optional)
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              const Icon(Iconsax.image),
+              Text('Images (Optional)', style: Theme.of(context).textTheme.bodyLarge),
+              const SizedBox(width: CustomSizes.spaceBtwItems),
               IconButton(
                 onPressed: controller.pickImages,
                 icon: const Icon(Icons.upload), // Upload icon
@@ -153,8 +187,6 @@ class CustomUploadProductForm extends StatelessWidget {
           ),
           if (controller.additionalImages.isNotEmpty)
             Text('${controller.additionalImages.length} images selected'),
-
-          const SizedBox(height: CustomSizes.spaceBtwSections),
         ],
       ),
     );

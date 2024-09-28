@@ -38,7 +38,7 @@ class CustomUploadProductActions extends StatelessWidget {
             label: const Text('Upload'),
             onPressed: () {
               if (controller.validateForm()) {
-                controller.finishUpload(); 
+                controller.uploadProduct(); 
               } else {
                 CustomLoaders.errorSnackbar(title: 'Error.', message: 'Please fill in all required fields!');
               }

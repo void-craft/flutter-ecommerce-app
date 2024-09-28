@@ -22,7 +22,8 @@ class StoreScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final brandController = Get.put(BrandController());
+    // Original first implementation
+    final brandController = BrandController.instance;
     final categories = CategoryController.instance.featuredCategories;
 
     return DefaultTabController(

@@ -21,14 +21,16 @@ class ProductController extends GetxController {
   final Rx<int> stock = 0.obs;
   final Rx<double> price = 0.0.obs;
   final Rx<String> sku = ''.obs;
-  final Rx<ProductType> productType =
-      ProductType.single.obs;
+  final Rx<ProductType> productType = ProductType.single.obs;
   final Rx<String> description = ''.obs;
   final Rx<double> salePrice = 0.0.obs;
   final Rx<String> thumbnail = ''.obs;
   final Rx<String> brand = ''.obs;
   final Rx<String> categoryId = ''.obs;
   final RxList<XFile> additionalImages = <XFile>[].obs;
+  final RxBool isFeatured = false.obs;
+
+  RxList<ProductModel> featuredProducts = <ProductModel>[].obs;
 
   // Loading state
   final RxBool isLoading = false.obs;
@@ -45,8 +47,6 @@ class ProductController extends GetxController {
     productType: ProductType.single.toString(),
     thumbnail: '',
   ).obs;
-
-  RxList<ProductModel> featuredProducts = <ProductModel>[].obs;
 
   @override
   void onInit() {
@@ -134,22 +134,6 @@ class ProductController extends GetxController {
         .toStringAsFixed(0);
   }
 
-  // Validation for required fields before submitting the form
-  bool validateProductFields() {
-    if (id.value.isEmpty ||
-        title.value.isEmpty ||
-        stock.value <= 0 ||
-        price.value <= 0 ||
-        (productType.value != ProductType.single &&
-            productType.value != ProductType.variable) ||
-        thumbnail.value.isEmpty) {
-      CustomLoaders.errorSnackbar(
-          title: 'Error', message: 'Please fill all required fields');
-      return false;
-    }
-    return true;
-  }
-
   // Pick additional images using ImagePicker
   Future<void> pickImages() async {
     final List<XFile> images = await picker.pickMultiImage();
@@ -168,7 +152,7 @@ class ProductController extends GetxController {
       final XFile? image = await picker.pickImage(source: ImageSource.gallery);
 
       if (image != null) {
-        thumbnail.value = image.path; // Update thumbnail path
+        thumbnail.value = image.path;
         CustomLoaders.successSnackbar(
             title: 'Success', message: 'Thumbnail selected successfully!');
       } else {
@@ -180,6 +164,7 @@ class ProductController extends GetxController {
           title: 'Error', message: 'Failed to pick thumbnail: $e');
     }
   }
+
   // Check if thumbnail has been uploaded
   bool isThumbnailUploaded() {
     return thumbnail.value.isNotEmpty;
@@ -210,7 +195,6 @@ class ProductController extends GetxController {
       return false;
     }
 
-    // Check for empty required fields
     if (id.value.isEmpty) {
       CustomLoaders.errorSnackbar(
           title: 'Error', message: 'Product ID is required.');
@@ -247,73 +231,71 @@ class ProductController extends GetxController {
     return true;
   }
 
-  Future<void> finishUpload() async {
-  if (!validateForm()) return;
+  Future<void> uploadProduct() async {
+    if (!validateForm()) return;
 
-  isLoading.value = true;
-  CustomFullscreenLoader.openLoadingDialog(
-      'Uploading Product...', CustomImages.lottieLoadingllustration);
+    isLoading.value = true;
+    CustomFullscreenLoader.openLoadingDialog(
+        'Uploading Product...', CustomImages.lottieLoadingllustration);
 
-  try {
-    await Future.delayed(Duration.zero); // Ensure we are on the main thread
+    try {
+      await Future.delayed(Duration.zero);
 
-    if (thumbnail.value.isNotEmpty) {
-      String thumbnailUrl = await productRepository.uploadFile(
-          thumbnail.value, thumbnail.value.split('/').last);
+      if (thumbnail.value.isNotEmpty) {
+        String thumbnailUrl = await productRepository.uploadFile(
+            thumbnail.value, thumbnail.value.split('/').last);
 
-      List<String> imageUrls = [];
-      for (XFile image in additionalImages) {
-        String imageUrl = await productRepository.uploadFile(
-            image.path, image.path.split('/').last);
-        imageUrls.add(imageUrl);
+        List<String> imageUrls = [];
+        for (XFile image in additionalImages) {
+          String imageUrl = await productRepository.uploadFile(
+              image.path, image.path.split('/').last);
+          imageUrls.add(imageUrl);
+        }
+
+        product.value = ProductModel(
+          id: id.value,
+          title: title.value,
+          stock: stock.value,
+          price: price.value,
+          sku: sku.value.isNotEmpty ? sku.value : null,
+          productType: productType.value.toString(),
+          description: description.value.isNotEmpty ? description.value : null,
+          thumbnail: thumbnailUrl,
+          isFeatured: false,
+          images: imageUrls,
+          salePrice: salePrice.value,
+          brand: BrandModel(
+            id: brand.value,
+            name: '',
+            image: '',
+          ),
+          productVariations: [],
+          productAttributes: [],
+          categoryId: categoryId.value,
+        );
+
+        // Upload the product to Firestore with the specified ID
+        await productRepository.uploadProduct(product.value);
+        cancelUpload();
+        Get.back();
+
+        // Stop the loading dialog before showing the snackbar
+        CustomFullscreenLoader.stopLoading();
+
+        // Show success snackbar after upload completion
+        CustomLoaders.successSnackbar(
+          title: 'Success',
+          message: 'Product upload completed successfully!',
+        );
+      } else {
+        CustomFullscreenLoader.stopLoading();
+        CustomLoaders.errorSnackbar(
+            message: 'Thumbnail must be selected!', title: 'Error.');
       }
-
-      product.value = ProductModel(
-        id: id.value,
-        title: title.value,
-        stock: stock.value,
-        price: price.value,
-        sku: sku.value.isNotEmpty ? sku.value : null,
-        productType: productType.value.toString(),
-        description: description.value.isNotEmpty ? description.value : null,
-        thumbnail: thumbnailUrl,
-        isFeatured: false,
-        images: imageUrls,
-        salePrice: salePrice.value,
-        brand: BrandModel(
-          id: brand.value,
-          name: '',
-          image: '',
-        ),
-        productVariations: [],
-        productAttributes: [],
-        categoryId: categoryId.value,
-      );
-
-      // Upload the product to Firestore with the specified ID
-      await productRepository.uploadProduct(product.value);
-      cancelUpload();
-      Get.back();
-
-      // Stop the loading dialog before showing the snackbar
-      CustomFullscreenLoader.stopLoading();
-
-       // Show success snackbar after upload completion
-      CustomLoaders.successSnackbar(
-        title: 'Success',
-        message: 'Product upload completed successfully!',
-      );
-
-    } else {
-      CustomFullscreenLoader.stopLoading();
-      CustomLoaders.errorSnackbar(
-          message: 'Thumbnail must be selected!', title: 'Error.');
+    } catch (e) {
+      CustomLoaders.errorSnackbar(title: 'Failed to finish upload: $e');
+    } finally {
+      isLoading.value = false;
     }
-  } catch (e) {
-    CustomLoaders.errorSnackbar(title: 'Failed to finish upload: $e');
-  } finally {
-    isLoading.value = false; // Reset loading state
   }
-}
-
 }

@@ -13,7 +13,8 @@ import 'package:bagit/features/shop/screens/home/home.dart';
 import 'package:bagit/features/shop/screens/order/order.dart';
 import 'package:bagit/features/shop/screens/product_reviews/product_reviews.dart';
 import 'package:bagit/features/shop/screens/store/store.dart';
-import 'package:bagit/features/shop/screens/upload_product/dummy.dart';
+import 'package:bagit/features/shop/screens/upload_brand/upload_brand_screen.dart';
+import 'package:bagit/features/shop/screens/upload_product/upload_product_screen.dart';
 import 'package:bagit/routes/routes.dart';
 import 'package:get/get.dart';
 
@@ -34,6 +35,7 @@ class AppRoutes {
     GetPage(name: CustomRoutes.signIn, page: () => const LoginScreen()),
     GetPage(name: CustomRoutes.forgetPassword, page: () => const ForgotPasswordScreen()),
     GetPage(name: CustomRoutes.onboarding, page: () => const OnBoardingScreen()),
-    GetPage(name: CustomRoutes.dummyScreen, page: () => const UploadProductScreen()),
+    GetPage(name: CustomRoutes.uploadProduct, page: () => const UploadProductScreen()),
+    GetPage(name: CustomRoutes.uploadBrand, page: () => const UploadBrandScreen()),
   ];
 }

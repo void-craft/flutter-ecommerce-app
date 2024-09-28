@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:bagit/features/shop/models/product/product_model.dart';
 import 'package:bagit/utils/exceptions/firebase_exceptions.dart';
 import 'package:bagit/utils/exceptions/platform_exceptions.dart';

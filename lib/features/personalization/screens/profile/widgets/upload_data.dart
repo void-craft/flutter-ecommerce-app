@@ -34,7 +34,7 @@ class UploadDataScreen extends StatelessWidget {
                       title: 'Main Record', showActionButton: false),
                   const SizedBox(height: CustomSizes.spaceBtwItems),
 
-                  // Upload Categories
+                  // Upload Categories -- DONE
                   CustomSettingsMenuTile(
                     icon: Iconsax.category,
                     title: 'Upload Categories',
@@ -54,11 +54,11 @@ class UploadDataScreen extends StatelessWidget {
                     trailing: IconButton(
                       icon: const Icon(Icons.upload),
                       onPressed: () {
-                        // Handle upload action
+                        Get.toNamed(CustomRoutes.uploadBrand);
                       },
                     ),
                   ),
-                  // Upload Products
+                  // Upload Products -- DONE
                   CustomSettingsMenuTile(
                     icon: Iconsax.bag,
                     title: 'Upload Products',
@@ -66,11 +66,11 @@ class UploadDataScreen extends StatelessWidget {
                     trailing: IconButton(
                       icon: const Icon(Icons.upload),
                       onPressed: () {
-                        Get.toNamed(CustomRoutes.dummyScreen);
+                        Get.toNamed(CustomRoutes.uploadProduct);
                       }
                     )
                   ),
-                  // Upload Banners
+                  // Upload Banners DONE
                   CustomSettingsMenuTile(
                     icon: Iconsax.image,
                     title: 'Upload Banners',

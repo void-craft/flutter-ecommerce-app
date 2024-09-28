@@ -58,6 +58,7 @@ class CustomLoginForm extends StatelessWidget {
                           !controller.rememberMe.value)),
                   const Text(CustomTexts.rememberMe)
                 ]),
+                const Spacer(),
 
                 // Forgot password
                 TextButton(
