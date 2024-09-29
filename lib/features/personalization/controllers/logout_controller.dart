@@ -10,7 +10,6 @@ class LogoutController extends GetxController {
 
   Future<void> logoutUser() async {
   try {
-    print('Attempting to log out');
 
     // Start loading
     CustomFullscreenLoader.openLoadingDialog(
@@ -18,7 +17,6 @@ class LogoutController extends GetxController {
 
     // Perform logout operation using AuthenticationRepository
     await AuthenticationRepository.instance.logout();
-    print('Logout successful');
 
     // Remove Loader
     CustomFullscreenLoader.stopLoading();
@@ -33,7 +31,6 @@ class LogoutController extends GetxController {
     );
 
   } catch (e) {
-    print('Logout error: $e');
 
     // Remove Loader
     CustomFullscreenLoader.stopLoading();

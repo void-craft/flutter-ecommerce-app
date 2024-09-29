@@ -48,7 +48,7 @@ class CustomBottomAddToCart extends StatelessWidget {
                 const SizedBox(width: CustomSizes.spaceBtwItems),
                 // Plus Icon
                 CustomCircularIcon(
-                  icon: Iconsax.minus,
+                  icon: Iconsax.add,
                   backgroundColor: CustomColors.black,
                   width: 40,
                   height: 40,

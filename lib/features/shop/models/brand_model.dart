@@ -53,8 +53,8 @@ class BrandModel {
         id: document.id,
         name: data['Name'] ?? '',
         image: data['Image'] ?? '',
-        productsCount: data['productsCount'] ?? '',
-        isFeatured: data['isFeatured'] ?? false,
+        productsCount: data['ProductsCount'] ?? '',
+        isFeatured: data['IsFeatured'] ?? false,
       );
     } else {
       // Return an empty model if the document has no data

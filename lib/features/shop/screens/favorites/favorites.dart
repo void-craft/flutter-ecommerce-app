@@ -19,7 +19,7 @@ class FavoriteScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(FavoritesController());
+    final controller = FavoritesController.instance;
     return Scaffold(
         appBar: CustomAppBar(
             showBackArrow: false,

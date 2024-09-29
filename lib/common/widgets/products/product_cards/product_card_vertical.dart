@@ -42,7 +42,7 @@ class CustomProductCardVertical extends StatelessWidget {
             child: Column(children: [
               // - Thumbnail, wishlist button, discount tag
               CustomRoundedContainer(
-                  height: 180,
+                  height: 155,
                   width: 180,
                   padding: const EdgeInsets.all(CustomSizes.sm),
                   backgroundColor:
@@ -53,8 +53,9 @@ class CustomProductCardVertical extends StatelessWidget {
                       child: CustomRoundedImage(
                           height: CustomSizes.productImageSize,
                           imageUrl: product.thumbnail,
+                          isNetworkImage: true,
                           applyImageRadius: true,
-                          isNetworkImage: true),
+                          ),
                     ),
 
                     // - On sale tag -- DONE

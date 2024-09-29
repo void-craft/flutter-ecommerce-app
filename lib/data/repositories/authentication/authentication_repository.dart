@@ -57,7 +57,7 @@ class AuthenticationRepository extends GetxController {
       // Check if it's app's first time loading.
       deviceStorage.read('isFirstTime') != true
           ? Get.offAll(() => const LoginScreen()) // Redirect to login if not
-          : Get.offAll(
+          : Get.offAll(() =>
               const OnBoardingScreen()); // Redirect to onboarding if yes
     }
   }

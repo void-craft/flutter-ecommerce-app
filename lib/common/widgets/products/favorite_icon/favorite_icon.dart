@@ -13,7 +13,7 @@ class CustomFavoriteIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // First Instance
-    final controller = FavoritesController.instance;
+    final controller = Get.put(FavoritesController());
     return Obx(() => CustomCircularIcon(
         icon: controller.isFavorite(productId) ? Iconsax.heart5 : Iconsax.heart,
         color: controller.isFavorite(productId) ? CustomColors.error : null,

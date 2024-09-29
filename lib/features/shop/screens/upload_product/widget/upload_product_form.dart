@@ -22,7 +22,8 @@ class CustomUploadProductForm extends StatelessWidget {
           _buildTextField(
             label: 'ID',
             icon: Iconsax.tag,
-            validator: (value) => CustomValidator.validateEmptyText('ID', value),
+            validator: (value) =>
+                CustomValidator.validateEmptyText('ID', value),
             onChanged: (value) => controller.id.value = value,
           ),
 
@@ -30,7 +31,8 @@ class CustomUploadProductForm extends StatelessWidget {
           _buildTextField(
             label: 'Title',
             icon: Iconsax.book,
-            validator: (value) => CustomValidator.validateEmptyText('Title', value),
+            validator: (value) =>
+                CustomValidator.validateEmptyText('Title', value),
             onChanged: (value) => controller.title.value = value,
           ),
 
@@ -39,8 +41,10 @@ class CustomUploadProductForm extends StatelessWidget {
             label: 'Stock',
             icon: Iconsax.box,
             keyboardType: TextInputType.number,
-            validator: (value) => CustomValidator.validatePositiveNumber(value, 'Stock'),
-            onChanged: (value) => controller.stock.value = int.tryParse(value) ?? 0,
+            validator: (value) =>
+                CustomValidator.validatePositiveNumber(value, 'Stock'),
+            onChanged: (value) =>
+                controller.stock.value = int.tryParse(value) ?? 0,
           ),
 
           /// Price Field (Required)
@@ -49,7 +53,8 @@ class CustomUploadProductForm extends StatelessWidget {
             icon: Iconsax.coin,
             keyboardType: const TextInputType.numberWithOptions(decimal: true),
             validator: (value) => CustomValidator.validatePrice(value),
-            onChanged: (value) => controller.price.value = double.tryParse(value) ?? 0.0,
+            onChanged: (value) =>
+                controller.price.value = double.tryParse(value) ?? 0.0,
           ),
 
           /// Product Type Selection (Radio Buttons)
@@ -88,21 +93,22 @@ class CustomUploadProductForm extends StatelessWidget {
             children: [
               const Icon(Iconsax.image),
               Text('Thumbnail', style: Theme.of(context).textTheme.bodyLarge),
-              const SizedBox(width: CustomSizes.spaceBtwItems * 4 ),
+              const SizedBox(width: CustomSizes.spaceBtwItems * 4),
               IconButton(
                 onPressed: controller.pickThumbnail,
-                icon: const Icon(Icons.upload), // Upload icon
+                icon: const Icon(Icons.upload),
                 tooltip: 'Upload Thumbnail',
               ),
             ],
           ),
           if (controller.thumbnail.value.isNotEmpty)
             Text('Thumbnail Selected: ${controller.thumbnail.value}'),
-            const SizedBox(height: CustomSizes.spaceBtwItems / 2),         
+          const SizedBox(height: CustomSizes.spaceBtwItems / 2),
 
           /// Optional Fields Header
           const SizedBox(height: CustomSizes.spaceBtwInputFields),
-          Text('Optional Fields', style: Theme.of(context).textTheme.titleMedium),
+          Text('Optional Fields',
+              style: Theme.of(context).textTheme.titleMedium),
           const SizedBox(height: CustomSizes.spaceBtwInputFields),
 
           /// Description (Optional)
@@ -138,7 +144,8 @@ class CustomUploadProductForm extends StatelessWidget {
             label: 'Sale Price (Optional)',
             icon: Iconsax.money,
             keyboardType: const TextInputType.numberWithOptions(decimal: true),
-            onChanged: (value) => controller.salePrice.value = double.tryParse(value) ?? 0.0,
+            onChanged: (value) =>
+                controller.salePrice.value = double.tryParse(value) ?? 0.0,
           ),
 
           /// IsFeatured Selection (Yes/No Radio Buttons)
@@ -152,7 +159,7 @@ class CustomUploadProductForm extends StatelessWidget {
                     groupValue: controller.isFeatured.value,
                     onChanged: (bool? value) {
                       if (value != null) {
-                        controller.isFeatured.value = value;
+                        controller.setFeatured(value);
                       }
                     },
                   )),
@@ -162,7 +169,7 @@ class CustomUploadProductForm extends StatelessWidget {
                     groupValue: controller.isFeatured.value,
                     onChanged: (bool? value) {
                       if (value != null) {
-                        controller.isFeatured.value = value;
+                        controller.setFeatured(value);
                       }
                     },
                   )),
@@ -176,7 +183,8 @@ class CustomUploadProductForm extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               const Icon(Iconsax.image),
-              Text('Images (Optional)', style: Theme.of(context).textTheme.bodyLarge),
+              Text('Images (Optional)',
+                  style: Theme.of(context).textTheme.bodyLarge),
               const SizedBox(width: CustomSizes.spaceBtwItems),
               IconButton(
                 onPressed: controller.pickImages,

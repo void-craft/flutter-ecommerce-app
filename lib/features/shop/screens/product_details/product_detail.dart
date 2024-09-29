@@ -21,66 +21,74 @@ class ProductDetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        bottomNavigationBar: CustomBottomAddToCart(product: product),
-        body: SingleChildScrollView(
-            child: Column(children: [
-          // -- Product Image slider
-          CustomProductImageSlider(product: product),
+      bottomNavigationBar: CustomBottomAddToCart(product: product),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            // -- Product Image slider
+            CustomProductImageSlider(product: product),
 
-          // Product Detail
-          Padding(
-              padding: const EdgeInsets.only(
-                  right: CustomSizes.defaultSpace,
-                  left: CustomSizes.defaultSpace,
-                  bottom: CustomSizes.defaultSpace),
-              child: Column(children: [
-                // -- Rating & Share button
-                const CustomRatingShare(),
-                
-                // -- Price, Title, Stock & Brand
-                CustomProductMetaData(product: product),
+            // Product Detail
+            Padding(
+              padding: const EdgeInsets.all(CustomSizes.cardRadiusLg),
+              child: Column(
+                //   crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  //     // -- Rating & Share button
+                  const CustomRatingShare(),
 
-                // -- Attribures
-                if (product.productType == ProductType.variable.toString())
-                  CustomProductAttributes(product: product),
-                if (product.productType == ProductType.variable.toString())
+                  //     // -- Price, Title, Stock & Brand
+                  CustomProductMetaData(product: product),
+
+                  //     // -- Attributes
+                  if (product.productType == ProductType.variable.toString())
+                    CustomProductAttributes(product: product),
+                  if (product.productType == ProductType.variable.toString())
+                    const SizedBox(height: CustomSizes.spaceBtwSections),
+
+                  //     // -- Checkout Button
+                  SizedBox(
+                      width: double.infinity,
+                      child: ElevatedButton(
+                          onPressed: () {}, child: const Text('Checkout'))),
+
                   const SizedBox(height: CustomSizes.spaceBtwSections),
-                
-                // -- Checkout Button
-                SizedBox(
-                    width: double.infinity,
-                    child: ElevatedButton(
-                        onPressed: () {}, child: const Text('Checkout'))),
-                const SizedBox(height: CustomSizes.spaceBtwSections),
 
-                // -- Description
-                const CustomSectionHeading(
-                    title: 'Description', showActionButton: false),
-                const SizedBox(height: CustomSizes.spaceBtwItems),
-                ReadMoreText(
-                  product.description ?? '',
-                  trimLines: 2,
-                  trimMode: TrimMode.Line,
-                  trimCollapsedText: ' Show more',
-                  trimExpandedText: ' Less',
-                  moreStyle: const TextStyle(
-                      fontSize: 14, fontWeight: FontWeight.w800),
-                  lessStyle: const TextStyle(
-                      fontSize: 14, fontWeight: FontWeight.w800),
-                ),
-                // -- Reviews
-                const Divider(),
-                const SizedBox(height: CustomSizes.spaceBtwItems),
-                Row(children: [
+                  //     // -- Description
+                  const CustomSectionHeading(
+                      title: 'Description', showActionButton: false),
+
+                  const SizedBox(height: CustomSizes.spaceBtwItems),
+
+                  ReadMoreText(
+                    product.description ?? '',
+                    trimLines: 2,
+                    trimMode: TrimMode.Line,
+                    trimCollapsedText: ' Show more',
+                    trimExpandedText: ' Less',
+                    moreStyle: const TextStyle(
+                        fontSize: 14, fontWeight: FontWeight.w800),
+                    lessStyle: const TextStyle(
+                        fontSize: 14, fontWeight: FontWeight.w800),
+                  ),
+
+                  //     // -- Reviews
+                  const Divider(),
+                  const SizedBox(height: CustomSizes.spaceBtwItems),
+
                   const CustomSectionHeading(
                       title: 'Reviews(199)', showActionButton: false),
                   IconButton(
-                      icon: const Icon(Iconsax.arrow_right_3, size: 18),
-                      onPressed: () =>
-                          Get.to(() => const ProductReviewScreen()))
-                ]),
-                const SizedBox(height: CustomSizes.spaceBtwSections)
-              ]))
-        ])));
+                    icon: const Icon(Iconsax.arrow_right_3, size: 18),
+                    onPressed: () => Get.to(() => const ProductReviewScreen()),
+                  ),
+                  const SizedBox(height: CustomSizes.spaceBtwSections),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }

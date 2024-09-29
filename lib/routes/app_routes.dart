@@ -5,6 +5,7 @@ import 'package:bagit/features/authentication/screens/signup/signup.dart';
 import 'package:bagit/features/authentication/screens/signup/verify_email.dart';
 import 'package:bagit/features/personalization/screens/address/widgets/address.dart';
 import 'package:bagit/features/personalization/screens/profile/profile.dart';
+import 'package:bagit/features/shop/screens/upload_relation/productcategory/upload_product_category_screen.dart';
 import 'package:bagit/features/personalization/screens/settings/settings.dart';
 import 'package:bagit/features/shop/screens/cart/cart.dart';
 import 'package:bagit/features/shop/screens/checkout/checkout.dart';
@@ -37,5 +38,6 @@ class AppRoutes {
     GetPage(name: CustomRoutes.onboarding, page: () => const OnBoardingScreen()),
     GetPage(name: CustomRoutes.uploadProduct, page: () => const UploadProductScreen()),
     GetPage(name: CustomRoutes.uploadBrand, page: () => const UploadBrandScreen()),
+    GetPage(name: CustomRoutes.uploadProductCategoryRelation, page: () => const UploadProductCategoryScreen())
   ];
 }

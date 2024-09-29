@@ -32,6 +32,12 @@ class ProductController extends GetxController {
 
   RxList<ProductModel> featuredProducts = <ProductModel>[].obs;
 
+  /// TESTING
+  Rx<String?> selectedProductId = Rx<String?>(null);
+  RxList<ProductModel> products = <ProductModel>[].obs;
+
+  /// TESTING
+
   // Loading state
   final RxBool isLoading = false.obs;
 
@@ -170,6 +176,12 @@ class ProductController extends GetxController {
     return thumbnail.value.isNotEmpty;
   }
 
+  // Set featured value
+  void setFeatured(bool value) {
+    isFeatured.value = value;
+    print("Selected '${value ? "Yes" : "No"}': ${isFeatured.value}");
+  }
+
   // Reset product fields
   void cancelUpload() {
     id.value = '';
@@ -261,7 +273,7 @@ class ProductController extends GetxController {
           productType: productType.value.toString(),
           description: description.value.isNotEmpty ? description.value : null,
           thumbnail: thumbnailUrl,
-          isFeatured: false,
+          isFeatured: isFeatured.value,
           images: imageUrls,
           salePrice: salePrice.value,
           brand: BrandModel(

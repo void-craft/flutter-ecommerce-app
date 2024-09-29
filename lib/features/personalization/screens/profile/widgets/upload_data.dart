@@ -46,7 +46,7 @@ class UploadDataScreen extends StatelessWidget {
                       },
                     ),
                   ),
-                  // Upload Brands
+                  // Upload Brands -- DONE
                   CustomSettingsMenuTile(
                     icon: Iconsax.shop,
                     title: 'Upload Brands',
@@ -109,7 +109,7 @@ class UploadDataScreen extends StatelessWidget {
                     trailing: IconButton(
                       icon: const Icon(Icons.upload),
                       onPressed: () {
-                        // Handle upload action
+                        Get.toNamed(CustomRoutes.uploadProductCategoryRelation);
                       },
                     ),
                   ),

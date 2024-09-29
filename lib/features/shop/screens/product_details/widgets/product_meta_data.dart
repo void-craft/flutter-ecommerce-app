@@ -54,6 +54,7 @@ class CustomProductMetaData extends StatelessWidget {
         CustomProductPrice(
             price: controller.getProductPrice(product), isLarge: true)
       ]),
+      const SizedBox(height: CustomSizes.borderRadiusMd),
 
       // -- Title -- DONE
       CustomProductTitleText(title: product.title),

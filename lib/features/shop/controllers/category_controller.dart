@@ -18,6 +18,12 @@ class CategoryController extends GetxController {
 
   final productRepository = ProductRepository.instance;
 
+  //// TESTING
+  Rx<String?> selectedCategoryId = Rx<String?>(null);
+  RxList<CategoryModel> categories = <CategoryModel>[].obs;
+  final RxList<CategoryModel> selectedCategories = <CategoryModel>[].obs;
+  /// TESTING
+
   @override
   void onInit() {
     getAllCategories();

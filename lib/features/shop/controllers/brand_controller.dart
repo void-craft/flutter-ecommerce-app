@@ -40,6 +40,27 @@ class BrandController extends GetxController {
     image: '',
   ).obs;
 
+  @override
+  void onInit() {
+    super.onInit();
+    fetchAllBrands();
+    getFeaturedBrands();
+  }
+
+  // Fetch all brands from the repository
+  Future<void> fetchAllBrands() async {
+    try {
+      isLoading.value = true;
+      final brands = await brandRepository.getAllBrands();
+      allBrands
+          .assignAll(brands);
+    } catch (e) {
+      CustomLoaders.errorSnackbar(title: 'Oh, snap!', message: e.toString());
+    } finally {
+      isLoading.value = false; // Stop loading
+    }
+  }
+
   // --- Load featured brand data
   Future<void> getFeaturedBrands() async {
     try {
@@ -101,7 +122,8 @@ class BrandController extends GetxController {
   // Pick the thumbnail image using ImagePicker
   Future<void> pickImage() async {
     try {
-      final XFile? imageSelcted = await picker.pickImage(source: ImageSource.gallery);
+      final XFile? imageSelcted =
+          await picker.pickImage(source: ImageSource.gallery);
 
       if (imageSelcted != null) {
         image.value = imageSelcted.path;
@@ -172,8 +194,7 @@ class BrandController extends GetxController {
             name: name.value,
             image: imageUrl,
             isFeatured: true,
-            productsCount: productsCount.value
-            );
+            productsCount: productsCount.value);
         // Upload the product to Firestore with the specified ID
         await brandRepository.uploadBrand(brand.value);
         cancelUpload();

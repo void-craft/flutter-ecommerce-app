@@ -18,11 +18,17 @@ class ProductCategoryModel {
   }
 
   // Convert a Firestore document snapshot to a ProductCategoryModel instance
-  factory ProductCategoryModel.fromSnapshot(DocumentSnapshot snapshot) {
-    final data = snapshot.data() as Map<String, dynamic>;
-    return ProductCategoryModel(
-      productId: data['productId'] ?? '',
-      categoryId: data['categoryId'] ?? '',
-    );
+  factory ProductCategoryModel.fromSnapshot(
+      DocumentSnapshot<Map<String, dynamic>> snapshot) {
+    final data = snapshot.data();
+
+    if (data != null) {
+      return ProductCategoryModel(
+        productId: data['productId'] ?? '',
+        categoryId: data['categoryId'] ?? '',
+      );
+    } else {
+      throw Exception('Document does not contain data');
+    }
   }
 }
