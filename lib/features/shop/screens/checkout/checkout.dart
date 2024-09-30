@@ -13,6 +13,7 @@ import 'package:bagit/utils/constants/sizes.dart';
 import 'package:bagit/utils/helpers/helper_functions.dart';
 import 'package:bagit/utils/helpers/pricing_calculator.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class CheckoutScreen extends StatelessWidget {
   const CheckoutScreen({super.key});
@@ -21,7 +22,7 @@ class CheckoutScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final cartController = CartController.instance;
     final subTotal = cartController.totalCartPrice.value;
-    final orderController = OrderController.instance;
+    final orderController = Get.put(OrderController());
     final totalAmount =
         CustomPricingCalculator.calculateTotalPrice(subTotal, 'ES');
     final dark = CustomHelperFunctions.isDarkMode(context);

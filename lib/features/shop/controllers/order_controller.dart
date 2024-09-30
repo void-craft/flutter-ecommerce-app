@@ -19,7 +19,7 @@ class OrderController extends GetxController {
   // Variables
   final cartController = CartController.instance;
   final addressController = AddressController.instance;
-  final checkoutController = CheckoutController.instance;
+  final checkoutController = Get.put(CheckoutController());
   final orderRepository = Get.put(OrderRepository());
 
   // Fetch user's order history

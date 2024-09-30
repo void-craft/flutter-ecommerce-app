@@ -19,9 +19,7 @@ class BrandController extends GetxController {
   final isLoading = false.obs;
   RxList<BrandModel> allBrands = <BrandModel>[].obs;
   RxList<BrandModel> featuredBrands = <BrandModel>[].obs;
-  RxBool isUploading = false.obs;
   RxBool isFeatured = false.obs;
-  var selectedImagePath = ''.obs;
   var brandId = ''.obs;
   final brandImagePath = ''.obs;
 
@@ -30,7 +28,6 @@ class BrandController extends GetxController {
   final Rx<String> name = ''.obs;
   final Rx<String> image = ''.obs;
   final RxInt productsCount = 0.obs;
-
   final ImagePicker picker = ImagePicker();
 
   // The main brand object
@@ -52,8 +49,7 @@ class BrandController extends GetxController {
     try {
       isLoading.value = true;
       final brands = await brandRepository.getAllBrands();
-      allBrands
-          .assignAll(brands);
+      allBrands.assignAll(brands);
     } catch (e) {
       CustomLoaders.errorSnackbar(title: 'Oh, snap!', message: e.toString());
     } finally {

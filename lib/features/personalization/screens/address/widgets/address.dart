@@ -14,7 +14,8 @@ class UserAddressesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(AddressController());
+    // not sure
+    final controller = AddressController.instance;
     return Scaffold(
         appBar: CustomAppBar(
           showBackArrow: true,

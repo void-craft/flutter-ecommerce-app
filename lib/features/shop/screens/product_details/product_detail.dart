@@ -6,6 +6,7 @@ import 'package:bagit/features/shop/screens/product_details/widgets/product_deta
 import 'package:bagit/features/shop/screens/product_details/widgets/product_meta_data.dart';
 import 'package:bagit/features/shop/screens/product_details/widgets/rating_share_widget.dart';
 import 'package:bagit/features/shop/screens/product_reviews/product_reviews.dart';
+import 'package:bagit/routes/routes.dart';
 import 'package:bagit/utils/constants/enums.dart';
 import 'package:bagit/utils/constants/sizes.dart';
 import 'package:flutter/material.dart';
@@ -49,7 +50,9 @@ class ProductDetailScreen extends StatelessWidget {
                   SizedBox(
                       width: double.infinity,
                       child: ElevatedButton(
-                          onPressed: () {}, child: const Text('Checkout'))),
+                          onPressed: () {
+                            Get.toNamed(CustomRoutes.checkout);
+                          }, child: const Text('Checkout'))),
 
                   const SizedBox(height: CustomSizes.spaceBtwSections),
 

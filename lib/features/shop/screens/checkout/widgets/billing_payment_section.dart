@@ -12,7 +12,7 @@ class CustomBillingPaymentSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(CheckoutController());
+    final controller = CheckoutController.instance;
 
     final dark = CustomHelperFunctions.isDarkMode(context);
     return Column(children: [

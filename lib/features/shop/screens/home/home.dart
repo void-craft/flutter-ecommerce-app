@@ -4,6 +4,7 @@ import 'package:bagit/common/widgets/layouts/grid_layout.dart';
 import 'package:bagit/common/widgets/products/product_cards/product_card_vertical.dart';
 import 'package:bagit/common/widgets/shimmers/vertical_product_shimmer.dart';
 import 'package:bagit/common/widgets/texts/section_heading.dart';
+import 'package:bagit/features/shop/controllers/brand_controller.dart';
 import 'package:bagit/features/shop/controllers/product/product_controller.dart';
 import 'package:bagit/features/shop/screens/all_products/all_products.dart';
 import 'package:bagit/features/shop/screens/home/wigets/home_categories.dart';
@@ -21,6 +22,8 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     
     final controller = Get.put(ProductController());
+    // Adding it here to avoid error popups at app start
+    Get.put(BrandController());
 
     return Scaffold(
         body: SingleChildScrollView(

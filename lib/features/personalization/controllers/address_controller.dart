@@ -138,38 +138,41 @@ class AddressController extends GetxController {
   Future<dynamic> selectNewAddressPopup(BuildContext context) {
     return showModalBottomSheet(
         context: context,
+        isScrollControlled: true,
         builder: (_) => Container(
             padding: const EdgeInsets.all(CustomSizes.lg),
             child:
-                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              const CustomSectionHeading(
-                  title: 'Select Address', showActionButton: false),
-              FutureBuilder(
-                  future: getAllUserAddresses(),
-                  builder: (_, snapshot) {
-                    final response =
-                        CustomCloudHelperFunctions.checkMultipleRecordState(
-                            snapshot: snapshot);
-                    if (response != null) return response;
-
-                    return ListView.builder(
-                        shrinkWrap: true,
-                        itemCount: snapshot.data!.length,
-                        itemBuilder: (_, index) => CustomSingleAddress(
-                            address: snapshot.data![index],
-                            onTap: () async {
-                              selectedAddress(snapshot.data![index]);
-                              Get.back();
-                            }));
-                  }),
-              const SizedBox(height: CustomSizes.defaultSpace * 2),
-              SizedBox(
-                  width: double.infinity,
-                  child: ElevatedButton(
-                      onPressed: () =>
-                          Get.to(() => const AddNewAddressScreen()),
-                      child: const Text('Add New Address')))
-            ])));
+                SingleChildScrollView(
+                  child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                                const CustomSectionHeading(
+                    title: 'Select Address', showActionButton: false),
+                                FutureBuilder(
+                    future: getAllUserAddresses(),
+                    builder: (_, snapshot) {
+                      final response =
+                          CustomCloudHelperFunctions.checkMultipleRecordState(
+                              snapshot: snapshot);
+                      if (response != null) return response;
+                  
+                      return ListView.builder(
+                          shrinkWrap: true,
+                          itemCount: snapshot.data!.length,
+                          itemBuilder: (_, index) => CustomSingleAddress(
+                              address: snapshot.data![index],
+                              onTap: () async {
+                                selectedAddress(snapshot.data![index]);
+                                Get.back();
+                              }));
+                    }),
+                                const SizedBox(height: CustomSizes.defaultSpace * 2),
+                                SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton(
+                        onPressed: () =>
+                            Get.to(() => const AddNewAddressScreen()),
+                        child: const Text('Add New Address')))
+                              ]),
+                )));
   }
 
   // Function to reset form fields
