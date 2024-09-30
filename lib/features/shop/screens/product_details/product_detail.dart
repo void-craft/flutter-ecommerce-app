@@ -32,7 +32,6 @@ class ProductDetailScreen extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(CustomSizes.cardRadiusLg),
               child: Column(
-                //   crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   //     // -- Rating & Share button
                   const CustomRatingShare(),

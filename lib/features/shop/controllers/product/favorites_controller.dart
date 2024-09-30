@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:bagit/common/widgets/loaders/loaders.dart';
 import 'package:bagit/data/repositories/product/product_repository.dart';
 import 'package:bagit/features/shop/models/product/product_model.dart';
@@ -28,54 +27,34 @@ class FavoritesController extends GetxController {
     }
   }
 
+  // Check if a product is a favorite
   bool isFavorite(String productId) {
     return favorites[productId] ?? false;
   }
 
+  // Toggle favorite status of a product
   void toggleFavoriteProduct(String productId) {
-    if(!favorites.containsKey(productId)) {
+    if (!favorites.containsKey(productId)) {
+      // Add to favorites
       favorites[productId] = true;
       saveFavoritesToStorage();
-      CustomLoaders.customToast(message: 'Product has been added to the Wishlist.');
+      CustomLoaders.customToast(message: 'Product added to Wishlist.');
     } else {
-      CustomLocalStorage.instance().removeData(productId);
+      // Remove from favorites
+      favorites.remove(productId); 
       saveFavoritesToStorage();
-      favorites.refresh();
-      CustomLoaders.customToast(message: 'Product has been removed from the wishlist');
+      CustomLoaders.customToast(message: 'Product removed from wishlist.');
     }
   }
 
+  // Get a list of favorite products
   Future<List<ProductModel>> favoriteProducts() async {
     return await ProductRepository.instance.getFavoriteProducts(favorites.keys.toList());
   }
 
-  // Method to save the favorites list to storage
+  // Save the favorites list to storage
   void saveFavoritesToStorage() {
     final encodedFavorites = json.encode(favorites);
     CustomLocalStorage.instance().writeData('favorites', encodedFavorites);
   }
-
-  /////////////////
-
-  // // Local storage for storing favorites
-  // final GetStorage _storage = GetStorage();
-  // final RxList<int> favouriteItems = <int>[].obs; // List of favorite item IDs
-
-  
-
-  // // Method to add an item to favorites
-  // void addToFavourites(int itemId) {
-  //   if (!favouriteItems.contains(itemId)) {
-  //     favouriteItems.add(itemId);
-  //     saveFavourites();
-  //   }
-  // }
-
-  // // Method to remove an item from favorites
-  // void removeFromFavourites(int itemId) {
-  //   favouriteItems.remove(itemId);
-  //   saveFavourites();
-  // }
-
-  
 }
