@@ -49,17 +49,19 @@ android/app/google-services.json
 ios\Runner\GoogleService-Info.plist
 firebase.json
 lib\firebase_options.dart
+android\app\src\main\AndroidManifest.xml
 
 # Key store files
 *.keystore
 
 # Environment variables and sensitive files
 *.env
-
+.env
 # User-specific files
-*.log
 *.tmp
 *.bak
+<<<<<<< HEAD
+=======
 macos/Flutter/ephemeral/flutter_export_environment.sh
 macos/Flutter/ephemeral/Flutter-Generated.xcconfig
 .gitignore
@@ -69,3 +71,4 @@ windows/flutter/generated_plugins.cmake
 
 # Old code
 lib\z_old_items
+>>>>>>> main
