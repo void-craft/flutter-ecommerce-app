@@ -5,13 +5,13 @@
 	<key>ANDROID_CLIENT_ID</key>
 	<string>367126395524-ms18e90f4qnvfrt1rl5vmd620pvs4sse.apps.googleusercontent.com</string>
 	<key>API_KEY</key>
-	<string>AIzaSyDnlIm7EUtsFKXSf5CJBXkPAr2MuHPQUZg</string>
+	<string>AIzaSyAv3JrrYxI1sBINFmCLANiqscUsJFbGLMc</string>
 	<key>GCM_SENDER_ID</key>
 	<string>367126395524</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.voidcraft.bagit</string>
+	<string>com.example.buyItApp</string>
 	<key>PROJECT_ID</key>
 	<string>bagit-e-commerce-app</string>
 	<key>STORAGE_BUCKET</key>

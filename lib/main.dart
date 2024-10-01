@@ -1,34 +1,15 @@
-import 'package:flutter/material.dart';
+import 'package:bagit/app.dart';
+import 'package:bagit/data/repositories/authentication/authentication_repository.dart';
+import 'package:bagit/firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'firebase_options.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:mapbox_search/mapbox_search.dart';
-import 'package:bagit/screens/base/base.dart';
+import 'package:flutter/material.dart';
 
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  
-    await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  try {
-    await dotenv.load(fileName: ".env");
-    MapBoxSearch.init(dotenv.env['MAPBOX_API_KEY'] ?? 'your_mapbox_access_token');
-  } catch (e) {
-    // Handle initialization error
-    print('Initialization error: $e');
-  }
-  runApp(const MyApp());
-}
-
-// void main() async {
-//   WidgetsFlutterBinding.ensureInitialized(); // Ensure Flutter bindings are initialized
-//   await dotenv.load(fileName: ".env"); // Load environment variables
-//   MapBoxSearch.init(dotenv.env['MAPBOX_API_KEY'] ?? 'your_mapbox_access_token'); // Initialize Mapbox with API key
-//   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform); // Initialize Firebase
-//   runApp(const MyApp()); // Run the app
-// }
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+Future<void> main() async {
+  // Add widgets binding
+  final WidgetsBinding widgetsBinding =
+      WidgetsFlutterBinding.ensureInitialized();
+  // GetX local storage
+  await GetStorage.init();
 
   @override
   Widget build(BuildContext context) {
@@ -37,4 +18,14 @@ class MyApp extends StatelessWidget {
       home: BaseApp(), // Your main app screen
     );
   }
+  // Await native splash
+  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+
+  // Initialize firebase & authentication repository
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform)
+      .then((FirebaseApp value) async {
+    Get.put(AuthenticationRepository(), permanent: true);
+  });
+
+  runApp(const App());
 }

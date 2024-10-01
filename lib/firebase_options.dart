@@ -17,7 +17,10 @@ import 'package:flutter/foundation.dart'
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
-      return web;
+      throw UnsupportedError(
+        'DefaultFirebaseOptions have not been configured for web - '
+        'you can reconfigure this by running the FlutterFire CLI again.',
+      );
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
@@ -25,7 +28,10 @@ class DefaultFirebaseOptions {
       case TargetPlatform.iOS:
         return ios;
       case TargetPlatform.macOS:
-        return macos;
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for macos - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
       case TargetPlatform.windows:
         return windows;
       case TargetPlatform.linux:
@@ -40,16 +46,6 @@ class DefaultFirebaseOptions {
     }
   }
 
-  static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyA-b0nNKFuN7kuDRPlTlwRfm6df1IwmC0U',
-    appId: '1:367126395524:web:b0d46336d007096e15a0d1',
-    messagingSenderId: '367126395524',
-    projectId: 'bagit-e-commerce-app',
-    authDomain: 'bagit-e-commerce-app.firebaseapp.com',
-    storageBucket: 'bagit-e-commerce-app.appspot.com',
-    measurementId: 'G-R9G74G8EBY',
-  );
-
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyB-oau8nrkivvwXk4kQ-hR7aVsTh6YmCvo',
     appId: '1:367126395524:android:13b9ace6bd0cdd1715a0d1',
@@ -59,30 +55,23 @@ class DefaultFirebaseOptions {
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyDb4OHPnhL-aT_IfA0iXqDZz2ReSnfdXwE',
+    apiKey: 'AIzaSyAv3JrrYxI1sBINFmCLANiqscUsJFbGLMc',
     appId: '1:367126395524:ios:751ad52c84a79b8b15a0d1',
     messagingSenderId: '367126395524',
     projectId: 'bagit-e-commerce-app',
     storageBucket: 'bagit-e-commerce-app.appspot.com',
-    iosBundleId: 'com.example.buyItApp',
-  );
-
-  static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyDb4OHPnhL-aT_IfA0iXqDZz2ReSnfdXwE',
-    appId: '1:367126395524:ios:751ad52c84a79b8b15a0d1',
-    messagingSenderId: '367126395524',
-    projectId: 'bagit-e-commerce-app',
-    storageBucket: 'bagit-e-commerce-app.appspot.com',
+    androidClientId: '367126395524-ms18e90f4qnvfrt1rl5vmd620pvs4sse.apps.googleusercontent.com',
     iosBundleId: 'com.example.buyItApp',
   );
 
   static const FirebaseOptions windows = FirebaseOptions(
-    apiKey: 'AIzaSyA-b0nNKFuN7kuDRPlTlwRfm6df1IwmC0U',
-    appId: '1:367126395524:web:4db4ac000f1fe65e15a0d1',
+    apiKey: 'AIzaSyASP2EPm84EcRg38_UWYQrh1Ys15mVGvS0',
+    appId: '1:367126395524:web:a4c23804ae5f31fb15a0d1',
     messagingSenderId: '367126395524',
     projectId: 'bagit-e-commerce-app',
     authDomain: 'bagit-e-commerce-app.firebaseapp.com',
     storageBucket: 'bagit-e-commerce-app.appspot.com',
-    measurementId: 'G-4F5Z87CPR8',
+    measurementId: 'G-2DHQXXVXH2',
   );
+
 }

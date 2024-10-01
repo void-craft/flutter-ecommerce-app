@@ -43,7 +43,7 @@ pubspec.lock
 macos/Flutter/GeneratedPluginRegistrant.swift
 windows/flutter/generated_plugin_registrant.cc
 windows/flutter/generated_plugins.cmake
-
+lib\utils\constants\api_constants.dart
 # Firebase and Google services files
 android/app/google-services.json
 ios\Runner\GoogleService-Info.plist
@@ -60,3 +60,15 @@ android\app\src\main\AndroidManifest.xml
 # User-specific files
 *.tmp
 *.bak
+<<<<<<< HEAD
+=======
+macos/Flutter/ephemeral/flutter_export_environment.sh
+macos/Flutter/ephemeral/Flutter-Generated.xcconfig
+.gitignore
+.gitignore
+windows/flutter/generated_plugin_registrant.cc
+windows/flutter/generated_plugins.cmake
+
+# Old code
+lib\z_old_items
+>>>>>>> main
