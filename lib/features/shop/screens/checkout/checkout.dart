@@ -21,7 +21,8 @@ class CheckoutScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final cartController = CartController.instance;
-    final subTotal = cartController.totalCartPrice.value;
+    // final subTotal = cartController.totalCartPrice.value;
+    final subTotal = cartController.totalCartPrice;
     final orderController = Get.put(OrderController());
     final totalAmount =
         CustomPricingCalculator.calculateTotalPrice(subTotal, 'ES');

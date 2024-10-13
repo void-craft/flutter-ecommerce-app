@@ -19,32 +19,44 @@ class ProductCardAddToCartButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final cartController = CartController.instance;
-    return InkWell(onTap: () {
-      // If the product has variations, show product details for variation selection
-      // Else add product to cart
-      if (product.productType == ProductType.single.toString()) {
-        final cartItem = cartController.convertToCartItem(product, 1);
-        cartController.addOneToCart(cartItem);
-      } else {
-        Get.to(() => ProductDetailScreen(product: product));
-      }
-    }, child: Obx(() {
-      final productQuantityInCart =
-          cartController.getProductQuantityInCart(product.id);
-      return Container(
-        decoration: BoxDecoration(
+    return InkWell(
+      onTap: () {
+        if (product.productType == ProductType.single.toString()) {
+          final cartItem = cartController.convertToCartItem(product, 1);
+          cartController.addOneToCart(cartItem);
+        } else {
+          Get.to(() => ProductDetailScreen(product: product));
+        }
+      },
+      child: Obx(() {
+        final productQuantityInCart = cartController.getProductQuantity(product.id);
+        return Container(
+          decoration: BoxDecoration(
             color: productQuantityInCart > 0
                 ? CustomColors.primary
                 : CustomColors.dark,
             borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(CustomSizes.cardRadiusMd),
-                bottomRight: Radius.circular(CustomSizes.productImageRadius))),
-        child: SizedBox(
+              topLeft: Radius.circular(CustomSizes.cardRadiusMd),
+              bottomRight: Radius.circular(CustomSizes.productImageRadius),
+            ),
+          ),
+          child: SizedBox(
             width: CustomSizes.iconLg * 1.2,
             height: CustomSizes.iconLg * 1.2,
             child: Center(
-              child: productQuantityInCart > 0 ? Text (productQuantityInCart.toString(), style: Theme.of(context).textTheme.bodyLarge!.apply(color: CustomColors.white)) : const Icon(Iconsax.add, color: CustomColors.white)))
-      );
-    }));
+              child: productQuantityInCart > 0
+                  ? Text(
+                      productQuantityInCart.toString(),
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyLarge!
+                          .apply(color: CustomColors.white),
+                    )
+                  : const Icon(Iconsax.add, color: CustomColors.white),
+            ),
+          ),
+        );
+      }),
+    );
   }
 }

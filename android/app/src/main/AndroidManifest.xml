@@ -37,7 +37,7 @@
             
         <activity
             android:name="com.mapbox.maps.MapboxMapActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar"
             android:configChanges="orientation|screenSize">
         </activity>
 

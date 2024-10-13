@@ -78,8 +78,8 @@ class ProductModel {
     final data = document.data()!;
     return ProductModel(
       id: document.id,
-      sku: data['SKU'] ?? '',
-      title: data['Title'] ?? '',
+      sku: data['SKU'],
+      title: data['Title'],
       stock: data['Stock'] ?? 0,
       price: double.parse((data['Price'] ?? 0.0).toString()),
       isFeatured: data['IsFeatured'] ?? false,

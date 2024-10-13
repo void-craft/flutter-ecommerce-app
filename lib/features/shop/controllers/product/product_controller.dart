@@ -179,7 +179,6 @@ class ProductController extends GetxController {
   // Set featured value
   void setFeatured(bool value) {
     isFeatured.value = value;
-    print("Selected '${value ? "Yes" : "No"}': ${isFeatured.value}");
   }
 
   // Reset product fields

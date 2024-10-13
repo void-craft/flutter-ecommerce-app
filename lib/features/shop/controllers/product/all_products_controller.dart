@@ -10,6 +10,7 @@ class AllProductsController extends GetxController {
   final repository = ProductRepository.instance;
   final RxString selectedSortOption = 'Name'.obs;
   final RxList<ProductModel> products = <ProductModel>[].obs;
+  final RxBool isLoading = false.obs;
 
   Future<List<ProductModel>> fetchProductsByQuery(Query? query) async {
     try {

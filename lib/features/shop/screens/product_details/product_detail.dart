@@ -34,32 +34,34 @@ class ProductDetailScreen extends StatelessWidget {
               padding: const EdgeInsets.all(CustomSizes.cardRadiusLg),
               child: Column(
                 children: [
-                  //     // -- Rating & Share button
+                  // -- Rating & Share button
                   const CustomRatingShare(),
 
-                  //     // -- Price, Title, Stock & Brand
+                  // -- Price, Title, Stock & Brand
                   CustomProductMetaData(product: product),
 
-                  //     // -- Attributes
+                  // -- Attributes
                   if (product.productType == ProductType.variable.toString())
                     CustomProductAttributes(product: product),
                   if (product.productType == ProductType.variable.toString())
                     const SizedBox(height: CustomSizes.spaceBtwSections),
 
-                  //     // -- Checkout Button
+                  // -- Checkout Button
                   SizedBox(
-                      width: double.infinity,
-                      child: ElevatedButton(
-                          onPressed: () {
-                            Get.toNamed(CustomRoutes.checkout);
-                          }, child: const Text('Checkout'))),
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        Get.toNamed(CustomRoutes.checkout);
+                      },
+                      child: const Text('Checkout'),
+                    ),
+                  ),
 
                   const SizedBox(height: CustomSizes.spaceBtwSections),
 
-                  //     // -- Description
+                  // -- Description
                   const CustomSectionHeading(
-                      title: 'Description', showActionButton: false),
-
+                    title: 'Description', showActionButton: false),
                   const SizedBox(height: CustomSizes.spaceBtwItems),
 
                   ReadMoreText(
@@ -69,17 +71,17 @@ class ProductDetailScreen extends StatelessWidget {
                     trimCollapsedText: ' Show more',
                     trimExpandedText: ' Less',
                     moreStyle: const TextStyle(
-                        fontSize: 14, fontWeight: FontWeight.w800),
+                      fontSize: 14, fontWeight: FontWeight.w800),
                     lessStyle: const TextStyle(
-                        fontSize: 14, fontWeight: FontWeight.w800),
+                      fontSize: 14, fontWeight: FontWeight.w800),
                   ),
 
-                  //     // -- Reviews
+                  // -- Reviews
                   const Divider(),
                   const SizedBox(height: CustomSizes.spaceBtwItems),
 
                   const CustomSectionHeading(
-                      title: 'Reviews(199)', showActionButton: false),
+                    title: 'Reviews(199)', showActionButton: false),
                   IconButton(
                     icon: const Icon(Iconsax.arrow_right_3, size: 18),
                     onPressed: () => Get.to(() => const ProductReviewScreen()),

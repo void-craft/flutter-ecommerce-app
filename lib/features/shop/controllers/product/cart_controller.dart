@@ -4,15 +4,16 @@ import 'package:bagit/features/shop/models/cart_item_model.dart';
 import 'package:bagit/features/shop/models/product/product_model.dart';
 import 'package:bagit/utils/constants/enums.dart';
 import 'package:bagit/utils/local_storage/storage_utility.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class CartController extends GetxController {
   static CartController get instance => Get.find();
 
-// Variables
-  RxInt noOfCartItems = 0.obs;
-  RxDouble totalCartPrice = 0.0.obs;
+  // Variables
   RxInt productQuantityInCart = 0.obs;
+  RxInt productQuantityInBag = 0.obs;
   RxList<CartItemModel> cartItems = <CartItemModel>[].obs;
   final variationController = Get.put(VariationController());
 
@@ -20,52 +21,63 @@ class CartController extends GetxController {
     loadCartItems();
   }
 
-// Method to add product to cart
-  void addToCart(ProductModel product) {
-    // Quantity Check
-    if (productQuantityInCart.value < 1) {
+  // Getter for the number of items in the cart
+  int get noOfCartItems => cartItems.fold(0, (total, item) => total + item.quantity);
+
+  // Getter for the total price of items in the cart
+  double get totalCartPrice =>
+      cartItems.fold(0.0, (total, item) => total + item.price * item.quantity);
+
+  // Method to retrieve quantity of a specific product in the cart
+  int getProductQuantity(String productId, {String? variationId}) {
+    final item = cartItems.firstWhere(
+      (item) =>
+          item.productId == productId &&
+          (variationId == null || item.variationId == variationId),
+      orElse: () => CartItemModel.empty(),
+    );
+    return item.quantity;
+  }
+
+  // Method to add product to cart
+  void addToCart(ProductModel product, int quantity) {
+    if (quantity < 1) {
       CustomLoaders.customToast(message: "Select Quantity");
       return;
     }
 
-    // Variation Selected?
     if (product.productType == ProductType.variable.toString() &&
         variationController.selectedVariation.value.id.isEmpty) {
       CustomLoaders.customToast(message: 'Select Variation');
       return;
     }
 
-    // Out of stock status
     if (product.productType == ProductType.variable.toString()) {
       if (variationController.selectedVariation.value.stock < 1) {
         CustomLoaders.warningSnackbar(
             title: 'Oh, snap!', message: 'Selected variation is out of stock.');
         return;
-      } else {
-        if (product.stock < 1) {
-          CustomLoaders.warningSnackbar(
-              title: 'Oh,snap!', message: 'Selected product is out of stock.');
-          return;
-        }
+      } else if (product.stock < 1) {
+        CustomLoaders.warningSnackbar(
+            title: 'Oh, snap!', message: 'Selected product is out of stock.');
+        return;
       }
     }
 
-    // Convert the ProductModel to a CartItemModel with the given quantity
-    final selectedCartItem =
-        convertToCartItem(product, productQuantityInCart.value);
-    // Check if already added in the cart
+    final selectedCartItem = convertToCartItem(product, quantity);
+
     int index = cartItems.indexWhere((cartItem) =>
         cartItem.productId == selectedCartItem.productId &&
         cartItem.variationId == selectedCartItem.variationId);
     if (index >= 0) {
-      // This quantity is already added or updated/removed from the design(cart) (-)
-      cartItems[index].quantity = selectedCartItem.quantity;
+      cartItems[index].quantity += quantity;
     } else {
       cartItems.add(selectedCartItem);
     }
+
+    updateCartInFirebase();
     updateCart();
-    CustomLoaders.customToast(
-        message: 'Your Product has been added to the cart.');
+    CustomLoaders.customToast(message: 'Your product has been added to the cart.');
   }
 
   void addOneToCart(CartItemModel item) {
@@ -88,10 +100,7 @@ class CartController extends GetxController {
       if (cartItems[index].quantity > 1) {
         cartItems[index].quantity -= 1;
       } else {
-        // Show dialog before completely removing items
-        cartItems[index].quantity == 1
-            ? removeFromCartDialog(index)
-            : cartItems.removeAt(index);
+        removeFromCartDialog(index);
       }
       updateCart();
     }
@@ -99,40 +108,21 @@ class CartController extends GetxController {
 
   void removeFromCartDialog(int index) {
     Get.defaultDialog(
-        title: 'Remove Product',
-        middleText: 'Are you sure you want to remove this product?',
-        onConfirm: () {
-          // Remove the item from the cart
-          cartItems.removeAt(index);
-          updateCart();
-          CustomLoaders.customToast(message: 'Product removed from the cart.');
-          Get.back();
-        },
-        onCancel: () => () => Get.back());
+      title: 'Remove Product',
+      middleText: 'Are you sure you want to remove this product?',
+      onConfirm: () {
+        cartItems.removeAt(index);
+        updateCart();
+        updateCartInFirebase();
+        CustomLoaders.customToast(message: 'Product removed from the cart.');
+        Get.back();
+      },
+      onCancel: () => Get.back(),
+    );
   }
 
-  // Initialize already added Item's count in the cart
-  void updateAlreadyAddedProductCount(ProductModel product) {
-    // If product has no variations, calculate cartEntries and display total number
-    // Else make default entries to 0, show cartEntries when variation is selected
-    if (product.productType == ProductType.single.toString()) {
-      productQuantityInCart.value = getProductQuantityInCart(product.id);
-    } else {
-      // Get selcted variation if there is any
-      final variationId = variationController.selectedVariation.value.id;
-      if (variationId.isNotEmpty) {
-        productQuantityInCart.value =
-            getVariationQuantityInCart(product.id, variationId);
-      } else {
-        productQuantityInCart.value = 0;
-      }
-    }
-  }
-
-  // Function that coverts ProductModel to CartItemModel
   CartItemModel convertToCartItem(ProductModel product, int quantity) {
     if (product.productType == ProductType.single.toString()) {
-      // Reset Variation in case of single product type.
       variationController.resetSelectedAttributes();
     }
 
@@ -145,18 +135,19 @@ class CartController extends GetxController {
         : product.salePrice > 0.0
             ? product.salePrice
             : product.price;
+
     return CartItemModel(
-        productId: product.id,
-        title: product.title,
-        price: price,
-        quantity: quantity,
-        variationId: variation.id,
-        image: isVariation ? variation.image : product.thumbnail,
-        brandName: product.brand != null ? product.brand!.name : '',
-        selectedVariation: isVariation ? variation.attributeValues : null);
+      productId: product.id,
+      title: product.title,
+      price: price,
+      quantity: quantity,
+      variationId: variation.id,
+      image: isVariation ? variation.image : product.thumbnail,
+      brandName: product.brand != null ? product.brand!.name : '',
+      selectedVariation: isVariation ? variation.attributeValues : null,
+    );
   }
 
-  // Update Cart Values
   void updateCart() {
     updateCartTotals();
     saveCartItems();
@@ -164,16 +155,7 @@ class CartController extends GetxController {
   }
 
   void updateCartTotals() {
-    double calculatedTotalPrice = 0.0;
-    int calculatedNoOfItems = 0;
-
-    for (var item in cartItems) {
-      calculatedTotalPrice += (item.price) * item.quantity.toDouble();
-      calculatedNoOfItems += item.quantity;
-    }
-
-    totalCartPrice.value = calculatedTotalPrice;
-    noOfCartItems.value = calculatedNoOfItems;
+    productQuantityInCart.value = noOfCartItems;
   }
 
   void saveCartItems() {
@@ -191,11 +173,34 @@ class CartController extends GetxController {
     }
   }
 
-  int getProductQuantityInCart(String productId) {
-    final foundItem = cartItems
-        .where((item) => item.productId == productId)
-        .fold(0, (previousValue, element) => previousValue + element.quantity);
-    return foundItem;
+  void clearCart() {
+    productQuantityInBag.value = 0;
+    cartItems.clear();
+    updateCart();
+  }
+
+  void updateCartInFirebase() {
+    const userId = 'currentUserId';
+    final userCartRef =
+        FirebaseFirestore.instance.collection('Users').doc(userId).collection('Cart');
+
+    userCartRef.doc('cartData').set({
+      'items': cartItems.map((item) => item.toJson()).toList(),
+      'totalCount': noOfCartItems,
+      'totalPrice': totalCartPrice,
+    });
+  }
+
+  // Initialize already added Item's count in the cart
+  void updateAlreadyAddedProductCount(ProductModel product) {
+    if (product.productType == ProductType.single.toString()) {
+      productQuantityInCart.value = getProductQuantityInCart(product.id);
+    } else {
+      final variationId = variationController.selectedVariation.value.id;
+      productQuantityInCart.value = variationId.isNotEmpty
+          ? getVariationQuantityInCart(product.id, variationId)
+          : 0;
+    }
   }
 
   int getVariationQuantityInCart(String productId, String variationId) {
@@ -206,9 +211,34 @@ class CartController extends GetxController {
     return foundItem.quantity;
   }
 
-  void clearCart() {
-    productQuantityInCart.value = 0;
-    cartItems.clear();
-    updateCart();
+  int getProductQuantityInCart(String productId) {
+    return cartItems
+        .where((item) => item.productId == productId)
+        .fold(0, (previousValue, element) => previousValue + element.quantity);
+  }
+
+  // Method to save quantity to Firebase
+  Future<void> saveSelectedQuantityToFirebase(String productId, int quantity) async {
+    final userId = FirebaseAuth.instance.currentUser?.uid;
+
+    await FirebaseFirestore.instance
+        .collection('Users')
+        .doc(userId)
+        .collection('Cart')
+        .doc(productId)
+        .set({'selectedQuantity': quantity}, SetOptions(merge: true));
+  }
+
+  // Method to retrieve saved quantity from Firebase
+  Future<int> getSelectedQuantityFromFirebase(String productId) async {
+    final userId = FirebaseAuth.instance.currentUser?.uid;
+    final doc = await FirebaseFirestore.instance
+        .collection('Users')
+        .doc(userId)
+        .collection('Cart')
+        .doc(productId)
+        .get();
+
+    return doc.data()?['selectedQuantity'] ?? 0;
   }
 }

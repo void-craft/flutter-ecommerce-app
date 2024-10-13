@@ -9,7 +9,7 @@ class CustomBillingAmountSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final cartController = CartController.instance;
-    final subTotal = cartController.totalCartPrice.value;
+    final subTotal = cartController.totalCartPrice;
 
     return Column(children: [
       // -- Subtotal

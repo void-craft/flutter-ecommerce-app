@@ -48,6 +48,6 @@ class CartScreen extends StatelessWidget {
                 child: ElevatedButton(
                     onPressed: () => Get.to(() => const CheckoutScreen()),
                     child: Obx(() => Text(
-                        'Checkout €${controller.totalCartPrice.value}')))));
+                        'Checkout €${controller.totalCartPrice}')))));
   }
 }

@@ -43,7 +43,7 @@ class CustomCartCounterIcon extends StatelessWidget {
             child: Center(
               child: Obx(
                 () => Text(
-                  controller.noOfCartItems.value.toString(),
+                  controller.noOfCartItems.toString(),
                   style: Theme.of(context).textTheme.labelLarge!.apply(
                         color: counterTextColor ??
                             (dark ? CustomColors.black : CustomColors.white),

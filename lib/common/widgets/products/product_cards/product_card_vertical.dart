@@ -40,7 +40,6 @@ class CustomProductCardVertical extends StatelessWidget {
               color: dark ? CustomColors.darkerGrey : CustomColors.white,
             ),
             child: Column(children: [
-              // - Thumbnail, wishlist button, discount tag
               CustomRoundedContainer(
                   height: 155,
                   width: 180,
@@ -48,17 +47,13 @@ class CustomProductCardVertical extends StatelessWidget {
                   backgroundColor:
                       dark ? CustomColors.dark : CustomColors.light,
                   child: Stack(children: [
-                    // - Thumbnail
                     Center(
                       child: CustomRoundedImage(
                           height: CustomSizes.productImageSize,
                           imageUrl: product.thumbnail,
                           isNetworkImage: true,
-                          applyImageRadius: true,
-                          ),
+                          applyImageRadius: true),
                     ),
-
-                    // - On sale tag -- DONE
                     if (salePercentage != null)
                       Positioned(
                           top: 10,
@@ -73,17 +68,14 @@ class CustomProductCardVertical extends StatelessWidget {
                                   style: Theme.of(context)
                                       .textTheme
                                       .labelLarge!
-                                      .apply(color: CustomColors.black)))),
-
-                    // - Favorite icon button
+                                      .apply(color: CustomColors.black))),
+                      ),
                     Positioned(
                         top: 0,
                         right: 0,
                         child: CustomFavoriteIcon(productId: product.id))
                   ])),
               const SizedBox(height: CustomSizes.spaceBtwItems / 2),
-
-              // -- Details
               Padding(
                   padding: const EdgeInsets.only(left: CustomSizes.sm),
                   child: Column(
@@ -110,15 +102,12 @@ class CustomProductCardVertical extends StatelessWidget {
                               .labelMedium!
                               .apply(decoration: TextDecoration.lineThrough),
                         )),
-
-                  // Ensure getProductPrice handles cases where no variations exist
                   Padding(
                     padding: const EdgeInsets.only(left: CustomSizes.sm),
                     child: CustomProductPrice(
                         price: controller.getProductPrice(product)),
                   )
                 ])),
-                // -- Add to cart button
                 ProductCardAddToCartButton(product: product)
               ])
             ])));
