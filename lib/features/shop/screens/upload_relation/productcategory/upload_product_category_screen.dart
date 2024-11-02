@@ -17,7 +17,7 @@ class UploadProductCategoryScreen extends StatelessWidget {
           child: Column(
             children: [
               SizedBox(height: CustomSizes.spaceBtwSections),
-              /// Upload Product-Category Relation Form
+              // Upload Product-Category Relation Form
               CustomProductCategoryForm(),
               SizedBox(height: CustomSizes.spaceBtwSections),
               CustomProductCategoryAction(),

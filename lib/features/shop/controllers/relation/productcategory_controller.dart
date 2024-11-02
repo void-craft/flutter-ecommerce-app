@@ -1,62 +1,94 @@
+import 'package:bagit/common/widgets/loaders/loaders.dart';
+import 'package:bagit/data/repositories/product/product_repository.dart';
+import 'package:bagit/features/shop/controllers/category_controller.dart';
+import 'package:bagit/features/shop/controllers/product/product_controller.dart';
 import 'package:bagit/data/repositories/relation/productcategory_repository.dart';
 import 'package:bagit/features/shop/models/product/product_model.dart';
 import 'package:bagit/features/shop/models/category_model.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class ProductCategoryController extends GetxController {
   static ProductCategoryController get instance => Get.find();
 
   final ProductCategoryRepository _repository = ProductCategoryRepository();
-  final RxList<CategoryModel> selectedCategories = <CategoryModel>[].obs;
-  final RxList<ProductModel> products = <ProductModel>[].obs;
-  final RxList<CategoryModel> categories = <CategoryModel>[].obs;
+  final ProductRepository productRepository = ProductRepository.instance;
+  final CategoryController categoryController = CategoryController.instance;
+  final ProductController productController = ProductController.instance;
+  final RxList<String> selectedCategories = <String>[].obs;
+  final RxList<ProductModel> filteredProducts = <ProductModel>[].obs;
+  final GlobalKey<FormState> uploadFormKey = GlobalKey<FormState>();
+  RxList<String> get selectedCategoryIds => selectedCategories;
+  RxList<ProductModel> get allProducts => productController.featuredProducts;
+  RxList<CategoryModel> get categories => categoryController.categories;
+  RxString selectedProductId = ''.obs;
 
   @override
   void onInit() {
-    fetchProducts();
-    fetchCategories();
     super.onInit();
+    fetchFilteredProducts();
   }
 
-  // Fetch all products
-  Future<void> fetchProducts() async {
+  Future<void> fetchFilteredProducts() async {
     try {
-      final fetchedProducts = await _repository.getAllProducts();
-      products.assignAll(fetchedProducts);
+      final assignedProductIds = await _repository.fetchAssignedProductIds();
+      filteredProducts.value = allProducts
+          .where((product) => !assignedProductIds.contains(product.id))
+          .toList();
     } catch (e) {
-      print('Error fetching products: $e');
+      CustomLoaders.errorSnackbar(
+          title: 'Error', message: 'Failed to load products: $e');
     }
   }
 
-  // Fetch all categories
-  Future<void> fetchCategories() async {
-    try {
-      final fetchedCategories = await _repository.getAllCategories();
-      categories.assignAll(fetchedCategories);
-    } catch (e) {
-      print('Error fetching categories: $e');
+  void selectProduct(String productId) {
+    productController.selectedProductId.value = productId;
+    selectedProductId.value = productId;
+  }
+
+  void toggleCategorySelection(String categoryId) {
+    if (selectedCategories.contains(categoryId)) {
+      selectedCategories.remove(categoryId);
+    } else {
+      selectedCategories.add(categoryId);
     }
   }
 
-  // Add product-category relations
-  Future<void> addProductToCategories(String productId, List<String> categoryIds) async {
+  Future<void> uploadProductCategoryRelation() async {
+    if (selectedProductId.isEmpty || selectedCategories.isEmpty) {
+      CustomLoaders.errorSnackbar(
+          title: 'Error',
+          message: 'Please select a product and at least one category.');
+      return;
+    }
+    try {
+      await addProductToCategories(
+          selectedProductId.value, selectedCategories.toList());
+      resetSelections();
+      fetchFilteredProducts();
+    } catch (e) {
+      CustomLoaders.errorSnackbar(
+          title: 'Error', message: 'Failed to add product to categories: $e');
+    }
+  }
+
+  Future<void> addProductToCategories(
+      String productId, List<String> categoryIds) async {
     try {
       for (var categoryId in categoryIds) {
         await _repository.addRelation(productId, categoryId);
       }
-      Get.snackbar('Success', 'Product added to categories successfully!');
+      CustomLoaders.successSnackbar(
+          title: 'Success',
+          message: 'Product added to categories successfully!');
     } catch (e) {
-      Get.snackbar('Error', 'Failed to add product to categories: $e');
+      CustomLoaders.errorSnackbar(
+          title: 'Error', message: 'Failed to add product to categories: $e');
     }
   }
 
-  // Remove product-category relation
-  Future<void> removeProductFromCategory(String productId, String categoryId) async {
-    try {
-      await _repository.removeRelation(productId, categoryId);
-      Get.snackbar('Success', 'Product removed from category successfully!');
-    } catch (e) {
-      Get.snackbar('Error', 'Failed to remove product from category: $e');
-    }
+  void resetSelections() {
+    selectedProductId.value = '';
+    selectedCategories.clear();
   }
 }

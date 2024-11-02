@@ -26,5 +26,6 @@ class CustomRoutes {
   static const uploadProduct = '/upload-product';
   static const uploadBrand = '/upload-brand';
   static const uploadProductCategoryRelation = '/upload-product-category';
+  static const uploadBrandCategoryRelation = '/upload-brand-category';
 
 }

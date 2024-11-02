@@ -13,9 +13,9 @@ class ProductController extends GetxController {
   static ProductController get instance => Get.find();
 
   final productRepository = Get.put(ProductRepository());
+  RxList<ProductModel> featuredProducts = <ProductModel>[].obs;
+  RxList<ProductModel> products = <ProductModel>[].obs;
   final GlobalKey<FormState> uploadFormKey = GlobalKey<FormState>();
-
-  // Observables for various product fields
   final Rx<String> id = ''.obs;
   final Rx<String> title = ''.obs;
   final Rx<int> stock = 0.obs;
@@ -29,19 +29,8 @@ class ProductController extends GetxController {
   final Rx<String> categoryId = ''.obs;
   final RxList<XFile> additionalImages = <XFile>[].obs;
   final RxBool isFeatured = false.obs;
-
-  RxList<ProductModel> featuredProducts = <ProductModel>[].obs;
-
-  /// TESTING
-  Rx<String?> selectedProductId = Rx<String?>(null);
-  RxList<ProductModel> products = <ProductModel>[].obs;
-
-  /// TESTING
-
-  // Loading state
+  final RxString selectedProductId = ''.obs;
   final RxBool isLoading = false.obs;
-
-  // Image picker for selecting thumbnail and additional images
   final ImagePicker picker = ImagePicker();
 
   // The main product object
@@ -58,6 +47,10 @@ class ProductController extends GetxController {
   void onInit() {
     fetchFeaturedProducts();
     super.onInit();
+  }
+
+  void selectProduct(String productId) {
+    selectedProductId.value = productId;
   }
 
   // Update specific product fields
@@ -77,8 +70,8 @@ class ProductController extends GetxController {
 
   // Fetch featured products
   void fetchFeaturedProducts() async {
+    isLoading.value = true;
     try {
-      isLoading.value = true;
       final products = await productRepository.getFeaturedProducts();
       featuredProducts.assignAll(products);
     } catch (e) {

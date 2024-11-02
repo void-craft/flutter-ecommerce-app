@@ -77,7 +77,8 @@ class ProductModel {
     if (document.data() == null) return ProductModel.empty();
     final data = document.data()!;
     return ProductModel(
-      id: document.id,
+      // id: document.id,
+      id: data['Id'],
       sku: data['SKU'],
       title: data['Title'],
       stock: data['Stock'] ?? 0,
@@ -104,7 +105,8 @@ class ProductModel {
       QueryDocumentSnapshot<Object?> document) {
     final data = document.data() as Map<String, dynamic>;
     return ProductModel(
-      id: document.id,
+      // id: document.id,
+      id: data['Id'],
       sku: data['SKU'] ?? '',
       title: data['Title'] ?? '',
       stock: data['Stock'] ?? 0,

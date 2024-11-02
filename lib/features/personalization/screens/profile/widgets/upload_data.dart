@@ -97,7 +97,7 @@ class UploadDataScreen extends StatelessWidget {
                     trailing: IconButton(
                       icon: const Icon(Icons.upload),
                       onPressed: () {
-                        // Handle upload action
+                        Get.toNamed(CustomRoutes.uploadBrandCategoryRelation);
                       },
                     ),
                   ),

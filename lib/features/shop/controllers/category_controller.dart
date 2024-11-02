@@ -9,20 +9,15 @@ import 'package:image_picker/image_picker.dart';
 
 class CategoryController extends GetxController {
   static CategoryController get instance => Get.find();
-  
-  final isLoading = false.obs;
+
   final _categoryRepository = Get.put(CategoryRepository());
-  RxList<CategoryModel> featuredCategories = <CategoryModel>[].obs;
-  Rx<CategoryModel?> selectedCategory = Rx<CategoryModel?>(null);
-  RxList<ProductModel> categoryProducts = <ProductModel>[].obs;
-
   final productRepository = ProductRepository.instance;
-
-  //// TESTING
-  Rx<String?> selectedCategoryId = Rx<String?>(null);
+  final isLoading = false.obs;
+  final RxList<String> selectedCategoryIds = <String>[].obs;
+  RxList<CategoryModel> featuredCategories = <CategoryModel>[].obs;
+  RxList<ProductModel> categoryProducts = <ProductModel>[].obs;
   RxList<CategoryModel> categories = <CategoryModel>[].obs;
-  final RxList<CategoryModel> selectedCategories = <CategoryModel>[].obs;
-  /// TESTING
+  Rx<CategoryModel?> selectedCategory = Rx<CategoryModel?>(null);
 
   @override
   void onInit() {
@@ -30,12 +25,13 @@ class CategoryController extends GetxController {
     super.onInit();
   }
 
-  // --- Load category data
+  // --- Load all categories
   Future<void> getAllCategories() async {
     try {
       isLoading.value = true;
-      final categories = await _categoryRepository.getAllCategories();
-      featuredCategories.assignAll(categories);
+      final categoriesList = await _categoryRepository.getAllCategories();
+      featuredCategories.assignAll(categoriesList);
+      categories.assignAll(categoriesList);
     } catch (e) {
       CustomLoaders.errorSnackbar(title: 'Oh, snap!', message: e.toString());
     } finally {
@@ -43,12 +39,12 @@ class CategoryController extends GetxController {
     }
   }
 
-  // --- Load selected category data
-  void selectCategory(CategoryModel category) {
-    selectedCategory.value = category;
+  // --- Set selected categories
+  void selectCategory(List<String> categoryIds) {
+    selectedCategoryIds.value = categoryIds;
   }
 
-  // ----- Load selected sub category data
+  // --- Load subcategories based on selected category ID
   Future<List<CategoryModel>> getSubCategories(String categoryId) async {
     try {
       final subCategories = await _categoryRepository.getSubCategories(categoryId);
@@ -70,12 +66,8 @@ class CategoryController extends GetxController {
     }
   }
 
-////////////
-
-  Future<void> uploadCategory({
-    String targetScreen = '',
-    bool active = true,
-  }) async {
+  // --- Upload new category with image selection
+  Future<void> uploadCategory({String targetScreen = '', bool active = true}) async {
     try {
       isLoading.value = true;
       final ImagePicker picker = ImagePicker();

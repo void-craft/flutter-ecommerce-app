@@ -1,5 +1,7 @@
 import 'package:bagit/features/shop/controllers/category_controller.dart';
-import 'package:bagit/features/shop/controllers/product/product_controller.dart';
+import 'package:bagit/features/shop/controllers/relation/productcategory_controller.dart';
+import 'package:bagit/utils/constants/colors.dart';
+import 'package:bagit/utils/constants/sizes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -8,63 +10,80 @@ class CustomProductCategoryForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final prodCatController = Get.put(ProductCategoryController());
     final categoryController = CategoryController.instance;
-    final productController = ProductController.instance;
 
-    return Column(
-      children: [
-        /// Select Product Dropdown
-        Obx(() {
-          return DropdownButton<String>(
-            hint: const Text('Select Product'),
-            value: productController.selectedProductId.value,
-            onChanged: (value) {
-              productController.selectedProductId.value = value;
-            },
-            items: productController.products.map((product) {
-              return DropdownMenuItem<String>(
-                value: product.id,
-                child: Text(product.title),
+    return Form(
+      key: prodCatController.uploadFormKey,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // Scrollable Product List
+          Container(
+            height: 200,
+            padding: const EdgeInsets.all(CustomSizes.sm),
+            decoration: BoxDecoration(
+              border: Border.all(color: Colors.grey),
+              borderRadius: BorderRadius.circular(CustomSizes.md),
+            ),
+            child: Obx(() {
+              if (prodCatController.filteredProducts.isEmpty) {
+                return Center(
+                  child: Text(
+                    'No Products Available!',
+                    style: Theme.of(context).textTheme.bodyMedium,
+                  ),
+                );
+              }
+              return ListView.builder(
+                itemCount: prodCatController.filteredProducts.length,
+                itemBuilder: (_, index) {
+                  final product = prodCatController.filteredProducts[index];
+                  return Obx(() => ListTile(
+                        title: Text(product.id, style: Theme.of(context).textTheme.bodyMedium),
+                        onTap: () => prodCatController.selectProduct(product.id),
+                        selected: prodCatController.selectedProductId.value == product.id,
+                        selectedTileColor: CustomColors.primary,
+                      ));
+                },
               );
-            }).toList(), // Explicitly convert to List here
-          );
-        }),
-        const SizedBox(height: 16),
+            }),
+          ),
 
-        /// Select Categories Dropdown (Allow multiple selections)
-        Obx(() {
-          return Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Text('Select Categories:'),
-              ...categoryController.categories.map((category) {
-                return Obx(() {
-                  // Determine if this category is selected
-                  bool isSelected = categoryController.selectedCategories
-                      .any((selectedCategory) => selectedCategory.id == category.id);
+          SizedBox(height: CustomSizes.defaultSpace),
 
-                  return CheckboxListTile(
-                    title: Text(category.name),
-                    value: isSelected,
-                    onChanged: (bool? selected) {
-                      if (selected == true) {
-                        categoryController.selectedCategories.addIf(
-                          !categoryController.selectedCategories
-                              .contains(category),
-                          category,
-                        );
-                      } else {
-                        categoryController.selectedCategories
-                            .removeWhere((cat) => cat.id == category.id);
-                      }
-                    },
-                  );
-                });
-              }), // Explicitly convert to List here as well
-            ],
-          );
-        }),
-      ],
+          // Category Checklist (only shown when a product is selected)
+          Obx(() {
+            if (prodCatController.selectedProductId.isEmpty) {
+              return Container();
+            }
+            return Container(
+              padding: const EdgeInsets.all(CustomSizes.sm),
+              decoration: BoxDecoration(
+                border: Border.all(color: Colors.grey),
+                borderRadius: BorderRadius.circular(CustomSizes.md),
+              ),
+              child: Column(
+                children: [
+                  for (var category in categoryController.featuredCategories)
+                    CheckboxListTile(
+                      title: Text(
+                        category.id,
+                        style: Theme.of(context).textTheme.bodyMedium,
+                      ),
+                      value: prodCatController.selectedCategoryIds.contains(category.id),
+                      onChanged: (isSelected) {
+                        prodCatController.toggleCategorySelection(category.id);
+                      },
+                      controlAffinity: ListTileControlAffinity.leading,
+                    ),
+                ],
+              ),
+            );
+          }),
+          SizedBox(height: CustomSizes.defaultSpace),
+        ],
+      ),
     );
   }
 }
