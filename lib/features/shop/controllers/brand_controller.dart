@@ -22,13 +22,12 @@ class BrandController extends GetxController {
   RxBool isFeatured = false.obs;
   var brandId = ''.obs;
   final brandImagePath = ''.obs;
-
-  // Observables for brand fields
   final Rx<String> id = ''.obs;
   final Rx<String> name = ''.obs;
   final Rx<String> image = ''.obs;
   final RxInt productsCount = 0.obs;
   final ImagePicker picker = ImagePicker();
+  RxString selectedBrandId = ''.obs;
 
   // The main brand object
   final Rx<BrandModel> brand = BrandModel(

@@ -50,7 +50,7 @@ class BrandModel {
       final data = document.data()!;
       // Map JSON record to the model
       return BrandModel(
-        id: document.id,
+        id: data['Id'],
         name: data['Name'] ?? '',
         image: data['Image'] ?? '',
         productsCount: data['ProductsCount'] ?? '',

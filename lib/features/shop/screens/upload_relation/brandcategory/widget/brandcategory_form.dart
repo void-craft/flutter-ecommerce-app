@@ -1,69 +1,89 @@
-// import 'package:bagit/features/shop/controllers/brand_controller.dart';
-// import 'package:bagit/features/shop/controllers/category_controller.dart';
-// import 'package:flutter/material.dart';
-// import 'package:get/get.dart';
+import 'package:bagit/features/shop/controllers/category_controller.dart';
+import 'package:bagit/features/shop/controllers/relation/brandcategory_controller.dart';
+import 'package:bagit/utils/constants/colors.dart';
+import 'package:bagit/utils/constants/sizes.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
-// class CustomBrandCategoryForm extends StatelessWidget {
-//   const CustomBrandCategoryForm({super.key});
+class CustomBrandCategoryForm extends StatelessWidget {
+  const CustomBrandCategoryForm({super.key});
 
-//   @override
-//   Widget build(BuildContext context) {
-//     final categoryController = CategoryController.instance;
-//     final brandController = BrandController.instance;
+  @override
+  Widget build(BuildContext context) {
+    final brandCatController = Get.put(BrandCategoryController());
+    final categoryController = CategoryController.instance;
 
-//     return Column(
-//       children: [
-//         /// Select Brand Dropdown
-//         Obx(() {
-//           return DropdownButton<String>(
-//             hint: const Text('Select Brand'),
-//             value: brandController.selectedBrandId.value,
-//             onChanged: (value) {
-//               brandController.selectedBrandId.value = value;
-//             },
-//             items: brandController.brands.map((brand) {
-//               return DropdownMenuItem<String>(
-//                 value: brand.id,
-//                 child: Text(brand.title),
-//               );
-//             }).toList(),
-//           );
-//         }),
-//         const SizedBox(height: 16),
+    return Form(
+      key: brandCatController.uploadFormKey,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // Scrollable Brand List
+          Container(
+            height: 200,
+            padding: const EdgeInsets.all(CustomSizes.sm),
+            decoration: BoxDecoration(
+              border: Border.all(color: Colors.grey),
+              borderRadius: BorderRadius.circular(CustomSizes.md),
+            ),
+            child: Obx(() {
+              if (brandCatController.filteredBrands.isEmpty) {
+                return Center(
+                  child: Text(
+                    'No Brands Available!',
+                    style: Theme.of(context).textTheme.bodyMedium,
+                  ),
+                );
+              }
+              return ListView.builder(
+                itemCount: brandCatController.filteredBrands.length,
+                itemBuilder: (_, index) {
+                  final brand = brandCatController.filteredBrands[index];
+                  return Obx(() => ListTile(
+                        title: Text(brand.id, style: Theme.of(context).textTheme.bodyMedium),
+                        onTap: () => brandCatController.selectBrand(brand.id),
+                        selected: brandCatController.selectedBrandId.value == brand.id,
+                        selectedTileColor: CustomColors.primary,
+                      ));
+                },
+              );
+            }),
+          ),
 
-//         /// Select Categories Dropdown (Allow multiple selections)
-//         Obx(() {
-//           return Column(
-//             crossAxisAlignment: CrossAxisAlignment.start,
-//             children: [
-//               const Text('Select Categories:'),
-//               ...categoryController.categories.map((category) {
-//                 return Obx(() {
-//                   // Determine if this category is selected
-//                   bool isSelected = categoryController.selectedCategories
-//                       .any((selectedCategory) => selectedCategory.id == category.id);
+          SizedBox(height: CustomSizes.defaultSpace),
 
-//                   return CheckboxListTile(
-//                     title: Text(category.name),
-//                     value: isSelected,
-//                     onChanged: (bool? selected) {
-//                       if (selected == true) {
-//                         categoryController.selectedCategories.addIf(
-//                           !categoryController.selectedCategories.contains(category),
-//                           category,
-//                         );
-//                       } else {
-//                         categoryController.selectedCategories
-//                             .removeWhere((cat) => cat.id == category.id);
-//                       }
-//                     },
-//                   );
-//                 });
-//               }),
-//             ],
-//           );
-//         }),
-//       ],
-//     );
-//   }
-// }
+          // Category Checklist (only shown when a brand is selected)
+          Obx(() {
+            if (brandCatController.selectedBrandId.isEmpty) {
+              return Container();
+            }
+            return Container(
+              padding: const EdgeInsets.all(CustomSizes.sm),
+              decoration: BoxDecoration(
+                border: Border.all(color: Colors.grey),
+                borderRadius: BorderRadius.circular(CustomSizes.md),
+              ),
+              child: Column(
+                children: [
+                  for (var category in categoryController.featuredCategories)
+                    CheckboxListTile(
+                      title: Text(
+                        category.id,
+                        style: Theme.of(context).textTheme.bodyMedium,
+                      ),
+                      value: brandCatController.selectedCategoryIds.contains(category.id),
+                      onChanged: (isSelected) {
+                        brandCatController.toggleCategorySelection(category.id);
+                      },
+                      controlAffinity: ListTileControlAffinity.leading,
+                    ),
+                ],
+              ),
+            );
+          }),
+          SizedBox(height: CustomSizes.defaultSpace),
+        ],
+      ),
+    );
+  }
+}
